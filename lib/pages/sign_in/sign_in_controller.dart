@@ -41,56 +41,6 @@ class SignInController {
           return;
         }
 
-        // try {
-        //   final credential = await FirebaseAuth.instance
-        //       .signInWithEmailAndPassword(
-        //           email: emailAddress, password: password);
-        //   if(credential.user==null){
-        //     //
-        //     toastInfo(msg: "You don't exist");
-        //     return;
-        //   }
-        //   if(!credential.user!.emailVerified){
-        //     toastInfo(msg: "You need to verify your email account");
-        //     return;
-        //   }
-        //   var user = credential.user;
-        //   if(user!=null){
-        //     String? displayName = user.displayName;
-        //     String? email = user.email;
-        //     String? id = user.uid;
-        //     String? photoUrl = user.photoURL;
-        //     LoginRequestEntity loginRequestEntity = LoginRequestEntity();
-        //     loginRequestEntity.avatar = photoUrl;
-        //     loginRequestEntity.lastName = displayName;
-        //     loginRequestEntity.email = email;
-        //     loginRequestEntity.open_id = id;
-        //     //type 1 means email login
-        //     loginRequestEntity.type = 1;
-        //     print("user exist");
-        //     await asyncPostAllData(loginRequestEntity);
-        //     if(context.mounted){
-        //       await HomeController(context: context).init();
-        //     }
-        //   }else{
-        //     toastInfo(msg: "Currently you are not a user of this app");
-        //     return;
-        //     //we have error getting user from firebase
-        //   }
-        // } on FirebaseAuthException catch (e) {
-        //   if (e.code == 'user-not-found') {
-        //     print('No user found for that email.');
-        //     toastInfo(msg: "No user found for that email");
-        //    // toastInfo(msg: "No user found for that email.");
-        //   } else if (e.code == 'wrong-password') {
-        //     print('Wrong password provided for that user.');
-        //     toastInfo(msg: "Wrong password provided for that user");
-        //    // toastInfo(msg: "Wrong password provided for that user.");
-        //   }else if(e.code=='invalid-email'){
-        //     print("Your email format is wrong");
-        //     toastInfo(msg: "Your email address format is wrong");
-        //   }
-        // }
         try {
           final result = await UserAPI.login(emailAddress, password);
           if (result.user == null) {
@@ -109,17 +59,17 @@ class SignInController {
             String? email = user.email;
             // String? id = user.uid;
             String? photoUrl = user.photoURL;
-            LoginRequestEntity loginRequestEntity = LoginRequestEntity();
+            UserProfileEntity userProfileEntity = UserProfileEntity();
 
-            loginRequestEntity.avatar = photoUrl;
-            loginRequestEntity.lastName = firstName;
-            loginRequestEntity.email = email;
-            // loginRequestEntity.open_id = id;
+            userProfileEntity.avatar = photoUrl;
+            userProfileEntity.lastName = firstName;
+            userProfileEntity.email = email;
+            // userProfileEntity.open_id = id;
             //type 1 means email login
-            loginRequestEntity.type = 1;
+            userProfileEntity.type = 1;
 
             print("user exist");
-            await asyncPostAllData(loginRequestEntity);
+            await asyncPostAllData(userProfileEntity);
             if (context.mounted) {
               await HomeController(context: context).init();
             }
@@ -129,6 +79,7 @@ class SignInController {
             //we have error getting user from firebase
           }
         } on Msg catch (e) {
+          print(e.toString());
           // if (e.Msg == 'user-not-found') {
           //   print('No user found for that email.');
           //   toastInfo(msg: "No user found for that email");
@@ -148,7 +99,7 @@ class SignInController {
     }
   }
 
-  Future<void> asyncPostAllData(LoginRequestEntity loginRequestEntity) async {
+  Future<void> asyncPostAllData(UserProfileEntity userProfileEntity) async {
     final state = context.read<SignInBloc>().state;
     String emailAddress = state.email;
     String password = state.password;

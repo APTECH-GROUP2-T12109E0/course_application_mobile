@@ -19,7 +19,6 @@ class HttpUtil {
 
   HttpUtil._internal() {
     BaseOptions options = BaseOptions(
-
         baseUrl: AppConstants.SERVER_API_URL,
         connectTimeout: const Duration(seconds: 5),
         receiveTimeout: Duration(seconds: 5),
@@ -44,10 +43,9 @@ class HttpUtil {
 //     return client;
 //   };
 // }
-// return dio;                                                             
+// return dio;
 // }
   }
-
 
   Future post(String path,
       {dynamic mydata,
@@ -59,15 +57,16 @@ class HttpUtil {
     if (authorization != null) {
       requestOptions.headers!.addAll(authorization);
     }
+    requestOptions.contentType = "application/json";
 
-      var response = await dio.post(path,
-          data: mydata,
-          queryParameters: queryParameters,
-          options: requestOptions);
+    var response = await dio.post(path,
+        data: mydata,
+        queryParameters: queryParameters,
+        options: requestOptions);
 
-   print("my response is ${response.toString()}");
-   print("my status code is ${response.statusCode}");
-   return response.data;
+    print("my response is ${response.toString()}");
+    print("my status code is ${response.statusCode}");
+    return response.data;
   }
 
   Map<String, dynamic>? getAuthorizationHeader() {

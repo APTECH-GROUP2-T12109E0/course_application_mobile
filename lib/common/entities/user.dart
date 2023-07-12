@@ -1,38 +1,17 @@
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginRequestEntity {
-  int? type;
-  String? firstName;
-  String? lastName;
   String? email;
   String? password;
-  String? phone;
-  String? avatar;
-  String? role;
-  int? status;
 
   LoginRequestEntity({
-    this.type,
-    this.firstName,
-    this.lastName,
     this.email,
     this.password,
-    this.phone,
-    this.avatar,
-    this.role,
-    this.status,
   });
 
   Map<String, dynamic> toJson() => {
-        "type": type,
-        "first_Name": firstName,
-        "last_Name": lastName,
         "email": email,
         "password": password,
-        "phone": phone,
-        "avatar": avatar,
-        "role": role,
-        "status": status,
       };
 }
 
@@ -95,6 +74,42 @@ class UserItem {
         "status": status,
         "type": type,
       };
+}
+
+class UserProfileEntity {
+  int? type;
+  String? firstName;
+  String? lastName;
+  String? email;
+  String? password;
+  String? phone;
+  String? avatar;
+  String? role;
+  int? status;
+
+  UserProfileEntity({
+    this.type,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.password,
+    this.phone,
+    this.avatar,
+    this.role,
+    this.status,
+  });
+
+  Map<String, dynamic> toJson() => {
+    "type": type,
+    "first_Name": firstName,
+    "last_Name": lastName,
+    "email": email,
+    "password": password,
+    "phone": phone,
+    "avatar": avatar,
+    "role": role,
+    "status": status,
+  };
 }
 //firestore
 // class UserData {
