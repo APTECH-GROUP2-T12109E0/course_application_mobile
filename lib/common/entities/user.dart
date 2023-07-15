@@ -1,58 +1,47 @@
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginRequestEntity {
-  int? type;
-  String? firstName;
-  String? lastName;
   String? email;
   String? password;
-  String? phone;
-  String? avatar;
-  String? role;
-  int? status;
 
   LoginRequestEntity({
-    this.type,
-    this.firstName,
-    this.lastName,
     this.email,
     this.password,
-    this.phone,
-    this.avatar,
-    this.role,
-    this.status,
   });
 
   Map<String, dynamic> toJson() => {
-        "type": type,
-        "first_Name": firstName,
-        "last_Name": lastName,
         "email": email,
         "password": password,
-        "phone": phone,
-        "avatar": avatar,
-        "role": role,
-        "status": status,
       };
 }
 
 //api post response msg
 class UserLoginResponseEntity {
-  int? code;
-  String? msg;
-  UserItem? data;
+  String? type;
+  String? message;
+  String? accessToken;
+  String? refreshToken;
 
   UserLoginResponseEntity({
-    this.code,
-    this.msg,
-    this.data,
+    this.type,
+    this.message,
+    this.accessToken,
+    this.refreshToken,
   });
+
+  Map<String, dynamic> toJson() => {
+    "type": type,
+    "message": message,
+    "access_token": accessToken,
+    "refresh_token": refreshToken,
+  };
 
   factory UserLoginResponseEntity.fromJson(Map<String, dynamic> json) =>
       UserLoginResponseEntity(
-        code: json["code"],
-        msg: json["msg"],
-        data: UserItem.fromJson(json["data"]),
+        type: json['type'],
+        message: json['message'],
+        accessToken: json['access_token'],
+        refreshToken: json['refresh_token'],
       );
 }
 
@@ -64,7 +53,7 @@ class UserItem {
   String? lastName;
   String? avatar;
   int? status;
-  int? type;
+  String? type;
 
   UserItem({
     this.access_token,
@@ -96,45 +85,82 @@ class UserItem {
         "type": type,
       };
 }
-//firestore
-// class UserData {
-//   final String? token;
-//   final String? name;
-//   final String? avatar;
-//   final String? description;
-//   final int? online;
 
-//   UserData({
-//     this.token,
-//     this.name,
-//     this.avatar,
-//     this.description,
-//     this.online,
+class UserProfileEntity {
+  int? id;
+  String? type;
+  String? message;
+  String? firstName;
+  String? lastName;
+  String? email;
+  String? password;
+  String? avatar;
+  String? role;
+  int? status;
+  bool? notify;
+
+  UserProfileEntity({
+    this.id,
+    this.type,
+    this.message,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.password,
+    this.avatar,
+    this.role,
+    this.status,
+    this.notify,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'type': type,
+      'firstName': firstName,
+      'lastName': lastName,
+      'email': email,
+      'avatar': avatar,
+      'role': role,
+      'status': status,
+      'notify': notify,
+    };
+  }
+
+  factory UserProfileEntity.fromJson(Map<String, dynamic> json) =>
+      UserProfileEntity(
+        id: json['id'],
+        type: json['type'],
+        message: json['message'],
+        firstName: json['first_name'],
+        lastName: json['last_name'],
+        email: json['email'],
+        password: json['password'],
+        avatar: json['imageUrl'],
+        role: json['role'],
+        status: json['status'],
+        notify: json['notify'],
+      );
+}
+
+// class UserProfileEntity {
+//   String? type;
+//   String? message;
+//   String? accessToken;
+//   String? refreshToken;
+//
+//   UserProfileEntity({
+//     this.type,
+//     this.message,
+//     this.accessToken,
+//     this.refreshToken,
 //   });
-
-  // factory UserData.fromFirestore(
-  //     DocumentSnapshot<Map<String, dynamic>> snapshot,
-  //     SnapshotOptions? options,
-  //     ) {
-  //   final data = snapshot.data();
-  //   return UserData(
-  //     token: data?['token'],
-  //     name: data?['first_name'],
-  //     avatar: data?['avatar'],
-  //     description: data?['description'],
-  //     online: data?['online'],
-  //   );
-  // }
-
-  // Map<String, dynamic> toFirestore() {
-  //   return {
-  //     if (token != null) "token": token,
-  //     if (name != null) "name": name,
-  //     if (avatar != null) "avatar": avatar,
-  //     if (description != null) "description": description,
-  //     if (online != null) "online": online,
-  //   };
-  // }
+//
+//   factory UserProfileEntity.fromJson(Map<String, dynamic> json) =>
+//       UserProfileEntity(
+//         type: json['type'],
+//         message: json['message'],
+//         accessToken: json['access_token'],
+//         refreshToken: json['refresh_token'],
+//       );
 // }
-
-

@@ -4,11 +4,13 @@ import '../utils/http_util.dart';
 
 class CourseAPI{
   static Future<CourseListResponseEntity> courseList() async {
-   var response = await HttpUtil().post(
-      'api/courseList'
+   var response = await HttpUtil().get(
+      'course'
     );
 
-   return CourseListResponseEntity.fromJson(response);
+   print("ok");
+
+   return CourseListResponseEntity.fromJson(response.data);
   }
   static Future<CourseDetailResponseEntity> courseDetail({CourseRequestEntity? params}) async {
     var response = await HttpUtil().post(

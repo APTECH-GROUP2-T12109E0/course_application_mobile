@@ -1,3 +1,5 @@
+import 'package:course_application_mobile/pages/main/bloc/main_blocs.dart';
+import 'package:course_application_mobile/pages/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:course_application_mobile/common/routes/route_name.dart';
@@ -20,6 +22,7 @@ class PageEntity {
   String route;
   Widget page;
   dynamic bloc;
+
   PageEntity({required this.route, required this.page, this.bloc});
 }
 
@@ -53,13 +56,21 @@ class AppPages {
       PageEntity(
           route: AppRoutes.HOME_PAGE,
           page: const HomePage(),
-          bloc: BlocProvider(create: (_)=>HomePageBlocs(),)
-      ),
+          bloc: BlocProvider(
+            create: (_) => HomePageBlocs(),
+          )),
       PageEntity(
           route: AppRoutes.SETTINGS,
           page: const SettingsPage(),
-          bloc: BlocProvider(create: (_)=>SettingsBlocs(),)
-      ),
+          bloc: BlocProvider(
+            create: (_) => SettingsBlocs(),
+          )),
+      PageEntity(
+          route: AppRoutes.MAIN_SCREEN,
+          page: MainScreenPage(),
+          bloc: BlocProvider(
+            create: (_) => MainScreenBloc(),
+          )),
       // PageEntity(
       //     route: AppRoutes.COURSE_DETAIL,
       //     page: const CourseDetail(),
@@ -89,25 +100,26 @@ class AppPages {
   }
 
   // a modal that covers entire screen as we click on navigator object
-  static MaterialPageRoute GenerateRouteSettings(RouteSettings settings){
-    if(settings.name!=null){
-
+  static MaterialPageRoute GenerateRouteSettings(RouteSettings settings) {
+    if (settings.name != null) {
       //check for route name matching when navigator gets triggered.
-      var result = routes().where((element) => element.route==settings.name);
-      if(result.isNotEmpty){
-        bool deviceFirstOpen  = Global.storageService.getDeviceFirstOpen();
-        if(result.first.route==AppRoutes.INITIAL&&deviceFirstOpen){
+      var result = routes().where((element) => element.route == settings.name);
+      if (result.isNotEmpty) {
+        bool deviceFirstOpen = Global.storageService.getDeviceFirstOpen();
+        if (result.first.route == AppRoutes.INITIAL && deviceFirstOpen) {
           bool isLoggedin = Global.storageService.getIsLoggedIn();
-          if(isLoggedin){
-            return MaterialPageRoute(builder: (_)=>const ApplicationPage(), settings: settings);
+          if (isLoggedin) {
+            return MaterialPageRoute(
+                builder: (_) => const ApplicationPage(), settings: settings);
           }
-          return MaterialPageRoute(builder: (_)=>const SignIn(), settings:settings);
+          return MaterialPageRoute(
+              builder: (_) => const SignIn(), settings: settings);
         }
-        return MaterialPageRoute(builder: (_)=>result.first.page, settings: settings);
+        return MaterialPageRoute(
+            builder: (_) => result.first.page, settings: settings);
       }
-
     }
-    return MaterialPageRoute(builder: (_)=>const SignIn(), settings: settings);
+    return MaterialPageRoute(
+        builder: (_) => const SignIn(), settings: settings);
   }
-
 }

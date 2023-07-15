@@ -41,143 +41,87 @@ class SignInController {
           return;
         }
 
-        // try {
-        //   final credential = await FirebaseAuth.instance
-        //       .signInWithEmailAndPassword(
-        //           email: emailAddress, password: password);
-        //   if(credential.user==null){
-        //     //
-        //     toastInfo(msg: "You don't exist");
-        //     return;
-        //   }
-        //   if(!credential.user!.emailVerified){
-        //     toastInfo(msg: "You need to verify your email account");
-        //     return;
-        //   }
-        //   var user = credential.user;
-        //   if(user!=null){
-        //     String? displayName = user.displayName;
-        //     String? email = user.email;
-        //     String? id = user.uid;
-        //     String? photoUrl = user.photoURL;
-        //     LoginRequestEntity loginRequestEntity = LoginRequestEntity();
-        //     loginRequestEntity.avatar = photoUrl;
-        //     loginRequestEntity.lastName = displayName;
-        //     loginRequestEntity.email = email;
-        //     loginRequestEntity.open_id = id;
-        //     //type 1 means email login
-        //     loginRequestEntity.type = 1;
-        //     print("user exist");
-        //     await asyncPostAllData(loginRequestEntity);
-        //     if(context.mounted){
-        //       await HomeController(context: context).init();
-        //     }
-        //   }else{
-        //     toastInfo(msg: "Currently you are not a user of this app");
-        //     return;
-        //     //we have error getting user from firebase
-        //   }
-        // } on FirebaseAuthException catch (e) {
-        //   if (e.code == 'user-not-found') {
-        //     print('No user found for that email.');
-        //     toastInfo(msg: "No user found for that email");
-        //    // toastInfo(msg: "No user found for that email.");
-        //   } else if (e.code == 'wrong-password') {
-        //     print('Wrong password provided for that user.');
-        //     toastInfo(msg: "Wrong password provided for that user");
-        //    // toastInfo(msg: "Wrong password provided for that user.");
-        //   }else if(e.code=='invalid-email'){
-        //     print("Your email format is wrong");
-        //     toastInfo(msg: "Your email address format is wrong");
-        //   }
-        // }
         try {
-          final result = await UserAPI.login(emailAddress, password);
-          if (result.user == null) {
+          EasyLoading.show(
+              indicator: CircularProgressIndicator(),
+              maskType: EasyLoadingMaskType.clear,
+              dismissOnTap: true);
+
+          var loginRes = await UserAPI.login(emailAddress, password);
+
+          var userRes =
+              await UserAPI.getUserProfileWithAccessToken(loginRes.accessToken);
+          print("ok");
+
+          if (userRes.email == null) {
             //
             toastInfo(msg: "You don't exist");
             return;
           }
-          if (!result.user!.emailVerified) {
-            toastInfo(msg: "You need to verify your email account");
-            return;
-          }
 
-          var user = result.user;
-          if (user != null) {
-            String? firstName = user.firstName;
-            String? email = user.email;
-            // String? id = user.uid;
-            String? photoUrl = user.photoURL;
-            LoginRequestEntity loginRequestEntity = LoginRequestEntity();
+          if (userRes != null) {
+            // int? id = userRes.id;
+            // String? type = userRes.type;
+            // String? firstName = userRes.firstName;
+            // String? lastName = userRes.lastName;
+            // String? email = userRes.email;
+            // String? avatar = userRes.avatar;
+            // String? role = userRes.role;
+            // int? status = userRes.status;
+            // bool? notify = userRes.notify;
+            UserProfileEntity userProfileEntity = UserProfileEntity();
 
-            loginRequestEntity.avatar = photoUrl;
-            loginRequestEntity.lastName = firstName;
-            loginRequestEntity.email = email;
-            // loginRequestEntity.open_id = id;
+            userProfileEntity.id = userRes.id;
             //type 1 means email login
-            loginRequestEntity.type = 1;
+            userProfileEntity.type = userRes.type;
+            userProfileEntity.firstName = userRes.firstName;
+            userProfileEntity.lastName = userRes.lastName;
+            userProfileEntity.email = userRes.email;
+            userProfileEntity.avatar = userRes.avatar;
+            userProfileEntity.role = userRes.role;
+            userProfileEntity.status = userRes.status;
+            userProfileEntity.notify = userRes.notify;
+            print("user existed");
+            try {
+              Global.storageService.setString(
+                  AppConstants.STORAGE_USER_PROFILE_KEY,
+                  jsonEncode(userProfileEntity.toJson()));
+              //used for authorization
+              // Global.storageService.setString(
+              //     AppConstants.STORAGE_USER_TOKEN_KEY, loginRes!.access_token);
 
-            print("user exist");
-            await asyncPostAllData(loginRequestEntity);
+              if (loginRes != null) {
+                Global.storageService.setString(
+                    AppConstants.STORAGE_USER_TOKEN_KEY, loginRes.accessToken);
+              } else {
+                print("saving token to local storage error");
+              }
+
+              EasyLoading.dismiss();
+
+              if (context.mounted) {
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil("/application", (route) => false);
+              }
+            } catch (e) {
+              print("saving local storage error ${e.toString()}");
+            }
+
             if (context.mounted) {
               await HomeController(context: context).init();
             }
           } else {
             toastInfo(msg: "Currently you are not a user of this app");
             return;
-            //we have error getting user from firebase
           }
         } on Msg catch (e) {
-          // if (e.Msg == 'user-not-found') {
-          //   print('No user found for that email.');
-          //   toastInfo(msg: "No user found for that email");
-          //   // toastInfo(msg: "No user found for that email.");
-          // } else if (e.code == 'wrong-password') {
-          //   print('Wrong password provided for that user.');
-          //   toastInfo(msg: "Wrong password provided for that user");
-          //   // toastInfo(msg: "Wrong password provided for that user.");
-          // } else if (e.code == 'invalid-email') {
-          //   print("Your email format is wrong");
-          //   toastInfo(msg: "Your email address format is wrong");
-          // }
+          print(e.toString());
+          toastInfo(msg: "Something was wrong !");
         }
       }
     } catch (e) {
       print(e.toString());
-    }
-  }
-
-  Future<void> asyncPostAllData(LoginRequestEntity loginRequestEntity) async {
-    final state = context.read<SignInBloc>().state;
-    String emailAddress = state.email;
-    String password = state.password;
-    EasyLoading.show(
-        indicator: CircularProgressIndicator(),
-        maskType: EasyLoadingMaskType.clear,
-        dismissOnTap: true);
-    var result = await UserAPI.login(emailAddress, password);
-    // var result = await UserAPI.login(params: LoginRequestEntity());
-    if (result.code == 200) {
-      try {
-        Global.storageService.setString(
-            AppConstants.STORAGE_USER_PROFILE_KEY, jsonEncode(result.data!));
-        print("......my token is ${result.data!.access_token!}.......");
-        //used for authorization
-        Global.storageService.setString(
-            AppConstants.STORAGE_USER_TOKEN_KEY, result.data!.access_token!);
-        EasyLoading.dismiss();
-
-        if (context.mounted) {
-          Navigator.of(context)
-              .pushNamedAndRemoveUntil("/application", (route) => false);
-        }
-      } catch (e) {
-        print("saving local storage error ${e.toString()}");
-      }
-    } else {
-      EasyLoading.dismiss();
-      toastInfo(msg: "unknown error");
+      toastInfo(msg: "Something was wrong !!");
     }
   }
 }

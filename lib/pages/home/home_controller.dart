@@ -25,6 +25,7 @@ class HomeController{
   Future<void> init() async {
    if(Global.storageService.getUserToken().isNotEmpty){
      var result = await CourseAPI.courseList();
+     print("ok zo trc result call API");
      if(result.code==200){
        if(context.mounted){
          context.read<HomePageBlocs>().add(HomePageCourseItem(result.data!));
