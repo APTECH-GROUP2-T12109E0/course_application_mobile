@@ -95,13 +95,13 @@ Widget courseSummaryTitle() {
 }
 
 
-
+// Cần Fixed lại
 Widget courseSummaryView(BuildContext context, CourseDetailStates state) {
 //setting sections buttons
   var imagesInfo = <String, String>{
-    "${state.courseItem!.video_len??"0"} Hours Video": "video_detail.png",
-    "Total ${state.courseItem!.lesson_num??"0"} Lessons": "file_detail.png",
-    "${state.courseItem!.down_num??"0"} Downloadable Resources": "download_detail.png",
+    "${state.courseItem!.duration??"0"} Hours Video": "video_detail.png",
+    "Total ${state.courseItem!.duration??"0"} Lessons": "file_detail.png",
+    "${state.courseItem!.duration??"0"} Downloadable Resources": "download_detail.png",
   };
 
   return Column(
