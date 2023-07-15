@@ -25,13 +25,13 @@ class MainController{
   Future<void> init() async {
     if(Global.storageService.getUserToken().isNotEmpty){
       var result = await CourseAPI.courseList();
-      if(result.code==200){
+      if(result.data != null){
         if(context.mounted){
           context.read<HomePageBlocs>().add(HomePageCourseItem(result.data!));
           return;
         }
       }else{
-        print(result.code);
+        print(result);
         return;
       }
     }else{

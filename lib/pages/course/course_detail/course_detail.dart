@@ -60,7 +60,7 @@ class _CourseDetailState extends State<CourseDetail> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             //first big image
-                            thumbNail(state.courseItem!.thumbnail.toString()),
+                            thumbNail(state.courseItem!.image.toString()),
                             SizedBox(height: 15.h,),
                             //three buttons or menus
                             menuView(),

@@ -8,8 +8,6 @@ class CourseAPI{
       'course'
     );
 
-   print("ok");
-
    return CourseListResponseEntity.fromJson(response.data);
   }
   static Future<CourseDetailResponseEntity> courseDetail({CourseRequestEntity? params}) async {
