@@ -43,7 +43,7 @@ class _CourseDetailState extends State<CourseDetail> {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Text(id.values.toString()),
+        child: Text(" course id: ${id.values.toString()} ok \n processing... \n press ESC to back to home"),
       ),
     );
   }
