@@ -42,10 +42,10 @@ class SignInController {
         }
 
         try {
-          EasyLoading.show(
-              indicator: CircularProgressIndicator(),
-              maskType: EasyLoadingMaskType.clear,
-              dismissOnTap: true);
+          // EasyLoading.show(
+          //     indicator: CircularProgressIndicator(),
+          //     maskType: EasyLoadingMaskType.clear,
+          //     dismissOnTap: true);
 
           var loginRes = await UserAPI.login(emailAddress, password);
 
@@ -97,7 +97,7 @@ class SignInController {
                 print("saving token to local storage error");
               }
 
-              EasyLoading.dismiss();
+              // EasyLoading.dismiss();
 
               if (context.mounted) {
                 Navigator.of(context)
