@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../common/entities/user.dart';
+import '../../global.dart';
 import '../home/home_controller.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -14,6 +15,8 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  UserProfile get userProfile => Global.storageService.getUserProfile();
+  // UserProfile userProfile = UserProfile();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,8 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              profileIconAndEditButton(),
+              profileIconAndEditButton(userProfile.avatar.toString()),
+              profilePageText(userProfile.firstName.toString()),
               SizedBox(height: 30.h,),
               Padding(
                 padding: EdgeInsets.only(left:25.w ),

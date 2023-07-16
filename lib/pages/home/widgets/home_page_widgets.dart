@@ -123,6 +123,7 @@ Widget searchView() {
 
 //for sliders view
 Widget slidersView(BuildContext context, HomePageStates state) {
+  CourseItem item = CourseItem();
   return Column(
     children: [
       Container(
@@ -136,9 +137,9 @@ Widget slidersView(BuildContext context, HomePageStates state) {
             context.read<HomePageBlocs>().add(HomePageDots(value));
           },
           children: [
-            _slidersContainer(path: "assets/icons/art.png"),
-            _slidersContainer(path: "assets/icons/image_1.png"),
-            _slidersContainer(path: "assets/icons/image_2.png")
+            _slidersContainer(path: "assets/icons/Art.png"),
+            _slidersContainer(path: "assets/icons/Image(1).png"),
+            _slidersContainer(path: "assets/icons/Image(2).png")
           ],
         ),
       ),
@@ -160,7 +161,9 @@ Widget slidersView(BuildContext context, HomePageStates state) {
 }
 
 // sliders widget
-Widget _slidersContainer({String path = "assets/icons/art.png"}) {
+Widget _slidersContainer({String path = ""}) {
+
+
   return Container(
     width: 325.w,
     height: 160.h,
@@ -238,14 +241,14 @@ Widget courseGrid(CourseItem item){
         Center(
           child: Container(
             height: 60.h,
-            child: Image.network(item.image!, fit: BoxFit.fill,),
+            child: Image.network(item.image!, fit: BoxFit.cover,),
           ),
         ),
         //course name
         Container(
           child: Text(
             item.name??"",
-            maxLines: 1,
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.left,
             softWrap: false,
@@ -256,22 +259,20 @@ Widget courseGrid(CourseItem item){
             ),
           ),
         ),
-        SizedBox(height: 5.h,),
         //course description
         Text(
-          item.description??"",
+         item.description??"",
           maxLines: 1,
           overflow: TextOverflow.fade,
           textAlign: TextAlign.left,
           softWrap: false,
           style: TextStyle(
-              color: AppColors.primaryFourElementText,
-              fontWeight: FontWeight.normal,
-              fontSize: 8.sp
+              color: AppColors.primaryText,
+              fontWeight: FontWeight.w500,
+              fontSize: 10.sp
           ),
         ),
         //author
-        SizedBox(height: 5.h,),
         Text(
           item.author_name??"",
           maxLines: 1,
@@ -279,12 +280,62 @@ Widget courseGrid(CourseItem item){
           textAlign: TextAlign.left,
           softWrap: false,
           style: TextStyle(
-              color: AppColors.primaryFourElementText,
-              fontWeight: FontWeight.normal,
-              fontSize: 8.sp
+              color: AppColors.primaryText,
+              fontWeight: FontWeight.w300,
+              fontSize: 10.sp
           ),
         ),
-        SizedBox(height: 5.h,),
+
+        //rating
+        Text(
+          "Rate: ${item.rating.toString()}/5"??"",
+          maxLines: 1,
+          overflow: TextOverflow.fade,
+          textAlign: TextAlign.left,
+          softWrap: false,
+          style: TextStyle(
+              color: AppColors.ratingColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 10.sp
+          ),
+        ),
+        //price
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            //sale price
+            Text(
+              "\$${item.net_price.toString()}" ??"",
+              maxLines: 1,
+              overflow: TextOverflow.fade,
+              textAlign: TextAlign.left,
+              softWrap: false,
+              style: TextStyle(
+                  color: AppColors.dangerColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12.sp
+              ),
+            ),
+          SizedBox(width: 4.w,),
+          //net price
+          Text(
+            "\$${item.price.toString()}" ??"",
+            maxLines: 1,
+            overflow: TextOverflow.fade,
+            textAlign: TextAlign.left,
+            softWrap: false,
+            style: TextStyle(
+                color: AppColors.primaryText,
+                fontWeight: FontWeight.w500,
+                fontSize: 10.sp,
+                decoration: TextDecoration.lineThrough
+            ),
+          ),
+
+
+        ],),
+
       ],
     ),
   );

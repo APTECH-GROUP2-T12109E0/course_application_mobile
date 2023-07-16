@@ -6,6 +6,8 @@ import 'package:course_application_mobile/common/routes/route_name.dart';
 import '../../global.dart';
 import '../../pages/application/application_page.dart';
 import '../../pages/application/bloc/app_blocs.dart';
+import '../../pages/course/course_detail/bloc/course_detail_blocs.dart';
+import '../../pages/course/course_detail/course_detail.dart';
 import '../../pages/home/bloc/home_page_blocs.dart';
 import '../../pages/home/home_page.dart';
 import '../../pages/profile/settings/bloc/settings_blocs.dart';
@@ -71,11 +73,11 @@ class AppPages {
           bloc: BlocProvider(
             create: (_) => MainScreenBloc(),
           )),
-      // PageEntity(
-      //     route: AppRoutes.COURSE_DETAIL,
-      //     page: const CourseDetail(),
-      //     bloc: BlocProvider(create: (_)=>CourseDetailBloc(),)
-      // ),
+      PageEntity(
+          route: AppRoutes.COURSE_DETAIL,
+          page: const CourseDetail(),
+          bloc: BlocProvider(create: (_)=>CourseDetailBloc(),)
+      ),
       // PageEntity(
       //     route: AppRoutes.LESSON_DETAIL,
       //     page: const LessonDetail(),

@@ -40,6 +40,7 @@ class AppColors {
   static const lightPinkColor = Color.fromRGBO(246, 38, 130, 1);
   static const infoColor = Color.fromRGBO(44, 204, 255, 1);
   static const orangeColor = Color.fromRGBO(255, 102, 81, 1);
+  static const ratingColor = Color.fromRGBO(196, 146, 50, 1.0);
   static const successColor = Color.fromRGBO(81, 187, 37, 1);
   static const bgColor = Color.fromRGBO(243, 243, 255, 1);
   static const btnTextColor = Color.fromRGBO(255, 255, 255, 1);
