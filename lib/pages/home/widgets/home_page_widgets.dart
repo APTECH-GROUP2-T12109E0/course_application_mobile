@@ -1,20 +1,23 @@
-import 'package:course_application_mobile/pages/home/bloc/home_page_blocs.dart';
-import 'package:course_application_mobile/pages/home/bloc/home_page_states.dart';
+import 'package:course_application_mobile/common/entities/entities.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:course_application_mobile/common/values/colors.dart';
+
+import 'package:course_application_mobile/pages/home/bloc/home_page_blocs.dart';
+import 'package:course_application_mobile/pages/home/bloc/home_page_events.dart';
+import 'package:course_application_mobile/pages/home/bloc/home_page_states.dart';
+
 import '../../../common/entities/course.dart';
-import '../../../common/values/colors.dart';
 import '../../../common/values/constants.dart';
 import '../../../common/widgets/base_text_widgets.dart';
-import '../bloc/home_page_events.dart';
+
 
 AppBar buildAppBar(String avatar) {
   return AppBar(
-    automaticallyImplyLeading: false,
     title: Container(
-      margin: EdgeInsets.only(left: 15.w, right: 7.w),
+      margin: EdgeInsets.only(left: 7.w, right: 7.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -26,14 +29,11 @@ AppBar buildAppBar(String avatar) {
           ),
           GestureDetector(
             child: Container(
-              width: 32.w,
-              height: 32.h,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  // image: NetworkImage("${AppConstants.SERVER_API_URL}$avatar"),
-                  image: AssetImage("assets/icons/person.png"),
-                ),
-              ),
+              width: 40.w,
+              height: 40.h,
+              decoration:  BoxDecoration(
+                  image: DecorationImage(
+                      image: NetworkImage(avatar))),
             ),
           )
         ],
@@ -44,13 +44,13 @@ AppBar buildAppBar(String avatar) {
 
 //reusable big text widget
 Widget homePageText(String text,
-    {Color color = AppColors.primaryElementText, int top = 20}) {
+    {Color color = AppColors.infoColor, int top = 20}) {
   return Container(
     margin: EdgeInsets.only(top: top.h),
     child: Text(
       text,
       style:
-          TextStyle(color: color, fontSize: 24.sp, fontWeight: FontWeight.bold),
+      TextStyle(color: color, fontSize: 24.sp, fontWeight: FontWeight.bold),
     ),
   );
 }
@@ -59,10 +59,10 @@ Widget searchView() {
   return Row(
     children: [
       Container(
-        width: 260.w,
+        width: 280.w,
         height: 40.h,
         decoration: BoxDecoration(
-            color: AppColors.primaryBackground,
+            color: AppColors.lightColor,
             borderRadius: BorderRadius.circular(15.h),
             border: Border.all(color: AppColors.primaryFourElementText)),
         child: Row(
@@ -74,7 +74,7 @@ Widget searchView() {
               child: Image.asset("assets/icons/search.png"),
             ),
             Container(
-              width: 220.w,
+              width: 240.w,
               height: 40.h,
               child: TextField(
                 keyboardType: TextInputType.multiline,
@@ -90,7 +90,7 @@ Widget searchView() {
                   focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.transparent)),
                   hintStyle:
-                      TextStyle(color: AppColors.primarySecondaryElementText),
+                  TextStyle(color: AppColors.primarySecondaryElementText),
                 ),
                 style: TextStyle(
                     color: AppColors.primaryText,
@@ -106,13 +106,13 @@ Widget searchView() {
       ),
       GestureDetector(
         child: Container(
-          margin: EdgeInsets.only(left: 5.w),
           width: 32.w,
           height: 32.h,
+          margin: EdgeInsets.only(left: 5.w),
           decoration: BoxDecoration(
             color: AppColors.darkColor,
-            borderRadius: BorderRadius.all(Radius.circular(8.w)),
-            border: Border.all(color: Colors.transparent),
+            borderRadius: BorderRadius.all(Radius.circular(13.w)),
+            border: Border.all(color: AppColors.darkColor),
           ),
           child: Image.asset("assets/icons/options.png"),
         ),
@@ -136,17 +136,16 @@ Widget slidersView(BuildContext context, HomePageStates state) {
             context.read<HomePageBlocs>().add(HomePageDots(value));
           },
           children: [
-            _slidersContainer(path: "assets/icons/Art.png"),
-            _slidersContainer(path: "assets/icons/Image(1).png"),
-            _slidersContainer(path: "assets/icons/Image(2).png")
+            _slidersContainer(path: "assets/icons/art.png"),
+            _slidersContainer(path: "assets/icons/image_1.png"),
+            _slidersContainer(path: "assets/icons/image_2.png")
           ],
         ),
       ),
       Container(
         child: DotsIndicator(
           dotsCount: 3,
-          // position: state.index.toDouble(),
-          position: state.index.toInt(),
+          position: state.index,
           decorator: DotsDecorator(
               color: AppColors.primaryThreeElementText,
               activeColor: AppColors.primaryElement,
@@ -161,7 +160,7 @@ Widget slidersView(BuildContext context, HomePageStates state) {
 }
 
 // sliders widget
-Widget _slidersContainer({String path = "assets/icons/Art.png"}) {
+Widget _slidersContainer({String path = "assets/icons/art.png"}) {
   return Container(
     width: 325.w,
     height: 160.h,
@@ -185,22 +184,16 @@ Widget menuView() {
               reusableText("Choose your course"),
               GestureDetector(
                   child: reusableText("See all",
-                      color: AppColors.primaryColor,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold)),
+                      color: AppColors.primaryColor, fontSize: 14.sp)),
             ],
           )),
       Container(
-        margin: EdgeInsets.only(top: 20.w),
+        margin: EdgeInsets.only(top:20.w),
         child: Row(
           children: [
             _reusableMenuText("All"),
-            _reusableMenuText("Popular",
-                textColor: AppColors.primaryThreeElementText,
-                backGroundColor: Colors.white),
-            _reusableMenuText("Newest",
-                textColor: AppColors.primaryThreeElementText,
-                backGroundColor: Colors.white),
+            _reusableMenuText("Popular", textColor: AppColors.primaryThreeElementText, backGroundColor: Colors.white),
+            _reusableMenuText("Newest", textColor: AppColors.primaryThreeElementText, backGroundColor: Colors.white),
           ],
         ),
       )
@@ -208,111 +201,90 @@ Widget menuView() {
   );
 }
 
+
+
 //for the mnue buttons, reusbale text
-Widget _reusableMenuText(String menuText,
-    {Color textColor = AppColors.primaryElementText,
-    Color backGroundColor = AppColors.primaryElement}) {
-  return Container(
+Widget _reusableMenuText(String menuText, {Color textColor= AppColors.primaryElementText, Color backGroundColor = AppColors.primaryElement}){
+  return  Container(
     margin: EdgeInsets.only(right: 20.w),
     decoration: BoxDecoration(
         color: backGroundColor,
         borderRadius: BorderRadius.circular(7.w),
         border: Border.all(color: backGroundColor)),
-    padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 5.h, bottom: 5.h),
-    child: reusableText(
-      menuText,
-      color: textColor,
-      fontWeight: FontWeight.normal,
-      fontSize: 11,
+    padding: EdgeInsets.only(
+        left:15.w, right:15.w, top:5.h, bottom: 5.h
     ),
+    child:
+    reusableText(menuText,
+        color: textColor,
+        fontWeight: FontWeight.normal,
+        fontSize: 11),
   );
 }
 
 // for course grid view ui
-// Widget courseGrid(CourseItem item) {
-// // Widget courseGrid() {
-//   return Container(
-//     padding: EdgeInsets.all(12.w),
-//     decoration: BoxDecoration(
-//       borderRadius: BorderRadius.circular(15.w),
-//       image: DecorationImage(
-//         fit: BoxFit.fill,
-//         // image: NetworkImage(AppConstants.SERVER_UPLOADS + item.thumbnail!),
-//         image: AssetImage("assets/icons/image_1.png"),
-//       ),
-//     ),
-//     child: Column(
-//       mainAxisAlignment: MainAxisAlignment.end,
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Text(
-//           item.name ?? "",
-//           maxLines: 1,
-//           overflow: TextOverflow.fade,
-//           textAlign: TextAlign.left,
-//           softWrap: false,
-//           style: TextStyle(
-//               color: AppColors.primaryElementText,
-//               fontWeight: FontWeight.bold,
-//               fontSize: 11.sp),
-//         ),
-//         SizedBox(
-//           height: 5.h,
-//         ),
-//         Text(
-//           item.description ?? "",
-//           maxLines: 1,
-//           overflow: TextOverflow.fade,
-//           textAlign: TextAlign.left,
-//           softWrap: false,
-//           style: TextStyle(
-//               color: AppColors.primaryFourElementText,
-//               fontWeight: FontWeight.normal,
-//               fontSize: 8.sp),
-//         )
-//       ],
-//     ),
-//   );
-// }
-Widget courseGrid() {
+Widget courseGrid(CourseItem item){
   return Container(
-    padding: EdgeInsets.all(5.w),
-    // color: Colors.grey,
-    decoration: const BoxDecoration(
-      image: DecorationImage(
-        image: AssetImage(
-            "assets/icons/Image(1).png" ),
-      ),
+    padding: EdgeInsets.all(12.w),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15.w),
+        color: Colors.white.withOpacity(0.5),
+        
     ),
     child: Column(
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "Best course fo IT",
-          style: TextStyle(
-            color: AppColors.primaryElementText,
-            fontSize: 11.sp,
+        Center(
+          child: Container(
+            height: 60.h,
+            child: Image.network(item.image!, fit: BoxFit.fill,),
           ),
+        ),
+        //course name
+        Container(
+          child: Text(
+            item.name??"",
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.left,
+            softWrap: false,
+            style: TextStyle(
+                color: AppColors.primaryColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 11.sp
+            ),
+          ),
+        ),
+        SizedBox(height: 5.h,),
+        //course description
+        Text(
+          item.description??"",
           maxLines: 1,
           overflow: TextOverflow.fade,
           textAlign: TextAlign.left,
           softWrap: false,
-        ),
-        SizedBox(
-          height: 5.h,
-        ),
-        Text(
-          "Best course fo IT",
           style: TextStyle(
-            color: AppColors.darkColor,
-            fontSize: 9.sp,
+              color: AppColors.primaryFourElementText,
+              fontWeight: FontWeight.normal,
+              fontSize: 8.sp
           ),
+        ),
+        //author
+        SizedBox(height: 5.h,),
+        Text(
+          item.author_name??"",
           maxLines: 1,
           overflow: TextOverflow.fade,
           textAlign: TextAlign.left,
           softWrap: false,
+          style: TextStyle(
+              color: AppColors.primaryFourElementText,
+              fontWeight: FontWeight.normal,
+              fontSize: 8.sp
+          ),
         ),
+        SizedBox(height: 5.h,),
       ],
     ),
   );
