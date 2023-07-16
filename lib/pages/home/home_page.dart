@@ -19,7 +19,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late UserItem userProfile;
+  late UserProfile userProfile;
 
   @override
   void initState() {
@@ -32,6 +32,7 @@ class _HomePageState extends State<HomePage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     userProfile = HomeController(context: context).userProfile;
+    print("user prfile");
   }
 
   @override
@@ -57,12 +58,12 @@ class _HomePageState extends State<HomePage> {
                     slivers: [
                       SliverToBoxAdapter(
                         child: homePageText(
-                          "Hello",
-                          color: AppColors.primaryThreeElementText,
+                          "Hello!",
+                          color: AppColors.lightColor,
                         ),
                       ),
                       SliverToBoxAdapter(
-                        child: homePageText(userProfile.lastName ?? "User", top: 5),
+                        child: homePageText(userProfile.firstName.toString(), top: 5),
                       ),
                       SliverPadding(
                         padding: EdgeInsets.only(top: 20.h),
@@ -85,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                                   crossAxisCount: 2,
                                   mainAxisSpacing: 15,
                                   crossAxisSpacing: 15,
-                                  childAspectRatio: 1.6),
+                                  childAspectRatio: 0.8),
                           delegate: SliverChildBuilderDelegate(
                             (BuildContext context, int index) {
                               return GestureDetector(
@@ -97,12 +98,12 @@ class _HomePageState extends State<HomePage> {
                                             state.courseItem.elementAt(index).id
                                       });
                                 },
-                                // child: courseGrid(state.courseItem[index]),
-                                child: courseGrid(),
+                                child: courseGrid(state.courseItem[index]),
+                                // child: courseGrid(),
                               );
                             },
-                            // childCount: state.courseItem.length,
-                            childCount: 8,
+                            childCount: state.courseItem.length,
+                            // childCount: 8,
                           ),
                         ),
                       )

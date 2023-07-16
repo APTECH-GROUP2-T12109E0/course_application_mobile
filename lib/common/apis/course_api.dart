@@ -12,7 +12,7 @@ class CourseAPI{
   }
   static Future<CourseDetailResponseEntity> courseDetail({CourseRequestEntity? params}) async {
     var response = await HttpUtil().post(
-        'api/courseDetail',
+        'course',
       queryParameters: params?.toJson()
     );
    // print(response.toString());

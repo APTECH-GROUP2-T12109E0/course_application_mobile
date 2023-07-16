@@ -2,13 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CourseRequestEntity {
   int? id;
+  String? name;
 
   CourseRequestEntity({
     this.id,
+    this.name
   });
 
   Map<String, dynamic> toJson() => {
         "id": id,
+    "name": name,
       };
 }
 

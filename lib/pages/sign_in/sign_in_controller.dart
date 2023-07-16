@@ -42,10 +42,10 @@ class SignInController {
         }
 
         try {
-          EasyLoading.show(
-              indicator: CircularProgressIndicator(),
-              maskType: EasyLoadingMaskType.clear,
-              dismissOnTap: true);
+          // EasyLoading.show(
+          //     indicator: CircularProgressIndicator(),
+          //     maskType: EasyLoadingMaskType.clear,
+          //     dismissOnTap: true);
 
           var loginRes = await UserAPI.login(emailAddress, password);
 
@@ -81,11 +81,23 @@ class SignInController {
             userProfileEntity.role = userRes.role;
             userProfileEntity.status = userRes.status;
             userProfileEntity.notify = userRes.notify;
+
+            UserProfile userProfile = UserProfile();
+
+            //type 1 means email login
+            userProfile.access_token = loginRes.accessToken;
+            userProfile.token = loginRes.accessToken;
+            userProfile.firstName = userRes.firstName;
+            userProfile.lastName = userRes.lastName;
+            userProfile.avatar = userRes.avatar;
+            userProfile.status = userRes.status;
+            userProfile.type = userRes.type;
+
             print("user existed");
             try {
               Global.storageService.setString(
                   AppConstants.STORAGE_USER_PROFILE_KEY,
-                  jsonEncode(userProfileEntity.toJson()));
+                  jsonEncode(userProfile.toJson()));
               //used for authorization
               // Global.storageService.setString(
               //     AppConstants.STORAGE_USER_TOKEN_KEY, loginRes!.access_token);
@@ -97,7 +109,7 @@ class SignInController {
                 print("saving token to local storage error");
               }
 
-              EasyLoading.dismiss();
+              // EasyLoading.dismiss();
 
               if (context.mounted) {
                 Navigator.of(context)

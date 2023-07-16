@@ -9,7 +9,7 @@ import '../home/bloc/home_page_events.dart';
 
 class MainController{
   late BuildContext context;
-  UserItem get userProfile => Global.storageService.getUserProfile();
+  UserProfile get userProfile => Global.storageService.getUserProfile();
 
   static final MainController _singleton= MainController._external();
 
