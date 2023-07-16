@@ -81,11 +81,23 @@ class SignInController {
             userProfileEntity.role = userRes.role;
             userProfileEntity.status = userRes.status;
             userProfileEntity.notify = userRes.notify;
+
+            UserProfile userProfile = UserProfile();
+
+            //type 1 means email login
+            userProfile.access_token = loginRes.accessToken;
+            userProfile.token = loginRes.accessToken;
+            userProfile.firstName = userRes.firstName;
+            userProfile.lastName = userRes.lastName;
+            userProfile.avatar = userRes.avatar;
+            userProfile.status = userRes.status;
+            userProfile.type = userRes.type;
+
             print("user existed");
             try {
               Global.storageService.setString(
                   AppConstants.STORAGE_USER_PROFILE_KEY,
-                  jsonEncode(userProfileEntity.toJson()));
+                  jsonEncode(userProfile.toJson()));
               //used for authorization
               // Global.storageService.setString(
               //     AppConstants.STORAGE_USER_TOKEN_KEY, loginRes!.access_token);

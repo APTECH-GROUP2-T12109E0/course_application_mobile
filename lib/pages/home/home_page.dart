@@ -19,7 +19,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late UserItem userProfile;
+  late UserProfile userProfile;
 
   @override
   void initState() {
@@ -32,6 +32,7 @@ class _HomePageState extends State<HomePage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     userProfile = HomeController(context: context).userProfile;
+    print("user prfile");
   }
 
   @override
