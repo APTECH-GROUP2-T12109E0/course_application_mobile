@@ -43,7 +43,6 @@ class SignInController {
           //     indicator: CircularProgressIndicator(),
           //     maskType: EasyLoadingMaskType.clear,
           //     dismissOnTap: true);
-
           var loginRes = await UserAPI.login(emailAddress, password);
 
           var userRes =
