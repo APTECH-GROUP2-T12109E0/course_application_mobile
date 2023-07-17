@@ -15,6 +15,23 @@ class LoginRequestEntity {
       };
 }
 
+class RegisterResponseEntity {
+  final String? type;
+  final String? message;
+
+  RegisterResponseEntity({
+    this.type,
+    this.message,
+  });
+
+  factory RegisterResponseEntity.fromJson(Map<String, dynamic> json) {
+    return RegisterResponseEntity(
+      type: json['type'],
+      message: json['message'],
+    );
+  }
+}
+
 //api post response msg
 class UserLoginResponseEntity {
   String? type;

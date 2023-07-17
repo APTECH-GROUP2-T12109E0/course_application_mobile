@@ -1,3 +1,5 @@
+import 'package:course_application_mobile/common/values/helper.dart';
+import 'package:course_application_mobile/common/values/message.dart';
 import 'package:course_application_mobile/pages/common_widgets.dart';
 import 'package:course_application_mobile/pages/register/bloc/register_blocs.dart';
 import 'package:course_application_mobile/pages/register/bloc/register_events.dart';
@@ -14,6 +16,8 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,52 +56,92 @@ class _RegisterState extends State<Register> {
                     Container(
                       margin: EdgeInsets.only(top: 20.h),
                       padding: EdgeInsets.only(left: 25.w, right: 25.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          buildTextField(
-                              "Enter your first name", "text", "user.png", (value) {
-                            context
-                                .read<RegisterBlocs>()
-                                .add(FirstNameEvent(value));
-                          }),                          
-                          buildTextField(
-                              "Enter your last name", "text", "user.png", (value) {
-                            context
-                                .read<RegisterBlocs>()
-                                .add(LastNameEvent(value));
-                          }),
-                          buildTextField(
-                              "Enter your email", "email", "user.png", (value) {
-                            context
-                                .read<RegisterBlocs>()
-                                .add(EmailEvent(value));
-                          }),
-                          buildTextField(
-                              "Enter your password", "password", "lock.png",
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            buildTextFieldValidate(
+                              "Enter your first name",
+                              "text",
+                              "user.png",
                               (value) {
-                            context
-                                .read<RegisterBlocs>()
-                                .add(PasswordEvent(value));
-                          }),
-                          buildTextField(
-                              "Confirm your password", "password", "lock.png",
+                                context
+                                    .read<RegisterBlocs>()
+                                    .add(FirstNameEvent(value));
+                              },
                               (value) {
-                            context
-                                .read<RegisterBlocs>()
-                                .add(RePasswordEvent(value));
-                          }),
-                        ],
+                                if (value == null || value.isEmpty) {
+                                  return AppMessage.MESSAGE_FIELD_REQUIRED;
+                                }
+                                return null;
+                              },
+                            ),
+                            buildTextFieldValidate(
+                              "Enter your last name",
+                              "text",
+                              "user.png",
+                              (value) {
+                                context
+                                    .read<RegisterBlocs>()
+                                    .add(LastNameEvent(value));
+                              },
+                              (value) {
+                                if (value == null || value.isEmpty) {
+                                  return AppMessage.MESSAGE_FIELD_REQUIRED;
+                                }
+                                return null;
+                              },
+                            ),
+                            buildTextFieldValidate(
+                              "Enter your email",
+                              "text",
+                              "user.png",
+                              (value) {
+                                context
+                                    .read<RegisterBlocs>()
+                                    .add(EmailEvent(value));
+                              },
+                              (value) {
+                                if (value == null || value.isEmpty) {
+                                  return AppMessage.MESSAGE_FIELD_REQUIRED;
+                                }
+                                if (!Helper.isEmailValid(value)) {
+                                  return AppMessage.MESSAGE_EMAIL_INVALID;
+                                }
+                                return null;
+                              },
+                            ),
+                            buildTextFieldValidate(
+                              "Enter your password",
+                              "password",
+                              "lock.png",
+                              (value) {
+                                context
+                                    .read<RegisterBlocs>()
+                                    .add(PasswordEvent(value));
+                              },
+                              (value) {
+                                if (value == null || value.isEmpty) {
+                                  return AppMessage.MESSAGE_FIELD_REQUIRED;
+                                }
+                                return null;
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                    ),                    
-                      onTapTextLink("By creating an Account, you have to agree with our Privacy Policy."),
+                    ),
+                    onTapTextLink(
+                        "By creating an Account, you have to agree with our Privacy Policy."),
                     buildLoginandRegisterButton(
                       "Register",
                       "register",
                       () {
                         print("Register button");
-                        RegisterController(context: context)
-                            .handleEmailRegister();
+                        if (_formKey.currentState!.validate()) {
+                          RegisterController(context: context).handleRegister();
+                        }
                       },
                     ),
                     Center(child: reusableText("Or Register with")),

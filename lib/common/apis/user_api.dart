@@ -1,3 +1,4 @@
+import 'package:course_application_mobile/common/values/message.dart';
 import 'package:course_application_mobile/common/widgets/flutter_toast.dart';
 import 'package:dio/dio.dart';
 
@@ -19,15 +20,61 @@ class UserAPI {
       if (response.statusCode == 200) {
         return UserLoginResponseEntity.fromJson(response.data);
       } else {
-        throw Exception('Something was wrong');
+        throw Exception(AppMessage.MESSAGE_GENERAL_FAILED);
       }
     } catch (e) {
       if (e is DioException) {
         if (e.response != null && e.response!.statusCode == 400) {
           var errorData = e.response!.data as Map<String, dynamic>;
           var message = errorData['message'];
-          toastInfo(msg: 'Bad Request: ${message ?? "Some thing was wrong"}');
-          throw Exception(message);
+          toastInfo(msg: '${message ?? AppMessage.MESSAGE_GENERAL_FAILED}');
+          return false;
+        }else if(e.response != null && e.response!.statusCode == 404) {
+          var errorData = e.response!.data as Map<String, dynamic>;
+          var message = errorData['message'];
+          toastInfo(msg: '${message ?? AppMessage.MESSAGE_GENERAL_FAILED}');
+          return false;
+        } else {
+          print('Request failed: $e');
+          throw Exception('Request failed: $e');
+        }
+      } else {
+        print('Request failed: $e');
+        throw Exception('Request failed: $e');
+      }
+    }
+  }
+
+  static register(String? firstName, String? lastName, String? email, String? password,
+      {LoginRequestEntity? params}) async {
+
+    var data = {
+      "first_name": firstName,
+      "last_name": lastName,
+      "email": email,
+      "password": password,
+    };
+
+    try {
+      var response = await HttpUtil().post('auth/register', mydata: data);
+
+      if (response.statusCode == 200) {
+        return RegisterResponseEntity.fromJson(response.data);
+      } else {
+        throw Exception(AppMessage.MESSAGE_GENERAL_FAILED);
+      }
+    } catch (e) {
+      if (e is DioException) {
+        if (e.response != null && e.response!.statusCode == 400) {
+          var errorData = e.response!.data as Map<String, dynamic>;
+          var message = errorData['message'];
+          toastInfo(msg: '${message ?? AppMessage.MESSAGE_GENERAL_FAILED}');
+          return false;
+        }else if(e.response != null && e.response!.statusCode == 404) {
+          var errorData = e.response!.data as Map<String, dynamic>;
+          var message = errorData['message'];
+          toastInfo(msg: '${message ?? AppMessage.MESSAGE_GENERAL_FAILED}');
+          return false;
         } else {
           print('Request failed: $e');
           throw Exception('Request failed: $e');
@@ -45,12 +92,11 @@ class UserAPI {
         "accessToken": accessToken,
       };
       var response = await HttpUtil().get('auth/user/me', data: data);
-      print("ok");
 
       if (response.statusCode == 200) {
         return UserProfileEntity.fromJson(response.data);
       } else {
-        throw Exception('Something was wrong');
+        throw Exception(AppMessage.MESSAGE_GENERAL_FAILED);
       }
     } catch (e) {
       throw Exception('Request failed: $e');

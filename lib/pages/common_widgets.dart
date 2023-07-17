@@ -134,6 +134,166 @@ Widget buildTextField(String hintText, String textType, String iconName,
   );
 }
 
+class PasswordTextField extends StatefulWidget {
+  final String hintText;
+  final void Function(String value)? onChanged;
+
+  const PasswordTextField({
+    Key? key,
+    required this.hintText,
+    this.onChanged,
+  }) : super(key: key);
+
+  @override
+  _PasswordTextFieldState createState() => _PasswordTextFieldState();
+}
+
+class _PasswordTextFieldState extends State<PasswordTextField> {
+  bool isPasswordVisible = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 325.w,
+      height: 50.h,
+      margin: EdgeInsets.only(bottom: 15.h),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.2),
+        borderRadius: BorderRadius.circular(15.w),
+        border: Border.all(color: AppColors.primaryFourElementText),
+      ),
+      child: Row(
+        children: [
+          Container(
+            margin: EdgeInsets.only(left: 16.w),
+            width: 16.w,
+            height: 16.w,
+            child: Image.asset("assets/icons/lock.png"),
+          ),
+          SizedBox(
+            width: 270.w,
+            height: 50.h,
+            child: TextFormField(
+              onChanged: widget.onChanged,
+              keyboardType: TextInputType.multiline,
+              decoration: InputDecoration(
+                hintText: widget.hintText,
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isPasswordVisible = !isPasswordVisible;
+                    });
+                  },
+                ),
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.transparent,
+                  ),
+                ),
+                disabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.transparent,
+                  ),
+                ),
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.transparent,
+                  ),
+                ),
+                hintStyle: TextStyle(
+                  color: AppColors.primarySecondaryElementText,
+                ),
+              ),
+              style: TextStyle(
+                color: AppColors.primaryText,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.normal,
+              ),
+              autocorrect: false,
+              obscureText: !isPasswordVisible,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+Widget buildTextFieldValidate(String hintText,
+    String textType,
+    String iconName,
+    void Function(String value)? function,
+    String? Function(String? value)? validator, // Add validator parameter
+    ) {
+  if (textType == "password") {
+    return PasswordTextField(
+      hintText: hintText,
+      onChanged: function,
+    );
+  }
+  return Container(
+    width: 325.w,
+    height: 50.h,
+    margin: EdgeInsets.only(bottom: 15.h),
+    decoration: BoxDecoration(
+      color: Colors.white.withOpacity(0.2),
+      borderRadius: BorderRadius.circular(15.w),
+      border: Border.all(color: AppColors.primaryFourElementText),
+    ),
+    child: Row(
+      children: [
+        Container(
+          margin: EdgeInsets.only(left: 16.w),
+          width: 16.w,
+          height: 16.w,
+          child: Image.asset("assets/icons/$iconName"),
+        ),
+        SizedBox(
+          width: 270.w,
+          height: 50.h,
+          child: TextFormField(
+            onChanged: (value) => function!(value),
+            keyboardType: TextInputType.multiline,
+            decoration: InputDecoration(
+              hintText: hintText,
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.transparent,
+                ),
+              ),
+              disabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.transparent,
+                ),
+              ),
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.transparent,
+                ),
+              ),
+              hintStyle: TextStyle(
+                color: AppColors.primarySecondaryElementText,
+              ),
+            ),
+            style: TextStyle(
+              color: AppColors.primaryText,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.normal,
+            ),
+            autocorrect: false,
+            obscureText: textType == "password" ? true : false,
+            validator: validator != null ? (value) => validator(value) : null,
+          ),
+        )
+      ],
+    ),
+  );
+}
+
 //dòng chữ Forgot Password và Privacy Policy
 Widget onTapTextLink(String text) {
   return Center(
@@ -145,12 +305,11 @@ Widget onTapTextLink(String text) {
         child: Text(
           text,
           style: TextStyle(
-            color: Colors.blue,
-            decoration: TextDecoration.underline,
-            decorationColor: Colors.blue,
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w500
-          ),
+              color: Colors.blue,
+              decoration: TextDecoration.underline,
+              decorationColor: Colors.blue,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500),
           textAlign: TextAlign.center,
         ),
       ),
@@ -158,8 +317,8 @@ Widget onTapTextLink(String text) {
   );
 }
 
-Widget buildLoginandRegisterButton(
-    String buttonName, String buttonType, void Function()? function) {
+Widget buildLoginandRegisterButton(String buttonName, String buttonType,
+    void Function()? function) {
   return GestureDetector(
     onTap: function,
     child: Container(
