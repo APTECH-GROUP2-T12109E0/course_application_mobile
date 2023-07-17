@@ -36,12 +36,10 @@ class CourseListResponseEntity {
 
   factory CourseListResponseEntity.fromJson(dynamic json) {
     if (json is List) {
-      // Handle the case where json is a list of course items
       return CourseListResponseEntity(
         data: List<CourseItem>.from(json.map((x) => CourseItem.fromJson(x))),
       );
     } else if (json is Map<String, dynamic>) {
-      // Handle the case where json is an object with other properties
       return CourseListResponseEntity(
         data: json["data"] == null
             ? []

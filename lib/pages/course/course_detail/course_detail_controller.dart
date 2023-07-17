@@ -1,3 +1,7 @@
+import 'package:course_application_mobile/common/apis/section_api.dart';
+import 'package:course_application_mobile/common/entities/section.dart';
+import 'package:course_application_mobile/common/entities/section.dart';
+import 'package:course_application_mobile/common/values/message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -18,17 +22,17 @@ class CourseDetailController {
 
   void init() async{
     final args = ModalRoute.of(context)!.settings.arguments as Map;
+    print("init Course detail");
     asyncLoadCourseData(args["id"]);
-    asyncLoadLessonData(args["id"]);
+    asyncLoadSectionData(args["id"]);
+    // asyncLoadLessonData(args["id"]);
   }
 
   asyncLoadCourseData(int? id)async{
-    print("before call");
     CourseRequestEntity courseRequestEntity = CourseRequestEntity();
     courseRequestEntity.id = id;
     try {
       var result = await CourseAPI.courseDetail(params: courseRequestEntity);
-
       if(result != null){
         if(context.mounted){
           print('---------context is ready------');
@@ -40,31 +44,49 @@ class CourseDetailController {
       }else{
         toastInfo(msg: "Something went wrong");
       }
-
-      print("ok thach");
-      print("ok thach 2");
     }catch(e) {
       print(e);
-      print("thach catch");
+      print("catch Course");
     }
   }
 
-  asyncLoadLessonData(int? id) async {
-    LessonRequestEntity lessonRequestEntity = LessonRequestEntity();
-    lessonRequestEntity.id = id;
-    var result = await LessonAPI.lessonList(params:lessonRequestEntity);
-    if(result.code==200){
-      if(context.mounted){
-        context.read<CourseDetailBloc>().add(TriggerLessonList(result.data!));
-        print('my lesson data is ${result.data![2].thumbnail}');
+  asyncLoadSectionData(int? id) async {
+    SectionRequestEntity sectionReq = SectionRequestEntity();
+    sectionReq.id = id;
+    try {
+      var result = await SectionAPI.sectionList(params:sectionReq);
+      print(result);
+
+      if(result.sections != null){
+        if(context.mounted){
+          context.read<CourseDetailBloc>().add(TriggerSectionList(result.sections!));
+        }else{
+          print('----context is not read ----');
+        }
       }else{
-        print('----context is not read ----');
+        toastInfo(msg: AppMessage.MESSAGE_GENERAL_FAILED);
       }
-    }else{
-      toastInfo(msg: "Something went wrong check the log");
+    }catch(e) {
+      print(e);
+      print("catch section");
     }
-
   }
+
+  // asyncLoadLessonData(int? id) async {
+  //   LessonRequestEntity lessonRequestEntity = LessonRequestEntity();
+  //   lessonRequestEntity.id = id;
+  //   var result = await LessonAPI.lessonList(params:lessonRequestEntity);
+  //   if(result.code==200){
+  //     if(context.mounted){
+  //       context.read<CourseDetailBloc>().add(TriggerLessonList(result.data!));
+  //       print('my lesson data is ${result.data![2].thumbnail}');
+  //     }else{
+  //       print('----context is not read ----');
+  //     }
+  //   }else{
+  //     toastInfo(msg: "Something went wrong check the log");
+  //   }
+  // }
 
 
 
