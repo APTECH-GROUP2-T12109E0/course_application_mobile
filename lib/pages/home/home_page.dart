@@ -51,7 +51,9 @@ class _HomePageState extends State<HomePage> {
               builder: (context, state) {
                 if (state.courseItem.isEmpty) {
                   HomeController(context: context).init();
+                  // print("....course is empty");
                 }
+                // else print("....course is not empty");
                 return Container(
                   margin: EdgeInsets.symmetric(vertical: 0, horizontal: 25.w),
                   child: CustomScrollView(

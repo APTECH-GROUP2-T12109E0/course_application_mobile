@@ -24,6 +24,10 @@ class SignInController {
   const SignInController({required this.context});
 
   Future<void> handleSignIn(String type) async {
+    EasyLoading.show(
+        indicator: CircularProgressIndicator(),
+        maskType: EasyLoadingMaskType.clear,
+        dismissOnTap: true);
     try {
       if (type == "email") {
         //BLocProvider.of<SignInBloc>(context).state
@@ -42,10 +46,7 @@ class SignInController {
         }
 
         try {
-          // EasyLoading.show(
-          //     indicator: CircularProgressIndicator(),
-          //     maskType: EasyLoadingMaskType.clear,
-          //     dismissOnTap: true);
+
 
           var loginRes = await UserAPI.login(emailAddress, password);
 
@@ -109,7 +110,7 @@ class SignInController {
                 print("saving token to local storage error");
               }
 
-              // EasyLoading.dismiss();
+
 
               if (context.mounted) {
                 Navigator.of(context)
@@ -135,5 +136,6 @@ class SignInController {
       print(e.toString());
       toastInfo(msg: "Something was wrong !!");
     }
+    EasyLoading.dismiss();
   }
 }

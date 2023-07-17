@@ -1,3 +1,4 @@
+import 'package:course_application_mobile/common/entities/course.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -7,6 +8,16 @@ import '../../../../common/values/constants.dart';
 import '../../../../common/widgets/base_text_widgets.dart';
 import '../bloc/course_detail_states.dart';
 
+AppBar buildAppBarCourse(){
+  return AppBar(
+    iconTheme: IconThemeData(color: Colors.black),
+    title: reusableText("Course Detail"),
+  );
+}
+
+
+// Widget thumbNail(String thumbnail) {
+
 Widget thumbNail(String thumbnail) {
   return Container(
     width: 325.w,
@@ -14,11 +25,14 @@ Widget thumbNail(String thumbnail) {
     decoration:  BoxDecoration(
         image: DecorationImage(
             fit: BoxFit.fitWidth,
-            image: NetworkImage("${AppConstants.SERVER_UPLOADS}$thumbnail"))),
+            image: NetworkImage(thumbnail),
+          // image: AssetImage("assets/icons/Image(1).png"),
+        ),
+    ),
   );
 }
-
-Widget menuView() {
+//
+Widget menuView(String author, int enrollment, double rating ) {
   return SizedBox(
     width: 325.w,
     child: Row(
@@ -28,22 +42,22 @@ Widget menuView() {
           child: Container(
               padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
               decoration: BoxDecoration(
-                  color: AppColors.primaryElement,
+                  color: AppColors.primaryColor,
                   borderRadius: BorderRadius.circular(7.w),
-                  border: Border.all(color: AppColors.primaryElement)),
-              child: reusableText("Author Page",
+                  border: Border.all(color: AppColors.primaryColor)),
+              child: reusableText(author,
                   color: AppColors.primaryElementText,
                   fontWeight: FontWeight.normal,
                   fontSize: 10.sp)),
         ),
-        _iconAndNum("assets/icons/people.png", 0),
-        _iconAndNum("assets/icons/star.png", 0)
+        _iconAndNum("assets/icons/people.png", 0,0),
+        _iconAndNum("assets/icons/star.png", 0,0)
       ],
     ),
   );
 }
-
-Widget _iconAndNum(String iconPath, int num) {
+//
+Widget _iconAndNum(String iconPath, int enrollment, int rating) {
   return Container(
     margin: EdgeInsets.only(left: 30.w),
     child: Row(
@@ -53,15 +67,19 @@ Widget _iconAndNum(String iconPath, int num) {
           width: 20.w,
           height: 20.h,
         ),
-        reusableText(num.toString(),
+        reusableNum(enrollment,
             color: AppColors.primaryThreeElementText,
             fontSize: 11.sp,
-            fontWeight: FontWeight.normal)
+            fontWeight: FontWeight.normal),
+        reusableNum(rating,
+            color: AppColors.primaryThreeElementText,
+            fontSize: 11.sp,
+            fontWeight: FontWeight.normal),
       ],
     ),
   );
 }
-
+//
 Widget descriptionText(String description) {
   return reusableText(
       description,
@@ -69,7 +87,7 @@ Widget descriptionText(String description) {
       fontWeight: FontWeight.normal,
       fontSize: 11.sp);
 }
-
+//
 Widget goBuyButton(String name) {
   return Container(
     padding: EdgeInsets.only(top: 13.h),
@@ -89,21 +107,21 @@ Widget goBuyButton(String name) {
     ),
   );
 }
-
+//
 Widget courseSummaryTitle() {
-  return reusableText("The Course Includes", fontSize: 14.sp);
+  return reusableText("The Course Includes", fontSize: 14.sp, );
 }
-
-
+//
+//
 // Cần Fixed lại
 Widget courseSummaryView(BuildContext context, CourseDetailStates state) {
+
 //setting sections buttons
   var imagesInfo = <String, String>{
-    "${state.courseItem!.duration??"0"} Hours Video": "video_detail.png",
-    "Total ${state.courseItem!.duration??"0"} Lessons": "file_detail.png",
-    "${state.courseItem!.duration??"0"} Downloadable Resources": "download_detail.png",
+    "${state.courseItem!.duration.toString() ?? "0"} Hours Video": "video_detail.png",
+    "Total ${state.courseItem!.sections!.length.toString() ?? "0"} Lessons": "file_detail.png",
+    "${state.courseItem!.enrollmentCount.toString() ?? "0"} Enrollment": "people.png",
   };
-
   return Column(
     children: [
       ...List.generate(
@@ -119,7 +137,7 @@ Widget courseSummaryView(BuildContext context, CourseDetailStates state) {
                   //padding: EdgeInsets.all(7.0.w),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.w),
-                      color: AppColors.primaryElement),
+                      color: Colors.transparent),
                   child: Image.asset(
                     "assets/icons/${imagesInfo.values.elementAt(index)}",
                     width: 30.w,
@@ -142,13 +160,13 @@ Widget courseSummaryView(BuildContext context, CourseDetailStates state) {
     ],
   );
 }
-
+//
 Widget courseLessonList(CourseDetailStates state) {
   return SingleChildScrollView(
 
     child: ListView.builder(
         shrinkWrap: true,
-        itemCount: state.lessonItem.length,
+        itemCount: state.courseItem!.sections!.length,
         itemBuilder: (context, index){
       return Container(
         margin: EdgeInsets.only(top: 10.h),
@@ -189,15 +207,16 @@ Widget courseLessonList(CourseDetailStates state) {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
+
                     children: [
                       //list item title
-                      _listContainer(state.lessonItem[index].name.toString()),
+                      _listContainer("${state.courseItem!.sections![0].toString()}"),
                       //list item description
-                      _listContainer(
-                          state.lessonItem[index].description.toString(),
-                          fontSize: 10,
-                          color: AppColors.primaryThreeElementText,
-                          fontWeight: FontWeight.normal)
+                      // _listContainer(
+                      //     state.lessonItem[index].description.toString(),
+                      //     fontSize: 10,
+                      //     color: AppColors.primaryThreeElementText,
+                      //     fontWeight: FontWeight.normal)
                     ],
                   )
                 ],
@@ -226,6 +245,7 @@ Widget _listContainer(
     fontWeight = FontWeight.bold}) {
   return Container(
     width: 200.w,
+    height: 50.h,
     margin: EdgeInsets.only(left: 6.w),
     child: Text(
       name,
@@ -236,3 +256,59 @@ Widget _listContainer(
     ),
   );
 }
+
+//course detail
+// var imagesInfo =<String, String>{
+//   "36 hours Video":"video_detail.png",
+//   "Total 30 lessons":"file_detail.png",
+//   "67 Download Resources":"cloud-download.png",
+// };
+//
+//
+// Widget courseSummaryView(BuildContext context){
+//   return Column(
+//     children: [
+//       ...List.generate(imagesInfo.length, (index) => GestureDetector(
+//         onTap: ()=>Navigator.of(context).pushNamed(AppRoutes.LESSON_DETAIL),
+//
+//         child: Container(
+//           margin: EdgeInsets.only(bottom: 15.h),
+//           child: Row(
+//             children: [
+//               Container(
+//                 width: 30.w,
+//                 height: 30.h,
+//                 padding: EdgeInsets.all(7.0.w),
+//                 decoration: BoxDecoration(
+//                     borderRadius: BorderRadius.circular(10.w),
+//                     color: AppColors.primaryElement),
+//                 child: Image.asset("assets/icons/${imagesInfo.values.elementAt(index)}"),
+//               ),
+//               SizedBox(
+//                 width: 15.w,
+//               ),
+//               Text(imagesInfo.keys.elementAt(index),
+//                   style: TextStyle(
+//                       color: AppColors.primarySecondaryElementText,
+//                       fontWeight: FontWeight.bold,
+//                       fontSize: 12.sp))
+//             ],
+//           ),
+//         ),
+//       ),)
+//
+//     ],
+//   );
+// }
+
+// Widget courseLessonList(){
+//   return Container(
+//     width: 325.w,
+//     height: 80.h,
+//     decoration: BoxDecoration(
+//       color: Color.fromARGB(255, 255, 255, 1),
+//       borderRadius: BorderRadius.circular(10.w),
+//       boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.1),),],
+//     ),
+//   );
+// }

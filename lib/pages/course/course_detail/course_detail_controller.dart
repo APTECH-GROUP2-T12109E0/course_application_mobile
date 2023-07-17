@@ -23,20 +23,29 @@ class CourseDetailController {
   }
 
   asyncLoadCourseData(int? id)async{
+    print("before call");
     CourseRequestEntity courseRequestEntity = CourseRequestEntity();
     courseRequestEntity.id = id;
-    var result = await CourseAPI.courseDetail(params: courseRequestEntity);
+    try {
+      var result = await CourseAPI.courseDetail(params: courseRequestEntity);
 
-    if(result.code ==200){
-      if(context.mounted){
-        print('---------context is ready------');
-        context.read<CourseDetailBloc>().add(TriggerCourseDetail(result.data!));
+      if(result != null){
+        if(context.mounted){
+          print('---------context is ready------');
+          context.read<CourseDetailBloc>().add(TriggerCourseDetail(result));
+        }else{
+          print('-------context is not available-------');
+        }
+
       }else{
-        print('-------context is not available-------');
+        toastInfo(msg: "Something went wrong");
       }
 
-    }else{
-      toastInfo(msg: "Something went wrong and check the log in the laravel.log");
+      print("ok thach");
+      print("ok thach 2");
+    }catch(e) {
+      print(e);
+      print("thach catch");
     }
   }
 
@@ -59,31 +68,31 @@ class CourseDetailController {
 
 
 
-  Future<void> goBuy(int? id) async {
-
-    EasyLoading.show(
-      indicator: CircularProgressIndicator(),
-      maskType: EasyLoadingMaskType.clear,
-      dismissOnTap: true
-    );
-    CourseRequestEntity courseRequestEntity= CourseRequestEntity();
-    courseRequestEntity.id = id;
-    var result = await CourseAPI.coursePay(params: courseRequestEntity);
-    EasyLoading.dismiss();
-    if(result.code==200){
-      //cleaner format of url
-      var url = Uri.decodeFull(result.data!);
-
-      var res = await Navigator.of(context).pushNamed(AppRoutes.PAY_WEB_VIEW, arguments: {
-        "url":url
-      });
-
-      if(res=="success"){
-        toastInfo(msg: "You bought it successfully");
-      }
-     // print('----my returned stripe url is $url--------');
-    }else{
-      toastInfo(msg: result.msg!);
-    }
-  }
+  // Future<void> goBuy(int? id) async {
+  //
+  //   EasyLoading.show(
+  //     indicator: CircularProgressIndicator(),
+  //     maskType: EasyLoadingMaskType.clear,
+  //     dismissOnTap: true
+  //   );
+  //   CourseRequestEntity courseRequestEntity= CourseRequestEntity();
+  //   courseRequestEntity.id = id;
+  //   var result = await CourseAPI.coursePay(params: courseRequestEntity);
+  //   EasyLoading.dismiss();
+  //   if(result.code==200){
+  //     //cleaner format of url
+  //     var url = Uri.decodeFull(result.data!);
+  //
+  //     var res = await Navigator.of(context).pushNamed(AppRoutes.PAY_WEB_VIEW, arguments: {
+  //       "url":url
+  //     });
+  //
+  //     if(res=="success"){
+  //       toastInfo(msg: "You bought it successfully");
+  //     }
+  //    // print('----my returned stripe url is $url--------');
+  //   }else{
+  //     toastInfo(msg: result.msg!);
+  //   }
+  // }
 }

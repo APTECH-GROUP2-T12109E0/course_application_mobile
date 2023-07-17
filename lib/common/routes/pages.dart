@@ -8,6 +8,10 @@ import '../../pages/application/application_page.dart';
 import '../../pages/application/bloc/app_blocs.dart';
 import '../../pages/course/course_detail/bloc/course_detail_blocs.dart';
 import '../../pages/course/course_detail/course_detail.dart';
+import '../../pages/course/lesson/bloc/lesson_blocs.dart';
+import '../../pages/course/lesson/lesson_detail.dart';
+import '../../pages/course/paywebview/bloc/payview_blocs.dart';
+import '../../pages/course/paywebview/paywebview.dart';
 import '../../pages/home/bloc/home_page_blocs.dart';
 import '../../pages/home/home_page.dart';
 import '../../pages/profile/settings/bloc/settings_blocs.dart';
@@ -78,17 +82,17 @@ class AppPages {
           page: const CourseDetail(),
           bloc: BlocProvider(create: (_)=>CourseDetailBloc(),)
       ),
-      // PageEntity(
-      //     route: AppRoutes.LESSON_DETAIL,
-      //     page: const LessonDetail(),
-      //     bloc: BlocProvider(create: (_)=>LessonBlocs(),)
-      // ),
+      PageEntity(
+          route: AppRoutes.LESSON_DETAIL,
+          page: const LessonDetail(),
+          bloc: BlocProvider(create: (_)=>LessonBlocs(),)
+      ),
 
-      // PageEntity(
-      //     route: AppRoutes.PAY_WEB_VIEW,
-      //     page: const PayWebView(),
-      //     bloc: BlocProvider(create: (_)=>PayWebViewBlocs(),)
-      // ),
+      PageEntity(
+          route: AppRoutes.PAY_WEB_VIEW,
+          page: const PayWebView(),
+          bloc: BlocProvider(create: (_)=>PayWebViewBlocs(),)
+      ),
     ];
   }
 

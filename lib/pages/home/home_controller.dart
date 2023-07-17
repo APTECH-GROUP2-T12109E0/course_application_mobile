@@ -27,7 +27,7 @@ class HomeController {
   Future<void> init() async {
     if (Global.storageService.getUserToken().isNotEmpty) {
       var result = await CourseAPI.courseList();
-      print("ok zo trc result call API");
+      print("the result is ${result.data![0].image}");
       if (result.data != null) {
         if (context.mounted) {
           context.read<HomePageBlocs>().add(HomePageCourseItem(result.data!));
