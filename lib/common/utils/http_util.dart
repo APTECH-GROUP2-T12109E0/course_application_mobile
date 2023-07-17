@@ -20,8 +20,8 @@ class HttpUtil {
   HttpUtil._internal() {
     BaseOptions options = BaseOptions(
         baseUrl: AppConstants.SERVER_API_URL,
-        connectTimeout: const Duration(seconds: 5),
-        receiveTimeout: Duration(seconds: 5),
+        connectTimeout: const Duration(seconds: 120),
+        receiveTimeout: const Duration(seconds: 120),
         headers: {},
         contentType: "application/json: charset=utf-8",
         responseType: ResponseType.json);
@@ -97,6 +97,7 @@ class HttpUtil {
     }
     requestOptions.contentType = "application/json";
 
+    print("before call api");
     var response = await dio.post(path,
         data: mydata,
         queryParameters: queryParameters,
