@@ -1,5 +1,6 @@
 
 import 'package:course_application_mobile/common/entities/course.dart';
+import 'package:course_application_mobile/common/routes/route_name.dart';
 import 'package:course_application_mobile/common/values/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -141,7 +142,15 @@ class _CourseDetailState extends State<CourseDetail> {
                             reusableText("Lesson List"),
                             SizedBox(height: 20.h,),
                             //Course lesson list
-                            courseLessonList(state)
+                            GestureDetector(
+                              onTap: (){
+                                // _courseDetailController.goBuy(state.courseItem!.id);
+                                Navigator.of(context)
+                                    .pushNamedAndRemoveUntil("/lesson_detail", (route) => false);
+                              },
+                              child: courseLessonList(state),
+                            ),
+                            // courseLessonList(state),
                           ],
                         ),
                       )

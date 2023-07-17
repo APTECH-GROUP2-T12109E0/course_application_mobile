@@ -171,7 +171,7 @@ Widget courseLessonList(CourseDetailStates state) {
       return Container(
         margin: EdgeInsets.only(top: 10.h),
         width: 325.w,
-        height: 80.h,
+        height: 100.h,
         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
         decoration: BoxDecoration(
             color: const Color.fromRGBO(255, 255, 255, 1),
@@ -202,7 +202,8 @@ Widget courseLessonList(CourseDetailStates state) {
                         borderRadius: BorderRadius.circular(15.h),
                         image:  DecorationImage(
                             fit: BoxFit.fitHeight,
-                            image: NetworkImage(state.lessonItem[index].thumbnail!))),
+                            // image: NetworkImage(state.lessonItem[index].thumbnail!))),
+                            image: AssetImage("assets/icons/person.png"))),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -210,8 +211,9 @@ Widget courseLessonList(CourseDetailStates state) {
 
                     children: [
                       //list item title
-                      _listContainer("${state.courseItem!.sections![0].toString()}"),
+                      // _listContainer("${state.courseItem!.sections![0].toString()}"),
                       //list item description
+                      _listContainer("name"),
                       // _listContainer(
                       //     state.lessonItem[index].description.toString(),
                       //     fontSize: 10,
