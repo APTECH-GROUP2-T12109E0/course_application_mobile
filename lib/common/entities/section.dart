@@ -1,12 +1,18 @@
 class SectionRequestEntity {
-  int? id;
+  // int? id;
+  int? courseId;
+  int? sectionId;
 
   SectionRequestEntity({
-    this.id,
+    // this.id,
+    this.courseId,
+    this.sectionId,
   });
 
   Map<String, dynamic> toJson() => {
-        "id": id,
+        // "id": id,
+        "courseId": courseId,
+        "sectionId": sectionId,
       };
 }
 

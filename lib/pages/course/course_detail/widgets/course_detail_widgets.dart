@@ -1,4 +1,6 @@
 import 'package:course_application_mobile/common/entities/course.dart';
+import 'package:course_application_mobile/common/entities/lesson.dart';
+import 'package:course_application_mobile/common/entities/section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -119,7 +121,7 @@ Widget courseSummaryView(BuildContext context, CourseDetailStates state) {
 //setting sections buttons
   var imagesInfo = <String, String>{
     "${state.courseItem!.duration.toString() ?? "0"} Hours Video": "video_detail.png",
-    "Total ${state.courseItem!.sections!.length.toString() ?? "0"} Lessons": "file_detail.png",
+    "Total ${state.courseItem!.sections!.length.toString() ?? "0"} Sections": "file_detail.png",
     "${state.courseItem!.enrollmentCount.toString() ?? "0"} Enrollment": "people.png",
   };
   return Column(
@@ -161,7 +163,11 @@ Widget courseSummaryView(BuildContext context, CourseDetailStates state) {
   );
 }
 //
-Widget courseLessonList(CourseDetailStates state) {
+Widget courseSectionList(BuildContext context,CourseDetailStates state) {
+  SectionItem sectionItem;
+  final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+  var courseId = args['id'];
+
   return SingleChildScrollView(
 
     child: ListView.builder(
@@ -185,8 +191,9 @@ Widget courseLessonList(CourseDetailStates state) {
             ]),
         child: InkWell(
           onTap: () {
-            Navigator.of(context).pushNamed(AppRoutes.LESSON_DETAIL, arguments: {
-              "id":state.lessonItem[index].id
+            Navigator.of(context).pushNamed(AppRoutes.SECTION_DETAIL, arguments: {
+              "sectionId":state.sectionItem[index].id,
+              "courseId": courseId
             });
           },
           child: Row(
@@ -203,7 +210,7 @@ Widget courseLessonList(CourseDetailStates state) {
                         image:  DecorationImage(
                             fit: BoxFit.fitHeight,
                             // image: NetworkImage(state.lessonItem[index].thumbnail!))),
-                            image: AssetImage("assets/icons/person.png"))),
+                            image: AssetImage("assets/logo/logo_click_thumb_light.png"))),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -211,14 +218,15 @@ Widget courseLessonList(CourseDetailStates state) {
 
                     children: [
                       //list item title
-                      // _listContainer("${state.courseItem!.sections![0].toString()}"),
+                      // _listContainer("Part ${state.sectionItem[index].id.toString()}"),
                       //list item description
-                      _listContainer("name"),
-                      // _listContainer(
-                      //     state.lessonItem[index].description.toString(),
+                      _listContainer("${state.sectionItem[index].name}", color: AppColors.primaryColor),
+                      // Tạm ẩn
+                      // _subListContainer(
+                      //     "Total lesson: ${state.sectionItem.length.toString()}",
                       //     fontSize: 10,
-                      //     color: AppColors.primaryThreeElementText,
-                      //     fontWeight: FontWeight.normal)
+                      //     color: AppColors.primarySecondaryElementText,
+                      //     fontWeight: FontWeight.w500)
                     ],
                   )
                 ],
@@ -247,14 +255,33 @@ Widget _listContainer(
     fontWeight = FontWeight.bold}) {
   return Container(
     width: 200.w,
-    height: 50.h,
+    height: 30.h,
     margin: EdgeInsets.only(left: 6.w),
     child: Text(
       name,
-      overflow: TextOverflow.clip,
+      overflow: TextOverflow.ellipsis,
       maxLines: 1,
       style: TextStyle(
           color: color, fontSize: fontSize.sp, fontWeight: FontWeight.bold),
+    ),
+  );
+}
+
+Widget _subListContainer(
+    String name,
+    {double fontSize = 10,
+      Color color = AppColors.primarySecondaryElementText,
+      fontWeight = FontWeight.w500}) {
+  return Container(
+    width: 120.w,
+    height: 20.h,
+    margin: EdgeInsets.only(left: 10.w),
+    child: Text(
+      name,
+      overflow: TextOverflow.ellipsis,
+      maxLines: 1,
+      style: TextStyle(
+          color: color, fontSize: fontSize.sp, fontWeight: fontWeight),
     ),
   );
 }

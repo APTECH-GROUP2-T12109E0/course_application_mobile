@@ -1,37 +1,38 @@
-
 import 'package:equatable/equatable.dart';
 
 import '../../../../common/entities/lesson.dart';
+import '../../../../common/entities/section.dart';
 
-abstract class LessonEvents extends Equatable{
-  const LessonEvents();
-  @override
-  List<Object?> get props => [];
+abstract class SectionDetailEvents{
+  const SectionDetailEvents();
 }
 
-class TriggerLessonVideo extends LessonEvents{
-  const TriggerLessonVideo(this.lessonVideoItem);
-  final List<LessonVideoItem> lessonVideoItem;
-  @override
-  List<Object?> get props => [lessonVideoItem];
+// class TriggerSectionDetail extends SectionDetailEvents{
+//   const TriggerSectionDetail(this.sectionDetail):super();
+//   final SectionItem sectionDetail;
+// }
+//
+// class TriggerSectionList extends SectionDetailEvents{
+//   const TriggerSectionList(this.sectionItem):super();
+//   final List<SectionItem> sectionItem;
+// }
+//
+// class TriggerLessonList extends SectionDetailEvents{
+//   const TriggerLessonList(this.lessonItem):super();
+//   final List<LessonItem> lessonItem;
+// }
+
+class TriggerSectionItem extends SectionDetailEvents{
+  const TriggerSectionItem(this.sectionItem):super();
+  final SectionItem sectionItem;
 }
 
-class TriggerUrlItem extends LessonEvents{
-  final Future<void>? initVideoPlayerFuture;
-  const TriggerUrlItem(this.initVideoPlayerFuture);
-  @override
-  List<Object?> get props => [initVideoPlayerFuture];
+class TriggerSectionList extends SectionDetailEvents{
+  const TriggerSectionList(this.sectionList):super();
+  final List<SectionItem> sectionList;
 }
 
-class TriggerPlay extends LessonEvents{
-  final bool isPlay;
-  const TriggerPlay(this.isPlay);
-  @override
-  List<Object?> get props => [isPlay];
-}
-class TriggerVideoIndex extends LessonEvents{
-  final int videoIndex;
-  const TriggerVideoIndex(this.videoIndex);
-  @override
-  List<Object?> get props => [videoIndex];
+class TriggerLessonList extends SectionDetailEvents{
+  const TriggerLessonList(this.lessonList):super();
+  final List<LessonItem> lessonList;
 }

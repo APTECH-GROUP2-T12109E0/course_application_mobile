@@ -1,3 +1,4 @@
+import 'package:course_application_mobile/pages/course/section/section_detail.dart';
 import 'package:course_application_mobile/pages/main/bloc/main_blocs.dart';
 import 'package:course_application_mobile/pages/main/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ import '../../pages/course/lesson/bloc/lesson_blocs.dart';
 import '../../pages/course/lesson/lesson_detail.dart';
 import '../../pages/course/paywebview/bloc/payview_blocs.dart';
 import '../../pages/course/paywebview/paywebview.dart';
+import '../../pages/course/section/bloc/section_blocs.dart';
 import '../../pages/home/bloc/home_page_blocs.dart';
 import '../../pages/home/home_page.dart';
 import '../../pages/profile/settings/bloc/settings_blocs.dart';
@@ -83,10 +85,15 @@ class AppPages {
           bloc: BlocProvider(create: (_)=>CourseDetailBloc(),)
       ),
       PageEntity(
-          route: AppRoutes.LESSON_DETAIL,
-          page: const LessonDetail(),
-          bloc: BlocProvider(create: (_)=>LessonBlocs(),)
+          route: AppRoutes.SECTION_DETAIL,
+          page: const SectionDetail(),
+          bloc: BlocProvider(create: (_)=>SectionDetailBloc(),)
       ),
+      // PageEntity(
+      //     route: AppRoutes.LESSON_DETAIL,
+      //     page: const LessonDetail(),
+      //     bloc: BlocProvider(create: (_)=>LessonBlocs(),)
+      // ),
 
       PageEntity(
           route: AppRoutes.PAY_WEB_VIEW,

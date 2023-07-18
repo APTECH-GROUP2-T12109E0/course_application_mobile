@@ -20,31 +20,34 @@ class CourseDetailController {
 
   CourseDetailController({required this.context});
 
-  void init() async{
-    final args = ModalRoute.of(context)!.settings.arguments as Map;
-    print("init Course detail");
+  void init() async {
+    final args = ModalRoute
+        .of(context)!
+        .settings
+        .arguments as Map;
+    print("init Course detail ");
+    print("id in course detail controller: ${args["id"]}");
     asyncLoadCourseData(args["id"]);
     asyncLoadSectionData(args["id"]);
     // asyncLoadLessonData(args["id"]);
   }
 
-  asyncLoadCourseData(int? id)async{
+  asyncLoadCourseData(int? id) async {
     CourseRequestEntity courseRequestEntity = CourseRequestEntity();
     courseRequestEntity.id = id;
     try {
       var result = await CourseAPI.courseDetail(params: courseRequestEntity);
-      if(result != null){
-        if(context.mounted){
+      if (result != null) {
+        if (context.mounted) {
           print('---------context is ready------');
           context.read<CourseDetailBloc>().add(TriggerCourseDetail(result));
-        }else{
+        } else {
           print('-------context is not available-------');
         }
-
-      }else{
+      } else {
         toastInfo(msg: "Something went wrong");
       }
-    }catch(e) {
+    } catch (e) {
       print(e);
       print("catch Course");
     }
@@ -52,26 +55,27 @@ class CourseDetailController {
 
   asyncLoadSectionData(int? id) async {
     SectionRequestEntity sectionReq = SectionRequestEntity();
-    sectionReq.id = id;
+    sectionReq.courseId = id;
     try {
-      var result = await SectionAPI.sectionList(params:sectionReq);
+      var result = await SectionAPI.sectionList(params: sectionReq);
       print(result);
 
-      if(result.sections != null){
-        if(context.mounted){
-          context.read<CourseDetailBloc>().add(TriggerSectionList(result.sections!));
-        }else{
+      if (result.sections != null) {
+        if (context.mounted) {
+          context.read<CourseDetailBloc>().add(
+              TriggerSectionList(result.sections!));
+        } else {
           print('----context is not read ----');
         }
-      }else{
+      } else {
         toastInfo(msg: AppMessage.MESSAGE_GENERAL_FAILED);
       }
-    }catch(e) {
+    } catch (e) {
       print(e);
       print("catch section");
     }
   }
-
+}
   // asyncLoadLessonData(int? id) async {
   //   LessonRequestEntity lessonRequestEntity = LessonRequestEntity();
   //   lessonRequestEntity.id = id;
@@ -117,4 +121,3 @@ class CourseDetailController {
   //     toastInfo(msg: result.msg!);
   //   }
   // }
-}
