@@ -85,7 +85,7 @@ class HttpUtil {
 
   Future post(
     String path, {
-    dynamic mydata,
+    dynamic data,
     Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
@@ -99,7 +99,7 @@ class HttpUtil {
 
     print("before call api");
     var response = await dio.post(path,
-        data: mydata,
+        data: data,
         queryParameters: queryParameters,
         options: requestOptions);
 

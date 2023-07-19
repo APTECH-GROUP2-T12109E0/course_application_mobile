@@ -15,7 +15,7 @@ class UserAPI {
     };
 
     try {
-      var response = await HttpUtil().post('auth/login', mydata: data);
+      var response = await HttpUtil().post('auth/login', data: data);
 
       if (response.statusCode == 200) {
         return UserLoginResponseEntity.fromJson(response.data);
@@ -56,7 +56,7 @@ class UserAPI {
     };
 
     try {
-      var response = await HttpUtil().post('auth/register', mydata: data);
+      var response = await HttpUtil().post('auth/register', data: data);
 
       if (response.statusCode == 200) {
         return RegisterResponseEntity.fromJson(response.data);

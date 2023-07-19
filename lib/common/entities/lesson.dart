@@ -14,26 +14,90 @@ class LessonRequestEntity {
 }
 
 
+// class LessonListResponseEntity {
+//   List<LessonItem>? data;
+//
+//   LessonListResponseEntity({
+//     this.data,
+//   });
+//
+//   factory LessonListResponseEntity.fromJson(Map<String, dynamic> json) =>
+//       LessonListResponseEntity(
+//         data: json["data"] == null ? [] : List<LessonItem>.from(json["data"].map((x) => LessonItem.fromJson(x))),
+//       );
+// }
+
 class LessonListResponseEntity {
-  int? code;
-  String? msg;
-  List<LessonItem>? data;
+  List<LessonItem>? lessons;
 
   LessonListResponseEntity({
-    this.code,
-    this.msg,
-    this.data,
+    this.lessons,
   });
 
-  factory LessonListResponseEntity.fromJson(Map<String, dynamic> json) =>
-      LessonListResponseEntity(
-        code: json["code"],
-        msg: json["msg"],
-        data: json["data"] == null ? [] : List<LessonItem>.from(json["data"].map((x) => LessonItem.fromJson(x))),
+  factory LessonListResponseEntity.fromJson(dynamic json) {
+    if (json is List) {
+      return LessonListResponseEntity(
+        lessons:
+        List<LessonItem>.from(json.map((x) => LessonItem.fromJson(x))),
       );
+    } else if (json is Map<String, dynamic>) {
+      return LessonListResponseEntity(
+        lessons: json["lessons"] == null
+            ? []
+            : List<LessonItem>.from(
+            json["lessons"].map((x) => LessonItem.fromJson(x))),
+      );
+    } else {
+      throw FormatException("Invalid JSON format");
+    }
+  }
 }
 
-//api post response msg
+class LessonItem {
+  int? id;
+  String? name;
+  String? description;
+  int? duration;
+  int? sectionId;
+  int? status;
+  int? ordered;
+  bool? completed;
+
+  LessonItem({
+    this.id,
+    this.name,
+    this.description,
+    this.duration,
+    this.sectionId,
+    this.status,
+    this.ordered,
+    this.completed,
+  });
+
+  factory LessonItem.fromJson(Map<String, dynamic> json) =>
+      LessonItem(
+        id: json["id"],
+        name: json["name"],
+        description: json["description"],
+        duration: json["duration"],
+        sectionId: json["sectionId"],
+        status: json["status"],
+        ordered: json["ordered"],
+        completed: json["completed"],
+      );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
+    "description": description,
+    "duration": duration,
+    "sectionId": sectionId,
+    "status": status,
+    "ordered": ordered,
+    "completed": completed,
+  };
+}
+
 class LessonDetailResponseEntity {
   int? code;
   String? msg;
@@ -52,36 +116,6 @@ class LessonDetailResponseEntity {
         msg: json["msg"],
         data: json["data"] == null ? [] : List<LessonVideoItem>.from(json["data"].map((x) => LessonVideoItem.fromJson(x))),
       );
-}
-
-// login result
-class LessonItem {
-  String? name;
-  String? description;
-  String? thumbnail;
-  int? id;
-
-  LessonItem({
-    this.name,
-    this.description,
-    this.thumbnail,
-    this.id,
-  });
-
-  factory LessonItem.fromJson(Map<String, dynamic> json) =>
-      LessonItem(
-        name: json["name"],
-        description: json["description"],
-        thumbnail: json["thumbnail"],
-        id: json["id"],
-      );
-
-  Map<String, dynamic> toJson() => {
-    "name": name,
-    "description": description,
-    "thumbnail": thumbnail,
-    "id": id,
-  };
 }
 
 class LessonVideoItem {

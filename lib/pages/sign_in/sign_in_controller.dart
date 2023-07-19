@@ -23,6 +23,10 @@ class SignInController {
   const SignInController({required this.context});
 
   Future<void> handleSignIn(String type) async {
+    EasyLoading.show(
+        indicator: CircularProgressIndicator(),
+        maskType: EasyLoadingMaskType.clear,
+        dismissOnTap: true);
     try {
       if (type == "email") {
         //BLocProvider.of<SignInBloc>(context).state
@@ -92,7 +96,7 @@ class SignInController {
                 print("saving token to local storage error");
               }
 
-              // EasyLoading.dismiss();
+
 
               if (context.mounted) {
                 Navigator.of(context)
@@ -111,14 +115,13 @@ class SignInController {
           }
         } on Msg catch (e) {
           print(e.toString());
-          EasyLoading.dismiss();
           toastInfo(msg: AppMessage.MESSAGE_GENERAL_FAILED);
         }
       }
     } catch (e) {
       print(e.toString());
-      EasyLoading.dismiss();
       toastInfo(msg: AppMessage.MESSAGE_GENERAL_FAILED);
     }
+    EasyLoading.dismiss();
   }
 }

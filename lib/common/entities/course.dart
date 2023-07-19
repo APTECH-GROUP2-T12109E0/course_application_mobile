@@ -36,12 +36,10 @@ class CourseListResponseEntity {
 
   factory CourseListResponseEntity.fromJson(dynamic json) {
     if (json is List) {
-      // Handle the case where json is a list of course items
       return CourseListResponseEntity(
         data: List<CourseItem>.from(json.map((x) => CourseItem.fromJson(x))),
       );
     } else if (json is Map<String, dynamic>) {
-      // Handle the case where json is an object with other properties
       return CourseListResponseEntity(
         data: json["data"] == null
             ? []
@@ -156,32 +154,36 @@ class AuthorItem {
 }
 
 class CourseItem {
-  String? name;
   int? id;
-  String? comment;
-  int? level;
-  int? progress;
-  String? tags;
-  String? duration;
-  int? status;
+  String? name;
   String? description;
-  int? enrollmentCount;
-  double? price;
-  double? net_price;
   String? slug;
-  double? rating;
-  String? requirement;
-  String? achievements;
   String? image;
+  int? progress;
+  String? requirement;
+  double? rating;
+  double? price;
+  int? enrollmentCount;
+  int? level;
+  int? status;
+  String? published_at;
+  double? net_price;
+  String? duration;
+  List<String>? sections;
+  String? category_name;
+  String? author_name;
+  String? author_image;
+  int? category_id;
+  int? author_id;
+  String? tags;
+  String? achievements;
+
+  //chua co trong api course detail
+  String? comment;
   String? category_description;
   double? userRating;
-  String? author_name;
   String? updated_by;
-  int? author_id;
-  String? author_image;
   String? category_slug;
-  String? category_name;
-  int? category_id;
 
   CourseItem({
     this.name,
@@ -191,6 +193,7 @@ class CourseItem {
     this.progress,
     this.tags,
     this.duration,
+    this.sections,
     this.status,
     this.description,
     this.enrollmentCount,
@@ -219,7 +222,8 @@ class CourseItem {
         level: json["level"],
         progress: json["progress"],
         tags: json["tags"],
-        duration: json["duration"],
+        duration: json["duration"] is int ? json["duration"].toString() : json["duration"],
+        sections: json["sections"] != null ? List<String>.from(json["sections"].map((x) => x)) : null,
         status: json["status"],
         description: json["description"],
         enrollmentCount: json["enrollmentCount"],
