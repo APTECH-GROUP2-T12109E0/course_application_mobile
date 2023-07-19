@@ -22,7 +22,7 @@ class SignInController {
 
   const SignInController({required this.context});
 
-  Future<void> handleSignIn(String type) async {
+  Future<void> handleLogin(String type) async {
     EasyLoading.show(
         indicator: CircularProgressIndicator(),
         maskType: EasyLoadingMaskType.clear,
@@ -31,23 +31,9 @@ class SignInController {
       if (type == "email") {
         //BLocProvider.of<SignInBloc>(context).state
         final state = context.read<SignInBloc>().state;
-        String emailAddress = state.email;
-        String password = state.password;
-        if (emailAddress.isEmpty) {
-          toastInfo(msg: "You need to fill email address");
-          return;
-        }
-        if (password.isEmpty) {
-          toastInfo(msg: "You need to fill password");
-          return;
-        }
 
         try {
-          // EasyLoading.show(
-          //     indicator: CircularProgressIndicator(),
-          //     maskType: EasyLoadingMaskType.clear,
-          //     dismissOnTap: true);
-          var loginRes = await UserAPI.login(emailAddress, password);
+          var loginRes = await UserAPI.login(state.email, state.password);
 
           var userRes =
               await UserAPI.getUserProfileWithAccessToken(loginRes.accessToken);
@@ -95,8 +81,6 @@ class SignInController {
               } else {
                 print("saving token to local storage error");
               }
-
-
 
               if (context.mounted) {
                 Navigator.of(context)

@@ -137,11 +137,13 @@ Widget buildTextField(String hintText, String textType, String iconName,
 class PasswordTextField extends StatefulWidget {
   final String hintText;
   final void Function(String value)? onChanged;
+  final String? Function(String? value)? validator; // Add validator parameter
 
   const PasswordTextField({
     Key? key,
     required this.hintText,
     this.onChanged,
+    this.validator, // Add validator parameter
   }) : super(key: key);
 
   @override
@@ -176,6 +178,8 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
             child: TextFormField(
               onChanged: widget.onChanged,
               keyboardType: TextInputType.multiline,
+              obscureText: !isPasswordVisible, // Fixed the obscureText value
+              validator: widget.validator, // Pass the validator function here
               decoration: InputDecoration(
                 hintText: widget.hintText,
                 suffixIcon: IconButton(
@@ -213,8 +217,6 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
                 fontSize: 14.sp,
                 fontWeight: FontWeight.normal,
               ),
-              autocorrect: false,
-              obscureText: !isPasswordVisible,
             ),
           ),
         ],
@@ -233,6 +235,7 @@ Widget buildTextFieldValidate(String hintText,
     return PasswordTextField(
       hintText: hintText,
       onChanged: function,
+      validator: validator,
     );
   }
   return Container(

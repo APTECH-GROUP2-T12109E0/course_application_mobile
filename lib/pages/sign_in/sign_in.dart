@@ -1,5 +1,7 @@
 import 'package:course_application_mobile/common/entities/entities.dart';
 import 'package:course_application_mobile/common/values/colors.dart';
+import 'package:course_application_mobile/common/values/helper.dart';
+import 'package:course_application_mobile/common/values/message.dart';
 import 'package:course_application_mobile/pages/sign_in/bloc/sign_in_bloc.dart';
 import 'package:course_application_mobile/pages/sign_in/bloc/sign_in_events.dart';
 import 'package:course_application_mobile/pages/sign_in/bloc/sign_in_states.dart';
@@ -11,13 +13,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
-  // alo
 
   @override
   State<SignIn> createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignInBloc, SignInState>(
@@ -62,30 +65,47 @@ class _SignInState extends State<SignIn> {
                         Container(
                           margin: EdgeInsets.only(top: 20.h),
                           padding: EdgeInsets.only(left: 25.w, right: 25.w),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              buildTextField(
-                                "Enter your email",
-                                "email",
-                                "user.png",
-                                (value) {
-                                  context
-                                      .read<SignInBloc>()
-                                      .add(EmailEvent(value));
-                                },
-                              ),
-                              buildTextField(
-                                "Enter your password",
-                                "password",
-                                "lock.png",
-                                (value) {
-                                  context
-                                      .read<SignInBloc>()
-                                      .add(PasswordEvent(value));
-                                },
-                              ),
-                            ],
+                          child: Form(
+                            key: _formKey,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                buildTextFieldValidate(
+                                  "Enter your email",
+                                  "email",
+                                  "user.png",
+                                      (value) {
+                                    context
+                                        .read<SignInBloc>()
+                                        .add(EmailEvent(value));
+                                  },
+                                      (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return AppMessage.MESSAGE_FIELD_REQUIRED;
+                                    } else if (!Helper.isEmailValid(value)) {
+                                      return AppMessage.MESSAGE_EMAIL_INVALID;
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                buildTextFieldValidate(
+                                  "Enter your password",
+                                  "password",
+                                  "lock.png",
+                                      (value) {
+                                    context
+                                        .read<SignInBloc>()
+                                        .add(PasswordEvent(value));
+                                  },
+                                      (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return AppMessage.MESSAGE_FIELD_REQUIRED;
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         onTapTextLink("Forgot password?"),
@@ -93,11 +113,10 @@ class _SignInState extends State<SignIn> {
                           "Log in",
                           "login",
                           () {
-                            // print("login button");
-                            SignInController(context: context)
-                                .handleSignIn("email");
+                            if (_formKey.currentState!.validate()) {
+                              SignInController(context: context).handleLogin("email");
+                            }
                             // LoginButtonPressed;
-                            
                             // Navigator.of(context).pushNamed("/home_page");
                           },
                         ),
