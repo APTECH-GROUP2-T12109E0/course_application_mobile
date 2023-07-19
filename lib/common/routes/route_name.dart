@@ -16,7 +16,7 @@ class AppRoutes{
   //for showing list lesson
   static const SECTION_DETAIL = "/section_detail";
   //show lesson detail with video player
-  static const LESSON_DETAIL = "/lesson_detail";
+  static const LEARNING_DETAIL = "/learning_detail";
   //pay web view
   static const PAY_WEB_VIEW = "/pay_web_view";
 

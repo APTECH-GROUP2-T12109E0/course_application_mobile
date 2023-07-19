@@ -51,6 +51,7 @@ class SignInController {
 
           var userRes =
               await UserAPI.getUserProfileWithAccessToken(loginRes.accessToken);
+          print("ok");
 
           if (userRes.email == null) {
             toastInfo(msg: "You don't exist");
@@ -58,27 +59,29 @@ class SignInController {
           }
 
           if (userRes != null) {
-            UserProfileEntity userProfileEntity = UserProfileEntity();
-
-            userProfileEntity.id = userRes.id;
-            userProfileEntity.type = userRes.type;
-            userProfileEntity.firstName = userRes.firstName;
-            userProfileEntity.lastName = userRes.lastName;
-            userProfileEntity.email = userRes.email;
-            userProfileEntity.avatar = userRes.avatar;
-            userProfileEntity.role = userRes.role;
-            userProfileEntity.status = userRes.status;
-            userProfileEntity.notify = userRes.notify;
+            // UserProfileEntity userProfileEntity = UserProfileEntity();
+            //
+            // userProfileEntity.id = userRes.id;
+            // userProfileEntity.type = userRes.type;
+            // userProfileEntity.firstName = userRes.firstName;
+            // userProfileEntity.lastName = userRes.lastName;
+            // userProfileEntity.email = userRes.email;
+            // userProfileEntity.avatar = userRes.avatar;
+            // userProfileEntity.role = userRes.role;
+            // userProfileEntity.status = userRes.status;
+            // userProfileEntity.notify = userRes.notify;
 
             UserProfile userProfile = UserProfile();
             //type 1 means email login
             userProfile.access_token = loginRes.accessToken;
+            userProfile.refresh_token = loginRes.refreshToken;
             userProfile.token = loginRes.accessToken;
             userProfile.firstName = userRes.firstName;
             userProfile.lastName = userRes.lastName;
             userProfile.avatar = userRes.avatar;
             userProfile.status = userRes.status;
             userProfile.type = userRes.type;
+            userProfile.id = userRes.id;
 
             print("user existed");
             try {

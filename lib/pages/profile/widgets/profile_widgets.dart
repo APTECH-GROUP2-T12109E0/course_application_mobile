@@ -65,7 +65,7 @@ var imagesInfo =<String, String>{
   "Settings":"settings.png",
   "Payment details":"credit-card.png",
   "Achievement":"award.png",
-  "Love":"heart(1).png",
+  "Favorites":"heart(1).png",
   "Reminders":"cube.png"
 };
 
@@ -115,7 +115,7 @@ Widget buildRowView (BuildContext context){
       children: [
         _actionButton("icons/profile_video.png", "My Courses", () { print("my course tapped"); Navigator.of(context).pushNamed(AppRoutes.MY_COURSES); }),
         _actionButton("icons/profile_book.png", "Blog", () { }),
-        _actionButton("icons/profile_star.png", "My Favorites", () { }),
+        _actionButton("icons/cart_icon50_white.png", "My Cart", () { }),
       ],
     ),
   );

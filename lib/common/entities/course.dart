@@ -15,6 +15,22 @@ class CourseRequestEntity {
       };
 }
 
+// class MyCourseRequestEntity {
+//   int? courseId;
+//   // String? name;
+//
+//   MyCourseRequestEntity({
+//     this.courseId,
+//     // this.name
+//   });
+//
+//   Map<String, dynamic> toJson() => {
+//     "courseId": courseId,
+//     // "name": name,
+//   };
+// }
+
+
 class SearchRequestEntity {
   String? search;
 

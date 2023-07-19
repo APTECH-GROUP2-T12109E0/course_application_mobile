@@ -23,9 +23,9 @@ AppBar buildAppBar(String avatar) {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            width: 15.w,
-            height: 12.h,
-            child: Image.asset("assets/icons/menu.png"),
+            width: 150.w,
+            height: 50.h,
+            child: Image.asset("assets/logo/logo_click_light.png", fit: BoxFit.fitWidth),
           ),
           GestureDetector(
             child: Container(

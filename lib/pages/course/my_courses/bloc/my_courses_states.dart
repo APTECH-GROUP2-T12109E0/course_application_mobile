@@ -1,7 +1,20 @@
 import '../../../../common/entities/course.dart';
-
 abstract class MyCoursesStates{
-  const MyCoursesStates();
+// class MyCoursesStates{
+  const MyCoursesStates(
+    // this.courseItem = const  <CourseItem>[],
+    // this.index=0
+);
+
+  // get sectionItem => null;
+  // final int index;
+  // final List<CourseItem> courseItem;
+  // MyCoursesStates copyWith({int? index, List<CourseItem>? courseItem}){
+  //   return MyCoursesStates(
+  //       courseItem:courseItem??this.courseItem,
+  //       index:index??this.index
+  //   );
+  // }
 }
 
 class InitialMyCoursesStates extends MyCoursesStates{

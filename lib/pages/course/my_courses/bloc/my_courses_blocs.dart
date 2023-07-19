@@ -29,6 +29,7 @@ class MyCourseBlocs extends Bloc<MyCoursesEvents,MyCoursesStates>{
   _triggerDoneLoadingMyCourses(TriggerDoneLoadingMyCoursesEvents event,Emitter<MyCoursesStates> emit){
     print("done........");
     //call state trực tiếp
+    // emit(const DoneLoadingMyCoursesStates());
     emit(const DoneLoadingMyCoursesStates());
   }
 }

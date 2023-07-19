@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white.withOpacity(0.5),
-      appBar: buildAppBar(userProfile.avatar.toString()),
+      appBar: buildAppBar(userProfile.avatar.toString() ?? "assets/logo/logo_click_thumb_light.png"),
       body: Stack(
         children: [
           const LinearBackground(),

@@ -1,3 +1,4 @@
+import 'package:course_application_mobile/pages/course/learning_page/learning_page_detail.dart';
 import 'package:course_application_mobile/pages/course/my_courses/bloc/my_courses_blocs.dart';
 import 'package:course_application_mobile/pages/course/my_courses/my_courses.dart';
 import 'package:course_application_mobile/pages/course/section/section_detail.dart';
@@ -13,8 +14,8 @@ import '../../pages/application/application_page.dart';
 import '../../pages/application/bloc/app_blocs.dart';
 import '../../pages/course/course_detail/bloc/course_detail_blocs.dart';
 import '../../pages/course/course_detail/course_detail.dart';
-import '../../pages/course/lesson/bloc/lesson_blocs.dart';
-import '../../pages/course/lesson/lesson_detail.dart';
+import '../../pages/course/learning_page/bloc/learning_page_blocs.dart';
+import '../../pages/course/learning_page/learning_page_detail.dart';
 import '../../pages/course/paywebview/bloc/payview_blocs.dart';
 import '../../pages/course/paywebview/paywebview.dart';
 import '../../pages/course/section/bloc/section_blocs.dart';
@@ -93,11 +94,11 @@ class AppPages {
           page: const SectionDetail(),
           bloc: BlocProvider(create: (_)=>SectionDetailBloc(),)
       ),
-      // PageEntity(
-      //     route: AppRoutes.LESSON_DETAIL,
-      //     page: const LessonDetail(),
-      //     bloc: BlocProvider(create: (_)=>LessonBlocs(),)
-      // ),
+      PageEntity(
+          route: AppRoutes.LEARNING_DETAIL,
+          page: const LearningPage(),
+          bloc: BlocProvider(create: (_)=>LearningBlocs(),)
+      ),
 
       PageEntity(
           route: AppRoutes.PAY_WEB_VIEW,
