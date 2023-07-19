@@ -102,4 +102,18 @@ class UserAPI {
       throw Exception('Request failed: $e');
     }
   }
+
+  // static testAccess(String? accessToken) async {
+  //   var data = {
+  //     "accessToken": accessToken,
+  //   };
+  //   var response = await HttpUtil().get('auth/user', data: data);
+  //   print("ok rui nha");
+  //
+  //   if (response.statusCode == 200) {
+  //     return UserProfileEntity.fromJson(response.data);
+  //   } else {
+  //     throw Exception(AppMessage.MESSAGE_GENERAL_FAILED);
+  //   }
+  // }
 }
