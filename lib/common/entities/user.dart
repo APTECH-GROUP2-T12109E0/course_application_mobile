@@ -160,24 +160,31 @@ class UserProfileEntity {
       );
 }
 
-// class UserProfileEntity {
-//   String? type;
-//   String? message;
-//   String? accessToken;
-//   String? refreshToken;
-//
-//   UserProfileEntity({
-//     this.type,
-//     this.message,
-//     this.accessToken,
-//     this.refreshToken,
-//   });
-//
-//   factory UserProfileEntity.fromJson(Map<String, dynamic> json) =>
-//       UserProfileEntity(
-//         type: json['type'],
-//         message: json['message'],
-//         accessToken: json['access_token'],
-//         refreshToken: json['refresh_token'],
-//       );
-// }
+class RefreshTokenResponseEntity {
+  String? type;
+  String? message;
+  String? accessToken;
+  String? refreshToken;
+
+  RefreshTokenResponseEntity({
+    this.type,
+    this.message,
+    this.accessToken,
+    this.refreshToken,
+  });
+
+  Map<String, dynamic> toJson() => {
+    "type": type,
+    "message": message,
+    "access_token": accessToken,
+    "refresh_token": refreshToken,
+  };
+
+  factory RefreshTokenResponseEntity.fromJson(Map<String, dynamic> json) =>
+      RefreshTokenResponseEntity(
+        type: json['type'],
+        message: json['message'],
+        accessToken: json['access_token'],
+        refreshToken: json['refresh_token'],
+      );
+}

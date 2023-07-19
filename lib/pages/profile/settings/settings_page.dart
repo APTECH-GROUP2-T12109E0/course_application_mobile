@@ -25,6 +25,7 @@ class _SettingsPageState extends State<SettingsPage> {
     context.read<AppBlocs>().add(const TriggerAppEvent(0));
     context.read<HomePageBlocs>().add( const HomePageDots(0));
     Global.storageService.remove(AppConstants.STORAGE_USER_TOKEN_KEY);
+    Global.storageService.remove(AppConstants.STORAGE_USER_REFRESH_TOKEN_KEY);
     Global.storageService.remove(AppConstants.STORAGE_USER_PROFILE_KEY);
     Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.SING_IN, (route) => false);
   }
