@@ -105,3 +105,46 @@ Widget buildListView(BuildContext context){
     ],
   );
 }
+
+Widget buildRowView (BuildContext context){
+  return Container(
+    margin: EdgeInsets.only(top: 20.h, bottom: 20.h),
+    padding: EdgeInsets.only(left: 40.w, right: 40.w),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        _actionButton("icons/profile_video.png", "My Courses", () { print("my course tapped"); Navigator.of(context).pushNamed(AppRoutes.MY_COURSES); }),
+        _actionButton("icons/profile_book.png", "Blog", () { }),
+        _actionButton("icons/profile_star.png", "My Favorites", () { }),
+      ],
+    ),
+  );
+}
+
+Widget _actionButton(String imagePath, String itemName, void Function()? function){
+  return GestureDetector(
+    onTap: function,
+    child: Container(
+      width: 80.w,
+      decoration: BoxDecoration(
+        color: AppColors.primaryColor,
+        boxShadow: [BoxShadow(
+          color: Colors.grey.withOpacity(0.2),
+          spreadRadius: 2,
+          blurRadius: 3,
+          offset: Offset(0,3),
+        )],
+        borderRadius: BorderRadius.circular(10.w),
+        border: Border.all(color: AppColors.primaryColor),
+      ),
+      child: Column(
+        children: [
+          SizedBox(width: 20.w, height: 20.h, child: Image.asset("assets/${imagePath}"),),
+          Container(
+            child: reusableText(itemName, fontSize: 12, fontWeight: FontWeight.w500, color: Colors.white),
+          )
+        ],
+      ),
+    ),
+  );
+}

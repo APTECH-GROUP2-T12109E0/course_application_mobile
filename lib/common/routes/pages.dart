@@ -1,6 +1,10 @@
+import 'package:course_application_mobile/pages/course/my_courses/bloc/my_courses_blocs.dart';
+import 'package:course_application_mobile/pages/course/my_courses/my_courses.dart';
 import 'package:course_application_mobile/pages/course/section/section_detail.dart';
 import 'package:course_application_mobile/pages/main/bloc/main_blocs.dart';
 import 'package:course_application_mobile/pages/main/main_screen.dart';
+import 'package:course_application_mobile/pages/profile/bloc/profile_blocs.dart';
+import 'package:course_application_mobile/pages/profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:course_application_mobile/common/routes/route_name.dart';
@@ -99,6 +103,16 @@ class AppPages {
           route: AppRoutes.PAY_WEB_VIEW,
           page: const PayWebView(),
           bloc: BlocProvider(create: (_)=>PayWebViewBlocs(),)
+      ),
+      PageEntity(
+          route: AppRoutes.PROFILE,
+          page: const ProfilePage(),
+          bloc: BlocProvider(create: (_)=>ProfileBlocs(),)
+      ),
+      PageEntity(
+          route: AppRoutes.MY_COURSES,
+          page: const MyCourses(),
+          bloc: BlocProvider(create: (_)=>MyCourseBlocs(),)
       ),
     ];
   }

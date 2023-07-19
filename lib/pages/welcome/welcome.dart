@@ -46,7 +46,7 @@ class _WelcomeState extends State<Welcome> {
                         context,
                         "Next",
                         "Welcome to Learning Online Course Application \n",
-                        "A project of team: \n\n PHAM QUANG NGOC THACH \n TRUONG TRAN TRUC DUY \n NGUYEN NGOC NGUYEN \n TAT HONG DUC \n DO THANH AN   ",
+                        "A project of team: \n\n PHAM QUANG NGOC THACH \n TRUONG DUONG TRUC DUY \n NGUYEN NGOC NGUYEN \n TAT HONG DUC \n DO THANH AN   ",
                         "assets/logo/logo_click_light_split.png",
                       ),
                       _page(
