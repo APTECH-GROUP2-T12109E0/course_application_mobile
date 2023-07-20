@@ -16,6 +16,10 @@ import '../../pages/course/course_detail/bloc/course_detail_blocs.dart';
 import '../../pages/course/course_detail/course_detail.dart';
 import '../../pages/course/learning_page/bloc/learning_page_blocs.dart';
 import '../../pages/course/learning_page/learning_page_detail.dart';
+import '../../pages/course/my_course_detail/bloc/my_course_detail_blocs.dart';
+import '../../pages/course/my_course_detail/my_course_detail.dart';
+import '../../pages/course/my_sections/bloc/my_section_blocs.dart';
+import '../../pages/course/my_sections/my_section_detail.dart';
 import '../../pages/course/paywebview/bloc/payview_blocs.dart';
 import '../../pages/course/paywebview/paywebview.dart';
 import '../../pages/course/section/bloc/section_blocs.dart';
@@ -114,6 +118,16 @@ class AppPages {
           route: AppRoutes.MY_COURSES,
           page: const MyCourses(),
           bloc: BlocProvider(create: (_)=>MyCourseBlocs(),)
+      ),
+      PageEntity(
+          route: AppRoutes.MY_COURSE_DETAIL,
+          page: const MyCourseDetail(),
+          bloc: BlocProvider(create: (_)=>MyCourseDetailBlocs(),)
+      ),
+      PageEntity(
+          route: AppRoutes.MY_SECTION_DETAIL,
+          page: const MySectionDetail(),
+          bloc: BlocProvider(create: (_)=>MySectionDetailBloc(),)
       ),
     ];
   }

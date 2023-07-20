@@ -1,9 +1,12 @@
 import '../../../../common/entities/course.dart';
+import '../../../../common/entities/section.dart';
 abstract class MyCoursesStates{
+
 // class MyCoursesStates{
   const MyCoursesStates(
     // this.courseItem = const  <CourseItem>[],
     // this.index=0
+
 );
 
   // get sectionItem => null;

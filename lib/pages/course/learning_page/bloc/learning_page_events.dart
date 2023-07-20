@@ -1,9 +1,10 @@
 
+import 'package:course_application_mobile/pages/course/learning_page/bloc/learning_page_states.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../common/entities/lesson.dart';
 
-abstract class LearningEvents extends Equatable{
+abstract class LearningEvents{
   const LearningEvents();
   @override
   List<Object?> get props => [];
@@ -11,7 +12,9 @@ abstract class LearningEvents extends Equatable{
 
 class TriggerLessonVideo extends LearningEvents{
   const TriggerLessonVideo(this.lessonVideoItem);
-  final List<LessonVideoItem> lessonVideoItem;
+  // final List<LessonVideoItem> lessonVideoItem;
+  final LessonVideoItem lessonVideoItem;
+
   @override
   List<Object?> get props => [lessonVideoItem];
 }
@@ -34,4 +37,10 @@ class TriggerVideoIndex extends LearningEvents{
   const TriggerVideoIndex(this.videoIndex);
   @override
   List<Object?> get props => [videoIndex];
+}
+
+//phần thêm
+class TriggerLessonList extends LearningEvents{
+  const TriggerLessonList(this.lessonList):super();
+  final List<LessonItem> lessonList;
 }

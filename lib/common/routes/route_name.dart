@@ -24,5 +24,9 @@ class AppRoutes{
 
   static const MY_COURSES = "/my_courses";
 
+  static const MY_COURSE_DETAIL = "/my_course_detail";
+
+  static const MY_SECTION_DETAIL = "/my_section_detail";
+
   static const MAIN_SCREEN = "/main_screen";
 }

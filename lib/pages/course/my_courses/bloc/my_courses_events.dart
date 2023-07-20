@@ -1,4 +1,5 @@
 import '../../../../common/entities/course.dart';
+import '../../../../common/entities/section.dart';
 //theo từng state sẽ dùng cho 1 class khác
 //=> có thể check từng state type
 abstract class MyCoursesEvents{
