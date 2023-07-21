@@ -1,5 +1,3 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
-
 class LoginRequestEntity {
   String? email;
   String? password;
@@ -65,41 +63,49 @@ class UserLoginResponseEntity {
 // login result
 class UserProfile {
   String? access_token;
+  String? refresh_token;
   String? token;
   String? firstName;
   String? lastName;
   String? avatar;
   int? status;
   String? type;
+  int? id;
 
   UserProfile({
     this.access_token,
+    this.refresh_token,
     this.token,
     this.firstName,
     this.lastName,
     this.avatar,
     this.status,
     this.type,
+    this.id,
   });
 
   factory UserProfile.fromJson(Map<String, dynamic> json) => UserProfile(
         access_token: json["access_token"],
+        refresh_token: json["refresh_token"],
         token: json["token"],
         firstName: json["first_name"],
         lastName: json["last_name"],
         avatar: json["avatar"],
         status: json["status"],
         type: json["type"],
+        id: json["id"],
       );
 
   Map<String, dynamic> toJson() => {
         "access_token": access_token,
+        "refresh_token": refresh_token,
         "token": token,
         "first_name": firstName,
         "last_name": lastName,
         "avatar": avatar,
         "status": status,
         "type": type,
+        "id": id,
       };
 }
 
@@ -160,6 +166,23 @@ class UserProfileEntity {
       );
 }
 
+class UserIdRequestEntity {
+  int? userId;
+
+  // String? name;
+
+  UserIdRequestEntity({
+    this.userId,
+    // this.name
+  });
+
+  Map<String, dynamic> toJson() =>
+      {
+        "user_id": userId,
+        // "name": name,
+      };
+}
+
 class RefreshTokenResponseEntity {
   String? type;
   String? message;
@@ -172,6 +195,7 @@ class RefreshTokenResponseEntity {
     this.accessToken,
     this.refreshToken,
   });
+
 
   Map<String, dynamic> toJson() => {
     "type": type,

@@ -33,7 +33,7 @@ Widget sectionLessonList(SectionDetailStates state) {
             child: InkWell(
               onTap: () {
                 // Cần coi lại
-                Navigator.of(context).pushNamed(AppRoutes.LESSON_DETAIL,
+                Navigator.of(context).pushNamed(AppRoutes.LEARNING_DETAIL,
                     arguments: {
                       "sectionId": state.lessonList.elementAt(index).id
                     });

@@ -131,10 +131,12 @@ class HttpUtil {
     late Response response;
 
     try {
+      print("ok");
       response = await dio.post(path,
           data: data,
           queryParameters: queryParameters,
           options: requestOptions);
+      print("done login");
     } catch (error) {
       if (error is DioError) {
         if (error.response?.statusCode == 403 ||

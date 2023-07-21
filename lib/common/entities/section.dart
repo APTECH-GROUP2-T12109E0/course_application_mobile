@@ -10,10 +10,10 @@ class SectionRequestEntity {
   });
 
   Map<String, dynamic> toJson() => {
-        // "id": id,
-        "courseId": courseId,
-        "sectionId": sectionId,
-      };
+    // "id": id,
+    "courseId": courseId,
+    "sectionId": sectionId,
+  };
 }
 
 class SectionResponseEntity {
@@ -27,14 +27,14 @@ class SectionResponseEntity {
     if (json is List) {
       return SectionResponseEntity(
         sections:
-            List<SectionItem>.from(json.map((x) => SectionItem.fromJson(x))),
+        List<SectionItem>.from(json.map((x) => SectionItem.fromJson(x))),
       );
     } else if (json is Map<String, dynamic>) {
       return SectionResponseEntity(
         sections: json["sections"] == null
             ? []
             : List<SectionItem>.from(
-                json["sections"].map((x) => SectionItem.fromJson(x))),
+            json["sections"].map((x) => SectionItem.fromJson(x))),
       );
     } else {
       throw FormatException("Invalid JSON format");
@@ -58,18 +58,18 @@ class SectionItem {
   });
 
   factory SectionItem.fromJson(Map<String, dynamic> json) => SectionItem(
-        name: json["name"],
-        id: json["id"],
-        courseId: json["courseId"],
-        ordered: json["ordered"],
-        status: json["status"],
-      );
+    name: json["name"],
+    id: json["id"],
+    courseId: json["courseId"],
+    ordered: json["ordered"],
+    status: json["status"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "name": name,
-        "id": id,
-        "courseId": courseId,
-        "ordered": ordered,
-        "status": status,
-      };
+    "name": name,
+    "id": id,
+    "courseId": courseId,
+    "ordered": ordered,
+    "status": status,
+  };
 }

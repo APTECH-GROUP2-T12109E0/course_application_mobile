@@ -3,13 +3,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LessonRequestEntity {
   int? id;
-
+  int? lessonId;
   LessonRequestEntity({
     this.id,
+    this.lessonId,
+
   });
 
   Map<String, dynamic> toJson() => {
     "id": id,
+    "lessonId": lessonId,
+
   };
 }
 
@@ -99,48 +103,129 @@ class LessonItem {
 }
 
 class LessonDetailResponseEntity {
-  int? code;
-  String? msg;
+  // int? code;
+  // String? msg;
   List<LessonVideoItem>? data;
 
   LessonDetailResponseEntity({
-    this.code,
-    this.msg,
+    // this.code,
+    // this.msg,
     this.data,
   });
 
-
-  factory LessonDetailResponseEntity.fromJson(Map<String, dynamic> json) =>
-      LessonDetailResponseEntity(
-        code: json["code"],
-        msg: json["msg"],
-        data: json["data"] == null ? [] : List<LessonVideoItem>.from(json["data"].map((x) => LessonVideoItem.fromJson(x))),
+  factory LessonDetailResponseEntity.fromJson(dynamic json) {
+    if (json is List) {
+      return LessonDetailResponseEntity(
+        data:
+        List<LessonVideoItem>.from(json.map((x) => LessonVideoItem.fromJson(x))),
       );
+    } else if (json is Map<String, dynamic>) {
+      return LessonDetailResponseEntity(
+        data: json["sections"] == null
+            ? []
+            : List<LessonVideoItem>.from(
+            json["sections"].map((x) => LessonVideoItem.fromJson(x))),
+
+      );
+    } else {
+      print("video");
+      throw FormatException("Invalid JSON format");
+    }
+  }
+  // factory LessonDetailResponseEntity.fromJson(Map<String, dynamic> json) =>
+  //     LessonDetailResponseEntity(
+  //       // code: json["code"],
+  //       // msg: json["msg"],
+  //       data: json["data"] == null ? [] : List<LessonVideoItem>.from(json["data"].map((x) => LessonVideoItem.fromJson(x))),
+  //     );
 }
 
+//tạm ẩn
+// class LessonDetailResponseEntity {
+//   int? code;
+//   String? msg;
+//   List<LessonVideoItem>? data;
+//
+//   LessonDetailResponseEntity({
+//     this.code,
+//     this.msg,
+//     this.data,
+//   });
+//
+//
+//   factory LessonDetailResponseEntity.fromJson(Map<String, dynamic> json) =>
+//       LessonDetailResponseEntity(
+//         code: json["code"],
+//         msg: json["msg"],
+//         data: json["data"] == null ? [] : List<LessonVideoItem>.from(json["data"].map((x) => LessonVideoItem.fromJson(x))),
+//       );
+// }
+
+//tạm ẩn gốc
+// class LessonVideoItem {
+//   String? name;
+//   String? url;
+//   String? thumbnail;
+//
+//   LessonVideoItem({
+//     this.name,
+//     this.url,
+//     this.thumbnail,
+//   });
+//
+//   factory LessonVideoItem.fromJson(Map<String, dynamic> json) =>
+//       LessonVideoItem(
+//         name: json["name"],
+//         url: json["url"],
+//         thumbnail: json["thumbnail"],
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//     "name": name,
+//     "url": url,
+//     "thumbnail": thumbnail,
+//   };
+//
+// }
+
 class LessonVideoItem {
+  int? id; // id of Video
   String? name;
   String? url;
-  String? thumbnail;
+  Map<String, String>? captionUrls;
+  Map<String, String>? captionData;
+  int? status;
+  int? lessonId;
 
   LessonVideoItem({
+    this.id,
     this.name,
     this.url,
-    this.thumbnail,
+    this.captionUrls,
+    this.captionData,
+    this.status,
+    this.lessonId,
   });
 
   factory LessonVideoItem.fromJson(Map<String, dynamic> json) =>
       LessonVideoItem(
-        name: json["name"],
-        url: json["url"],
-        thumbnail: json["thumbnail"],
+        id: json['id'],
+        name: json['name'],
+        url: json['url'],
+        captionUrls: json['captionUrls'],
+        captionData: Map<String, String>.from(json['captionData']),
+        status: json['status'],
+        lessonId: json['lessonId'],
       );
 
   Map<String, dynamic> toJson() => {
-    "name": name,
-    "url": url,
-    "thumbnail": thumbnail,
+    'id': id,
+    'name': name,
+    'url': url,
+    'captionUrls': captionUrls,
+    'captionData': captionData,
+    'status': status,
+    'lessonId': lessonId,
   };
 
 }
-
