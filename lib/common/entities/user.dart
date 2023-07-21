@@ -1,5 +1,3 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
-
 class LoginRequestEntity {
   String? email;
   String? password;
@@ -9,8 +7,7 @@ class LoginRequestEntity {
     this.password,
   });
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "email": email,
         "password": password,
       };
@@ -47,13 +44,12 @@ class UserLoginResponseEntity {
     this.refreshToken,
   });
 
-  Map<String, dynamic> toJson() =>
-      {
-        "type": type,
-        "message": message,
-        "access_token": accessToken,
-        "refresh_token": refreshToken,
-      };
+  Map<String, dynamic> toJson() => {
+    "type": type,
+    "message": message,
+    "access_token": accessToken,
+    "refresh_token": refreshToken,
+  };
 
   factory UserLoginResponseEntity.fromJson(Map<String, dynamic> json) =>
       UserLoginResponseEntity(
@@ -88,8 +84,7 @@ class UserProfile {
     this.id,
   });
 
-  factory UserProfile.fromJson(Map<String, dynamic> json) =>
-      UserProfile(
+  factory UserProfile.fromJson(Map<String, dynamic> json) => UserProfile(
         access_token: json["access_token"],
         refresh_token: json["refresh_token"],
         token: json["token"],
@@ -101,8 +96,7 @@ class UserProfile {
         id: json["id"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "access_token": access_token,
         "refresh_token": refresh_token,
         "token": token,
@@ -189,26 +183,32 @@ class UserIdRequestEntity {
       };
 }
 
+class RefreshTokenResponseEntity {
+  String? type;
+  String? message;
+  String? accessToken;
+  String? refreshToken;
+
+  RefreshTokenResponseEntity({
+    this.type,
+    this.message,
+    this.accessToken,
+    this.refreshToken,
+  });
 
 
-// class UserProfileEntity {
-//   String? type;
-//   String? message;
-//   String? accessToken;
-//   String? refreshToken;
-//
-//   UserProfileEntity({
-//     this.type,
-//     this.message,
-//     this.accessToken,
-//     this.refreshToken,
-//   });
-//
-//   factory UserProfileEntity.fromJson(Map<String, dynamic> json) =>
-//       UserProfileEntity(
-//         type: json['type'],
-//         message: json['message'],
-//         accessToken: json['access_token'],
-//         refreshToken: json['refresh_token'],
-//       );
-// }
+  Map<String, dynamic> toJson() => {
+    "type": type,
+    "message": message,
+    "access_token": accessToken,
+    "refresh_token": refreshToken,
+  };
+
+  factory RefreshTokenResponseEntity.fromJson(Map<String, dynamic> json) =>
+      RefreshTokenResponseEntity(
+        type: json['type'],
+        message: json['message'],
+        accessToken: json['access_token'],
+        refreshToken: json['refresh_token'],
+      );
+}

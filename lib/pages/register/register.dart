@@ -138,7 +138,6 @@ class _RegisterState extends State<Register> {
                       "Register",
                       "register",
                       () {
-                        print("Register button");
                         if (_formKey.currentState!.validate()) {
                           RegisterController(context: context).handleRegister();
                         }

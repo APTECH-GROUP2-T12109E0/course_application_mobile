@@ -1,6 +1,9 @@
 import 'dart:io' as IO;
 import 'dart:io';
 
+import 'package:course_application_mobile/common/entities/entities.dart';
+import 'package:course_application_mobile/common/values/message.dart';
+import 'package:course_application_mobile/common/widgets/flutter_toast.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:flutter/foundation.dart';
@@ -61,24 +64,52 @@ class HttpUtil {
       requestOptions.headers!.addAll(authorization);
     }
 
-    if(data != null) {
+    if (data != null) {
       var headers = <String, dynamic>{};
       var accessToken = data['accessToken'];
-      if(accessToken != null) {
+      if (accessToken != null) {
         headers['Authorization'] = 'Bearer $accessToken';
         requestOptions.headers!.addAll(headers);
         requestOptions.contentType = "application/json";
       }
     }
 
+    late Response response;
+    try {
+      response = await dio.get(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: requestOptions,
+      );
+    } catch (error) {
+      if (error is DioError) {
+        if (error.response?.statusCode == 403 ||
+            error.response?.statusCode == 401) {
+          bool isRefreshToken = await isRefreshTokenSuccess();
+          if (isRefreshToken) {
+            Options requestOptions = options ?? Options();
+            requestOptions.headers = requestOptions.headers ?? {};
+            _setAuthorizationHeaders(requestOptions);
 
-    var response = await dio.get(
-      path,
-      data: data,
-      queryParameters: queryParameters,
-      options: requestOptions,
-    );
-    print("ok");
+            try {
+              //Recall request
+              response = await dio.get(
+                path,
+                data: data,
+                queryParameters: queryParameters,
+                options: requestOptions,
+              );
+            } catch (e) {
+              print(e);
+            }
+          } else {
+            Global.storageService.removeToken();
+            toastInfo(msg: AppMessage.MESSAGE_TOKEN_INVALID);
+          }
+        }
+      }
+    }
 
     return response;
   }
@@ -97,11 +128,41 @@ class HttpUtil {
     }
     requestOptions.contentType = "application/json";
 
-    print("before call api");
-    var response = await dio.post(path,
-        data: data,
-        queryParameters: queryParameters,
-        options: requestOptions);
+    late Response response;
+
+    try {
+      print("ok");
+      response = await dio.post(path,
+          data: data,
+          queryParameters: queryParameters,
+          options: requestOptions);
+      print("done login");
+    } catch (error) {
+      if (error is DioError) {
+        if (error.response?.statusCode == 403 ||
+            error.response?.statusCode == 401) {
+          bool isRefreshToken = await isRefreshTokenSuccess();
+          if (isRefreshToken) {
+            Options requestOptions = options ?? Options();
+            requestOptions.headers = requestOptions.headers ?? {};
+            _setAuthorizationHeaders(requestOptions);
+
+            try {
+              //Recall request
+              response = await dio.post(path,
+                  data: data,
+                  queryParameters: queryParameters,
+                  options: requestOptions);
+            } catch (e) {
+              print(e);
+            }
+          } else {
+            Global.storageService.removeToken();
+            toastInfo(msg: AppMessage.MESSAGE_TOKEN_INVALID);
+          }
+        }
+      }
+    }
 
     print("my response is ${response.toString()}");
     print("my status code is ${response.statusCode}");
@@ -115,5 +176,36 @@ class HttpUtil {
       headers['Authorization'] = 'Bearer $accessToken';
     }
     return headers;
+  }
+
+  Future<bool> isRefreshTokenSuccess() async {
+    var refreshToken = Global.storageService.getRefreshToken();
+    try {
+      var resRefresh = await dio.get("auth/refresh-token/$refreshToken");
+      if (resRefresh.statusCode == 200) {
+        RefreshTokenResponseEntity refreshTokenResponse =
+            RefreshTokenResponseEntity.fromJson(resRefresh.data);
+        if (refreshTokenResponse.type == 'success') {
+          Global.storageService.setString(AppConstants.STORAGE_USER_TOKEN_KEY,
+              refreshTokenResponse.accessToken!);
+          Global.storageService.setString(
+              AppConstants.STORAGE_USER_REFRESH_TOKEN_KEY,
+              refreshTokenResponse.refreshToken!);
+          return true;
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+    return false;
+  }
+
+  void _setAuthorizationHeaders(Options requestOptions) {
+    Map<String, dynamic>? authorization = getAuthorizationHeader();
+    if (authorization != null) {
+      requestOptions.headers ??= {};
+      requestOptions.headers!.addAll(authorization);
+      requestOptions.contentType = "application/json";
+    }
   }
 }

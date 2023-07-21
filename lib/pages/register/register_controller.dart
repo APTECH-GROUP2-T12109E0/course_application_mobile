@@ -1,7 +1,6 @@
 import 'package:course_application_mobile/common/apis/user_api.dart';
 import 'package:course_application_mobile/common/entities/entities.dart';
 import 'package:course_application_mobile/common/values/message.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../common/widgets/flutter_toast.dart';
