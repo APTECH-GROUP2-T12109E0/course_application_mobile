@@ -72,29 +72,29 @@ Widget videoControls(LearningStates state, LearningController lessonController,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         //left button
-        GestureDetector(
-          onTap: () {
-            var videoIndex = context.read<LearningBlocs>().state.videoIndex;
-            videoIndex = videoIndex - 1;
-            if (videoIndex < 0) {
-              videoIndex = 0;
-              context.read<LearningBlocs>().add(TriggerVideoIndex(videoIndex));
-              toastInfo(msg: "This is the first video you are watching");
-              return;
-            } else {
-              // var videoItem = state.lessonVideoItem!.id;
-              // lessonController.playVideo(videoItem.url!);
-              lessonController.playVideo(state.lessonVideoItem!.url.toString());
-            }
-            context.read<LearningBlocs>().add(TriggerVideoIndex(videoIndex));
-          },
-          child: Container(
-            width: 24.w,
-            height: 24.w,
-            margin: EdgeInsets.only(right: 15.w),
-            child: Image.asset("assets/icons/rewind-left.png"),
-          ),
-        ),
+        // GestureDetector(
+        //   onTap: () {
+        //     var videoIndex = context.read<LearningBlocs>().state.videoIndex;
+        //     videoIndex = videoIndex - 1;
+        //     if (videoIndex < 0) {
+        //       videoIndex = 0;
+        //       context.read<LearningBlocs>().add(TriggerVideoIndex(videoIndex));
+        //       toastInfo(msg: "This is the first video you are watching");
+        //       return;
+        //     } else {
+        //       // var videoItem = state.lessonVideoItem!.id;
+        //       // lessonController.playVideo(videoItem.url!);
+        //       lessonController.playVideo(state.lessonVideoItem!.url.toString());
+        //     }
+        //     context.read<LearningBlocs>().add(TriggerVideoIndex(videoIndex));
+        //   },
+        //   child: Container(
+        //     width: 24.w,
+        //     height: 24.w,
+        //     margin: EdgeInsets.only(right: 15.w),
+        //     child: Image.asset("assets/icons/rewind-left.png"),
+        //   ),
+        // ),
         //play and pause button
         GestureDetector(
             onTap: () {
@@ -164,6 +164,7 @@ Widget videoControls(LearningStates state, LearningController lessonController,
 //     ),
 //   );
 // }
+
 
 Widget _buildLessonItems(BuildContext context, int index, LessonVideoItem item,
     LearningController lessonController) {

@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../common/entities/user.dart';
 import '../../../common/widgets/base_text_widgets.dart';
+import '../../../global.dart';
 import 'bloc/learning_page_blocs.dart';
 import 'bloc/learning_page_events.dart';
 import 'bloc/learning_page_states.dart';
@@ -33,8 +37,10 @@ class _LearningPageState extends State<LearningPage> {
     context.read<LearningBlocs>().add(const TriggerVideoIndex(0));
     _lessonController.init();
     super.didChangeDependencies();
+    var userProfile = Global.storageService.getUserProfile();
+    print("token is ${jsonEncode(userProfile.access_token)}");
   }
-
+  UserProfile get userProfile => Global.storageService.getUserProfile();
   @override
   void dispose() {
     _lessonController.videoPlayerController?.dispose();
@@ -76,6 +82,7 @@ class _LearningPageState extends State<LearningPage> {
                             ),
                           ),
                           // videoList(state, _lessonController),
+
                         ],
                       ))),
             );

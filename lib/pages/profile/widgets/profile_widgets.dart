@@ -115,7 +115,7 @@ Widget buildRowView (BuildContext context){
       children: [
         _actionButton("icons/profile_video.png", "My Courses", () { print("my course tapped"); Navigator.of(context).pushNamed(AppRoutes.MY_COURSES); }),
         _actionButton("icons/profile_book.png", "Blog", () { }),
-        _actionButton("icons/cart_icon50_white.png", "My Cart", () { }),
+        _actionButton("icons/message-square.png", "Message", () { }),
       ],
     ),
   );

@@ -59,7 +59,7 @@ class _MyCourseDetailState extends State<MyCourseDetail> {
             child: SafeArea(
               child: Scaffold(
                 backgroundColor: Colors.white,
-                appBar: buildAppBar("Course detail"),
+                appBar: buildAppBar("My Course detail"),
                 body: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -85,7 +85,7 @@ class _MyCourseDetailState extends State<MyCourseDetail> {
                               onTap: (){
                                 // _myCourseDetailController.goBuy(state.courseItem!.id);
                               },
-                              child: goBuyButton("Test Button"),
+                              child: goBuyButton("Enrolled"),
                             ),
 
                             SizedBox(height: 20.h,),

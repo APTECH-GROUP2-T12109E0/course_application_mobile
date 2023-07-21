@@ -19,7 +19,7 @@ class LearningController {
   String? accessToken;
   VideoPlayerController? videoPlayerController;
   LearningController({required this.context});
-
+  UserProfile get userProfile => Global.storageService.getUserProfile();
 
   void init() async {
 
@@ -39,8 +39,8 @@ class LearningController {
     LessonRequestEntity lessonReq = LessonRequestEntity();
     lessonReq.lessonId = lessonId;
     //mới thêm, bị null
-    UserProfile userProfile = Global.storageService.getUserProfile();
-    userProfile.access_token = accessToken;
+    var userProfile = Global.storageService.getUserProfile();
+    accessToken = userProfile.access_token;
     var result = await LessonAPI.getTrackByLessonId(params: lessonReq);
     print("ok result");
     if (result != null) {

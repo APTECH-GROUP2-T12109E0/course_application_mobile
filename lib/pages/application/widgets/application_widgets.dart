@@ -56,22 +56,6 @@ var bottomTabs = [
       icon: SizedBox(
         width: 15.w,
         height: 15.h,
-        child: Image.asset("assets/icons/play-circle1.png"),
-      ),
-      activeIcon: SizedBox(
-        width: 15.w,
-        height: 15.h,
-        child: Image.asset(
-          "assets/icons/play-circle1.png",
-          color: AppColors.primaryElement,
-        ),
-      )
-  ),
-  BottomNavigationBarItem(
-      label: "chat",
-      icon: SizedBox(
-        width: 15.w,
-        height: 15.h,
         child: Image.asset("assets/icons/profile_book.png", color: Colors.grey,),
       ),
       activeIcon: SizedBox(
@@ -79,6 +63,22 @@ var bottomTabs = [
         height: 15.h,
         child: Image.asset(
           "assets/icons/profile_book.png",
+          color: AppColors.primaryElement,
+        ),
+      )
+  ),
+  BottomNavigationBarItem(
+      label: "Learning",
+      icon: SizedBox(
+        width: 15.w,
+        height: 15.h,
+        child: Image.asset("assets/icons/play-circle1.png", color: Colors.grey,),
+      ),
+      activeIcon: SizedBox(
+        width: 15.w,
+        height: 15.h,
+        child: Image.asset(
+          "assets/icons/play-circle1.png",
           color: AppColors.primaryElement,
         ),
       )
