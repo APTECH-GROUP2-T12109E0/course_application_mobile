@@ -9,7 +9,7 @@ class LearningBlocs extends Bloc<LearningEvents, LearningStates>{
     on<TriggerUrlItem>(_triggerUrlItem);
     on<TriggerPlay>(_triggerPlay);
     on<TriggerVideoIndex>(_triggerVideoIndex);
-    on<TriggerLessonList>(_triggerLessonList);
+    // on<TriggerLessonList>(_triggerLessonList);
   }
   void _triggerLessonVideo(TriggerLessonVideo event, Emitter<LearningStates>emit){
     emit(state.copyWith(lessonVideoItem: event.lessonVideoItem));
@@ -28,8 +28,8 @@ class LearningBlocs extends Bloc<LearningEvents, LearningStates>{
     emit(state.copyWith(videoIndex: event.videoIndex));
   }
 
-  //phần thêm
-  void _triggerLessonList(TriggerLessonList event, Emitter<LearningStates>emit){
-    emit(state.copyWith(lessonList:event.lessonList));
-  }
+  // //phần thêm
+  // void _triggerLessonList(TriggerLessonList event, Emitter<LearningStates>emit){
+  //   emit(state.copyWith(lessonList:event.lessonList));
+  // }
 }

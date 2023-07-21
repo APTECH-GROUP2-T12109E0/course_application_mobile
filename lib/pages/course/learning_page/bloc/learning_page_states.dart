@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../common/entities/lesson.dart';
 
-class LearningStates extends Equatable {
+class LearningStates {
   final LessonVideoItem? lessonVideoItem;
 
   // final List<LessonVideoItem> lessonVideoItem;
@@ -10,16 +10,16 @@ class LearningStates extends Equatable {
   final bool isPlay;
   final int videoIndex;
 
-  //phần thêm
-  final List<LessonItem> lessonList;
+  // //phần thêm
+  // final List<LessonItem> lessonList;
 
   const LearningStates({
     this.lessonVideoItem,
     this.isPlay = false,
     this.initializeVideoPlayerFuture,
     this.videoIndex = 0,
-    //phần thêm
-    this.lessonList = const <LessonItem>[],
+    // //phần thêm
+    // this.lessonList = const <LessonItem>[],
   });
 
   LearningStates copyWith( // {List<LessonVideoItem>? lessonVideoItem,
@@ -28,8 +28,8 @@ class LearningStates extends Equatable {
     bool? isPlay,
     Future<void>? initializeVideoPlayerFuture,
     int? videoIndex,
-    //phần thêm
-    List<LessonItem>? lessonList,
+    // //phần thêm
+    // List<LessonItem>? lessonList,
   }) {
     return LearningStates(
         lessonVideoItem: lessonVideoItem ?? this.lessonVideoItem,
@@ -37,8 +37,9 @@ class LearningStates extends Equatable {
         initializeVideoPlayerFuture:
             initializeVideoPlayerFuture ?? this.initializeVideoPlayerFuture,
         videoIndex: videoIndex ?? this.videoIndex,
-        //phần thêm
-        lessonList: lessonList ?? this.lessonList);
+        // //phần thêm
+        // lessonList: lessonList ?? this.lessonList
+        );
   }
 
   @override
@@ -47,6 +48,6 @@ class LearningStates extends Equatable {
         initializeVideoPlayerFuture,
         isPlay,
         videoIndex,
-        lessonList
+        // lessonList
       ];
 }

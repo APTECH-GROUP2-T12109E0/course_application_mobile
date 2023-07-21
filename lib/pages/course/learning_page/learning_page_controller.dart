@@ -50,7 +50,7 @@ class LearningController {
         var url = "${result.url}?token=$accessToken";
         print('my url is ${url}');
         //this url is important for init video player
-        videoPlayerController = VideoPlayerController.network(url!);
+        videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(url));
         //here actually stream starts to happen
         var initPlayer = videoPlayerController?.initialize();
         context.read<LearningBlocs>().add(TriggerUrlItem(initPlayer));
