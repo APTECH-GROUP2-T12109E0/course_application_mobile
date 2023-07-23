@@ -192,6 +192,7 @@ class LessonVideoItem {
   int? id; // id of Video
   String? name;
   String? url;
+  String? mobileUrl;
   Map<String, String>? captionUrls;
   Map<String, String>? captionData;
   int? status;
@@ -201,6 +202,7 @@ class LessonVideoItem {
     this.id,
     this.name,
     this.url,
+    this.mobileUrl,
     this.captionUrls,
     this.captionData,
     this.status,
@@ -212,6 +214,7 @@ class LessonVideoItem {
         id: json['id'],
         name: json['name'],
         url: json['url'],
+        mobileUrl: json['mobileUrl'],
         captionUrls: json['captionUrls'],
         captionData: Map<String, String>.from(json['captionData']),
         status: json['status'],
@@ -222,6 +225,7 @@ class LessonVideoItem {
     'id': id,
     'name': name,
     'url': url,
+    'mobileUrl': mobileUrl,
     'captionUrls': captionUrls,
     'captionData': captionData,
     'status': status,

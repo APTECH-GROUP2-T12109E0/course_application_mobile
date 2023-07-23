@@ -45,11 +45,11 @@ class LearningController {
     print("ok result");
     if (result != null) {
       context.read<LearningBlocs>().add(TriggerLessonVideo(result));
-      if (result.url != null) {
+      if (result.mobileUrl != null) {
         print("ok z");
-        // var url = "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4";
+        // var url = "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4";url = "https://clicknlearn-api.kindbeach-1b081cd2.eastasia.azurecontainerapps.io/video/stream/mp4/230612223643_course_1"
         // var url = "https://clicknlearnassets.blob.core.windows.net/clicknlearnassets/videos/StarSecurity video.mp4";
-        var url = "${result.url}?token=${accessToken}";
+        var url = "${result.mobileUrl}?token=${accessToken}";
         // var url = "${result.url}?token=${accessToken}";
         print('my url is ${url}');
         //this url is important for init video player

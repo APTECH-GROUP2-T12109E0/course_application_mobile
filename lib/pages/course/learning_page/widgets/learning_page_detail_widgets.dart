@@ -14,18 +14,25 @@ import '../bloc/learning_page_states.dart';
 import '../learning_page_controller.dart';
 
 Widget videoPlayer(LearningStates state, LearningController lessonController) {
-  return state.lessonVideoItem!.url != null
-      ? Container()
+  return state.lessonVideoItem!.mobileUrl == null
+      ? Container(
+    width: 325.w,
+    height: 200.h,
+    decoration: BoxDecoration(
+      color: Colors.blueAccent,
+    )
+  )
       : Container(
           width: 325.w,
           height: 200.h,
           decoration: BoxDecoration(
-              // image: const DecorationImage(
+            // color: Colors.red,
+              // image: DecorationImage(
               //     image:
-              //         // NetworkImage(
-              //         //     state.lessonVideoItem[state.videoIndex].thumbnail!
-              //         // ),
-              //         AssetImage("asset/icons/Image(1).png"),
+              //         NetworkImage(
+              //             state.lessonVideoItem!.mobileUrl.toString()
+              //         ),
+              //         // AssetImage("asset/icons/Image(1).png"),
               //     fit: BoxFit.fitWidth),
               borderRadius: BorderRadius.circular(0.h)),
           child: FutureBuilder(
