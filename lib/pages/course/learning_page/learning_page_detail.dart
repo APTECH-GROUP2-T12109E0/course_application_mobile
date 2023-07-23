@@ -71,8 +71,7 @@ class _LearningPageState extends State<LearningPage> {
                             padding: EdgeInsets.symmetric(
                                 vertical: 20.h, horizontal: 25.w),
                             sliver: SliverToBoxAdapter(
-                              child: Stack(
-                                children: [
+                              child:
                                   Column(
                                   children: [
                                   //video preview
@@ -81,7 +80,6 @@ class _LearningPageState extends State<LearningPage> {
                               videoControls(
                                   state, _lessonController, context)
                               ]                       ,
-                              )]
                               ),
                             ),
                           ),
