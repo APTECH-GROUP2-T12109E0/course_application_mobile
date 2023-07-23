@@ -23,31 +23,32 @@ class UserAPI {
         throw Exception(AppMessage.MESSAGE_GENERAL_FAILED);
       }
     } catch (e) {
-      if (e is DioException) {
-        if (e.response != null && e.response!.statusCode == 400) {
-          var errorData = e.response!.data as Map<String, dynamic>;
-          var message = errorData['message'];
-          toastInfo(msg: '${message ?? AppMessage.MESSAGE_GENERAL_FAILED}');
-          return false;
-        }else if(e.response != null && e.response!.statusCode == 404) {
-          var errorData = e.response!.data as Map<String, dynamic>;
-          var message = errorData['message'];
-          toastInfo(msg: '${message ?? AppMessage.MESSAGE_GENERAL_FAILED}');
-          return false;
-        } else {
-          print('Request failed: $e');
-          throw Exception('Request failed: $e');
-        }
-      } else {
-        print('Request failed: $e');
-        throw Exception('Request failed: $e');
-      }
+      print("catch login error thach $e");
+      // if (e is DioException) {
+      //   if (e.response != null && e.response!.statusCode == 400) {
+      //     var errorData = e.response!.data as Map<String, dynamic>;
+      //     var message = errorData['message'];
+      //     toastInfo(msg: '${message ?? AppMessage.MESSAGE_GENERAL_FAILED}');
+      //     return false;
+      //   }else if(e.response != null && e.response!.statusCode == 404) {
+      //     var errorData = e.response!.data as Map<String, dynamic>;
+      //     var message = errorData['message'];
+      //     toastInfo(msg: '${message ?? AppMessage.MESSAGE_GENERAL_FAILED}');
+      //     return false;
+      //   } else {
+      //     print('Request failed: $e');
+      //     throw Exception('Request failed: $e');
+      //   }
+      // } else {
+      //   print('Request failed: $e');
+      //   throw Exception('Request failed: $e');
+      // }
     }
   }
 
-  static register(String? firstName, String? lastName, String? email, String? password,
+  static register(
+      String? firstName, String? lastName, String? email, String? password,
       {LoginRequestEntity? params}) async {
-
     var data = {
       "first_name": firstName,
       "last_name": lastName,
@@ -64,27 +65,66 @@ class UserAPI {
         throw Exception(AppMessage.MESSAGE_GENERAL_FAILED);
       }
     } catch (e) {
-      if (e is DioException) {
-        if (e.response != null && e.response!.statusCode == 400) {
-          var errorData = e.response!.data as Map<String, dynamic>;
-          var message = errorData['message'];
-          toastInfo(msg: '${message ?? AppMessage.MESSAGE_GENERAL_FAILED}');
-          return false;
-        }else if(e.response != null && e.response!.statusCode == 404) {
-          var errorData = e.response!.data as Map<String, dynamic>;
-          var message = errorData['message'];
-          toastInfo(msg: '${message ?? AppMessage.MESSAGE_GENERAL_FAILED}');
-          return false;
-        } else {
-          print('Request failed: $e');
-          throw Exception('Request failed: $e');
-        }
-      } else {
-        print('Request failed: $e');
-        throw Exception('Request failed: $e');
-      }
+      print("catch register error thach $e");
+      // if (e is DioException) {
+      //   if (e.response != null && e.response!.statusCode == 400) {
+      //     var errorData = e.response!.data as Map<String, dynamic>;
+      //     var message = errorData['message'];
+      //     toastInfo(msg: '${message ?? AppMessage.MESSAGE_GENERAL_FAILED}');
+      //     return false;
+      //   }else if(e.response != null && e.response!.statusCode == 404) {
+      //     var errorData = e.response!.data as Map<String, dynamic>;
+      //     var message = errorData['message'];
+      //     toastInfo(msg: '${message ?? AppMessage.MESSAGE_GENERAL_FAILED}');
+      //     return false;
+      //   } else {
+      //     print('Request failed: $e');
+      //     throw Exception('Request failed: $e');
+      //   }
+      // } else {
+      //   print('Request failed: $e');
+      //   throw Exception('Request failed: $e');
+      // }
     }
   }
+
+  static forgetPassword(String? email, {LoginRequestEntity? params}) async {
+    var data = {
+      "email": email,
+    };
+
+    try {
+      var response = await HttpUtil().post('auth/forget-password', data: data);
+
+      if (response.statusCode == 200) {
+        return ForgetPasswordResponseEntity.fromJson(response?.data);
+      } else {
+        throw Exception(AppMessage.MESSAGE_GENERAL_FAILED);
+      }
+    } catch (e) {
+      toastInfo(msg: AppMessage.MESSAGE_GENERAL_FAILED);
+    }
+  }
+
+  // static resetPassword(String? newPassword, String? confirmPassword, String? token,{LoginRequestEntity? params}) async {
+  //   var data = {
+  //     "password": newPassword,
+  //     "confirmPassword": confirmPassword,
+  //     "token": token,
+  //   };
+  //
+  //   try {
+  //     var response = await HttpUtil().post('auth/reset-password', data: data);
+  //
+  //     if (response.statusCode == 200) {
+  //       return ForgetPasswordResponseEntity.fromJson(response?.data);
+  //     } else {
+  //       throw Exception(AppMessage.MESSAGE_GENERAL_FAILED);
+  //     }
+  //   } catch (e) {
+  //     toastInfo(msg: AppMessage.MESSAGE_GENERAL_FAILED);
+  //   }
+  // }
 
   static getUserProfileWithAccessToken(String? accessToken) async {
     try {
@@ -103,17 +143,17 @@ class UserAPI {
     }
   }
 
-  // static testAccess(String? accessToken) async {
-  //   var data = {
-  //     "accessToken": accessToken,
-  //   };
-  //   var response = await HttpUtil().get('auth/user', data: data);
-  //   print("ok rui nha");
-  //
-  //   if (response.statusCode == 200) {
-  //     return UserProfileEntity.fromJson(response.data);
-  //   } else {
-  //     throw Exception(AppMessage.MESSAGE_GENERAL_FAILED);
-  //   }
-  // }
+// static testAccess(String? accessToken) async {
+//   var data = {
+//     "accessToken": accessToken,
+//   };
+//   var response = await HttpUtil().get('auth/user', data: data);
+//   print("ok rui nha");
+//
+//   if (response.statusCode == 200) {
+//     return UserProfileEntity.fromJson(response.data);
+//   } else {
+//     throw Exception(AppMessage.MESSAGE_GENERAL_FAILED);
+//   }
+// }
 }
