@@ -34,7 +34,7 @@ class _LearningPageState extends State<LearningPage> {
   void didChangeDependencies() {
     _lessonController = LearningController(context: context);
     context.read<LearningBlocs>().add(const TriggerUrlItem(null));
-    context.read<LearningBlocs>().add(const TriggerVideoIndex(0));
+    // context.read<LearningBlocs>().add(const TriggerVideoIndex(0));
     _lessonController.init();
     super.didChangeDependencies();
     var userProfile = Global.storageService.getUserProfile();

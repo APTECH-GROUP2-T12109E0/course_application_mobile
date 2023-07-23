@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../common/entities/lesson.dart';
 
-abstract class LearningEvents{
+abstract class LearningEvents extends Equatable{
   const LearningEvents();
   @override
   List<Object?> get props => [];
@@ -32,15 +32,16 @@ class TriggerPlay extends LearningEvents{
   @override
   List<Object?> get props => [isPlay];
 }
-class TriggerVideoIndex extends LearningEvents{
-  final int videoIndex;
-  const TriggerVideoIndex(this.videoIndex);
-  @override
-  List<Object?> get props => [videoIndex];
-}
+//ẩn video index
+// class TriggerVideoIndex extends LearningEvents{
+//   final int videoIndex;
+//   const TriggerVideoIndex(this.videoIndex);
+//   @override
+//   List<Object?> get props => [videoIndex];
+// }
 
 //phần thêm
-class TriggerLessonList extends LearningEvents{
-  const TriggerLessonList(this.lessonList):super();
-  final List<LessonItem> lessonList;
-}
+// class TriggerLessonList extends LearningEvents{
+//   const TriggerLessonList(this.lessonList):super();
+//   final List<LessonItem> lessonList;
+// }
