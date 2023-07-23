@@ -8,7 +8,8 @@ class LearningBlocs extends Bloc<LearningEvents, LearningStates>{
     on<TriggerLessonVideo>(_triggerLessonVideo);
     on<TriggerUrlItem>(_triggerUrlItem);
     on<TriggerPlay>(_triggerPlay);
-    on<TriggerVideoIndex>(_triggerVideoIndex);
+    //ẩn video index
+    // on<TriggerVideoIndex>(_triggerVideoIndex);
     // on<TriggerLessonList>(_triggerLessonList);
   }
   void _triggerLessonVideo(TriggerLessonVideo event, Emitter<LearningStates>emit){
@@ -24,9 +25,10 @@ class LearningBlocs extends Bloc<LearningEvents, LearningStates>{
   void _triggerPlay(TriggerPlay event, Emitter<LearningStates>emit){
     emit(state.copyWith(isPlay: event.isPlay));
   }
-  void _triggerVideoIndex(TriggerVideoIndex event, Emitter<LearningStates>emit){
-    emit(state.copyWith(videoIndex: event.videoIndex));
-  }
+//ẩn video index
+  // void _triggerVideoIndex(TriggerVideoIndex event, Emitter<LearningStates>emit){
+  //   emit(state.copyWith(videoIndex: event.videoIndex));
+  // }
 
   // //phần thêm
   // void _triggerLessonList(TriggerLessonList event, Emitter<LearningStates>emit){

@@ -10,9 +10,10 @@ toastInfo(
   return Fluttertoast.showToast(
       msg: msg,
       toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.CENTER,
+      gravity: ToastGravity.TOP,
       timeInSecForIosWeb: 2,
       backgroundColor: backgroundColor,
       textColor: textColor,
       fontSize: 16.sp);
+
 }

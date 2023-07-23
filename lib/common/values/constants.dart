@@ -1,6 +1,6 @@
 class AppConstants{
-  // static const String SERVER_API_URL = "http://192.168.1.28:8080/";
-  static const String SERVER_API_URL = "http://192.168.1.12:8080/";
+  // static const String SERVER_API_URL = "http://192.168.1.12:8080/"; //http://{your_IPv4_IP}:8080/
+  static const String SERVER_API_URL = "https://clicknlearn-api.kindbeach-1b081cd2.eastasia.azurecontainerapps.io/";
   static const String SERVER_UPLOADS = "${SERVER_API_URL}uploads/";
   static const String SERVER_USER_ITEM = "${SERVER_API_URL}auth/user/";
   static const String SERVER_COURSE_DETAIL = "${SERVER_API_URL}course";

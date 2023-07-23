@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../common/entities/lesson.dart';
 
-class LearningStates {
+class LearningStates extends Equatable{
   final LessonVideoItem? lessonVideoItem;
 
   // final List<LessonVideoItem> lessonVideoItem;

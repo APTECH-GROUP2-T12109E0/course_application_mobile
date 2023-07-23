@@ -14,19 +14,26 @@ import '../bloc/learning_page_states.dart';
 import '../learning_page_controller.dart';
 
 Widget videoPlayer(LearningStates state, LearningController lessonController) {
-  return state.lessonVideoItem!.url != null
-      ? Container()
+  return state.lessonVideoItem!.mobileUrl == null
+      ? Container(
+    width: 325.w,
+    height: 200.h,
+    decoration: BoxDecoration(
+      color: Colors.blueAccent,
+    )
+  )
       : Container(
           width: 325.w,
           height: 200.h,
           decoration: BoxDecoration(
-              image: const DecorationImage(
-                  image:
-                      // NetworkImage(
-                      //     state.lessonVideoItem[state.videoIndex].thumbnail!
-                      // ),
-                      AssetImage("asset/icons/Image(1).png"),
-                  fit: BoxFit.fitWidth),
+            // color: Colors.red,
+              // image: DecorationImage(
+              //     image:
+              //         NetworkImage(
+              //             state.lessonVideoItem!.mobileUrl.toString()
+              //         ),
+              //         // AssetImage("asset/icons/Image(1).png"),
+              //     fit: BoxFit.fitWidth),
               borderRadius: BorderRadius.circular(0.h)),
           child: FutureBuilder(
             future: state.initializeVideoPlayerFuture,
@@ -34,6 +41,7 @@ Widget videoPlayer(LearningStates state, LearningController lessonController) {
               print('----video snapshot is ${snapshot.connectionState}----');
               //check if the connection is made to the certain video on the server
               if (snapshot.connectionState == ConnectionState.done) {
+                print("video init success");
                 return lessonController.videoPlayerController == null
                     ? Container()
                     : AspectRatio(
@@ -187,8 +195,9 @@ Widget _buildLessonItems(BuildContext context, int index, LessonVideoItem item,
         ]),
     child: InkWell(
       onTap: () {
+        //ẩn video index
         //videoIndex = index;
-        context.read<LearningBlocs>().add(TriggerVideoIndex(index));
+        // context.read<LearningBlocs>().add(TriggerVideoIndex(index));
         lessonController.playVideo(item.url!);
       },
       child: Row(
@@ -221,7 +230,8 @@ Widget _buildLessonItems(BuildContext context, int index, LessonVideoItem item,
             children: [
               GestureDetector(
                 onTap: () {
-                  context.read<LearningBlocs>().add(TriggerVideoIndex(index));
+                  //ẩn video index
+                  // context.read<LearningBlocs>().add(TriggerVideoIndex(index));
                   lessonController.playVideo(item.url!);
                 },
                 child: Image.asset(

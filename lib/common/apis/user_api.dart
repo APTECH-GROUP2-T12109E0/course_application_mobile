@@ -16,7 +16,7 @@ class UserAPI {
 
     try {
       var response = await HttpUtil().post('auth/login', data: data);
-
+      print("test link");
       if (response.statusCode == 200) {
         return UserLoginResponseEntity.fromJson(response.data);
       } else {

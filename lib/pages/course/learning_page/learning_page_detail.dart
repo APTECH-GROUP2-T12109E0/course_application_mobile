@@ -34,7 +34,7 @@ class _LearningPageState extends State<LearningPage> {
   void didChangeDependencies() {
     _lessonController = LearningController(context: context);
     context.read<LearningBlocs>().add(const TriggerUrlItem(null));
-    context.read<LearningBlocs>().add(const TriggerVideoIndex(0));
+    // context.read<LearningBlocs>().add(const TriggerVideoIndex(0));
     _lessonController.init();
     super.didChangeDependencies();
     var userProfile = Global.storageService.getUserProfile();
@@ -44,6 +44,7 @@ class _LearningPageState extends State<LearningPage> {
   @override
   void dispose() {
     _lessonController.videoPlayerController?.dispose();
+    print("object");
     super.dispose();
   }
 
@@ -60,9 +61,9 @@ class _LearningPageState extends State<LearningPage> {
             )
           : SafeArea(
               child: Container(
-                  color: Colors.white,
+                  // color: Colors.white,
                   child: Scaffold(
-                      backgroundColor: Colors.white,
+                      // backgroundColor: Colors.white,
                       appBar: buildAppBar("Learning"),
                       body: CustomScrollView(
                         slivers: [
@@ -70,14 +71,15 @@ class _LearningPageState extends State<LearningPage> {
                             padding: EdgeInsets.symmetric(
                                 vertical: 20.h, horizontal: 25.w),
                             sliver: SliverToBoxAdapter(
-                              child: Column(
-                                children: [
+                              child:
+                                  Column(
+                                  children: [
                                   //video preview
                                   videoPlayer(state, _lessonController),
-                                  //video buttons
-                                  videoControls(
-                                      state, _lessonController, context)
-                                ],
+                              //video buttons
+                              videoControls(
+                                  state, _lessonController, context)
+                              ]                       ,
                               ),
                             ),
                           ),

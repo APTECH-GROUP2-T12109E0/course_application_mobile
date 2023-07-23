@@ -45,14 +45,21 @@ class LearningController {
     print("ok result");
     if (result != null) {
       context.read<LearningBlocs>().add(TriggerLessonVideo(result));
-      if (result.url != null) {
+      if (result.mobileUrl != null) {
         print("ok z");
-        var url = "${result.url}?token=$accessToken";
+        // var url = "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4";url = "https://clicknlearn-api.kindbeach-1b081cd2.eastasia.azurecontainerapps.io/video/stream/mp4/230612223643_course_1"
+        // var url = "https://clicknlearnassets.blob.core.windows.net/clicknlearnassets/videos/StarSecurity video.mp4";
+        var url = "${result.mobileUrl}?token=${accessToken}";
+        // var url = "${result.url}?token=${accessToken}";
         print('my url is ${url}');
         //this url is important for init video player
         videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(url));
+        // videoPlayerController = VideoPlayerController.networkUrl(Uri.parse("https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4"));
+        // print("object");
         //here actually stream starts to happen
+        print("object: ${videoPlayerController} ");
         var initPlayer = videoPlayerController?.initialize();
+
         context.read<LearningBlocs>().add(TriggerUrlItem(initPlayer));
       }
     }
@@ -60,16 +67,18 @@ class LearningController {
   }
 
   void playVideo(String url) {
+
     if (videoPlayerController != null) {
       videoPlayerController?.pause();
       videoPlayerController?.dispose();
     }
-    videoPlayerController = VideoPlayerController.network(url);
+    videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(url));
     context.read<LearningBlocs>().add(const TriggerPlay(false));
     context.read<LearningBlocs>().add(const TriggerUrlItem(null));
     var initPlayer = videoPlayerController?.initialize().then((_) {
       videoPlayerController?.seekTo(const Duration(milliseconds: 0));
     });
+    print("initPlayer ${initPlayer}");
     context.read<LearningBlocs>().add(TriggerUrlItem(initPlayer));
     context.read<LearningBlocs>().add(const TriggerPlay(true));
     videoPlayerController?.play();

@@ -2,6 +2,7 @@ import 'package:course_application_mobile/common/entities/entities.dart';
 import 'package:course_application_mobile/common/values/colors.dart';
 import 'package:course_application_mobile/common/values/helper.dart';
 import 'package:course_application_mobile/common/values/message.dart';
+import 'package:course_application_mobile/common/widgets/flutter_toast.dart';
 import 'package:course_application_mobile/pages/sign_in/bloc/sign_in_bloc.dart';
 import 'package:course_application_mobile/pages/sign_in/bloc/sign_in_events.dart';
 import 'package:course_application_mobile/pages/sign_in/bloc/sign_in_states.dart';
@@ -63,7 +64,7 @@ class _SignInState extends State<SignIn> {
                         divider(),
                         Center(child: reusableText("Use your Account")),
                         Container(
-                          margin: EdgeInsets.only(top: 20.h),
+                          margin: EdgeInsets.only(top: 30.h),
                           padding: EdgeInsets.only(left: 25.w, right: 25.w),
                           child: Form(
                             key: _formKey,
@@ -81,9 +82,9 @@ class _SignInState extends State<SignIn> {
                                   },
                                       (value) {
                                     if (value == null || value.isEmpty) {
-                                      return AppMessage.MESSAGE_FIELD_REQUIRED;
+                                      return toastInfo(msg: AppMessage.MESSAGE_FIELD_REQUIRED);
                                     } else if (!Helper.isEmailValid(value)) {
-                                      return AppMessage.MESSAGE_EMAIL_INVALID;
+                                      return toastInfo(msg: AppMessage.MESSAGE_EMAIL_INVALID);
                                     }
                                     return null;
                                   },
@@ -99,7 +100,7 @@ class _SignInState extends State<SignIn> {
                                   },
                                       (value) {
                                     if (value == null || value.isEmpty) {
-                                      return AppMessage.MESSAGE_FIELD_REQUIRED;
+                                      return toastInfo(msg: AppMessage.MESSAGE_FIELD_REQUIRED);
                                     }
                                     return null;
                                   },
@@ -144,3 +145,5 @@ class _SignInState extends State<SignIn> {
     );
   }
 }
+
+

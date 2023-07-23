@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:course_application_mobile/common/entities/entities.dart';
+import 'package:course_application_mobile/common/values/colors.dart';
 import 'package:course_application_mobile/common/values/message.dart';
 import 'package:course_application_mobile/common/widgets/flutter_toast.dart';
 import 'package:course_application_mobile/pages/register/bloc/register_events.dart';
@@ -107,7 +108,7 @@ class SignInController {
       }
     } catch (e) {
       print(e.toString());
-      toastInfo(msg: AppMessage.MESSAGE_GENERAL_FAILED);
+      toastInfo(msg: AppMessage.MESSAGE_GENERAL_FAILED, textColor: AppColors.dangerColor);
     }
     EasyLoading.dismiss();
   }
