@@ -11,10 +11,11 @@ class _PayWebViewState extends State<PayWebView> {
   @override
   void initState(){
     super.initState();
-    final args = ModalRoute.of(context)!.settings.arguments as Map;
+    // final args = ModalRoute.of(context)!.settings.arguments as Map;
+    print("init web done");
   }
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Center(child: Text("payment"),);
   }
 }

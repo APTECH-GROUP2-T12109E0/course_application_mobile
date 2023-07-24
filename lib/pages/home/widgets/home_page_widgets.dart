@@ -1,4 +1,5 @@
 import 'package:course_application_mobile/common/entities/entities.dart';
+import 'package:course_application_mobile/common/widgets/flutter_toast.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -186,8 +187,10 @@ Widget menuView() {
             children: [
               reusableText("Choose your course"),
               GestureDetector(
+                onTap: (){toastInfo(msg: "this feature is on developing");},
                   child: reusableText("See all",
                       color: AppColors.primaryColor, fontSize: 14.sp)),
+
             ],
           )),
       Container(

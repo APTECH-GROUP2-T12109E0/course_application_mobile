@@ -12,6 +12,7 @@ import '../../../common/entities/course.dart';
 import '../../../common/entities/lesson.dart';
 import '../../../common/routes/route_name.dart';
 import '../../../common/widgets/flutter_toast.dart';
+import '../../../global.dart';
 import 'bloc/course_detail_blocs.dart';
 import 'bloc/course_detail_events.dart';
 
@@ -102,9 +103,12 @@ class CourseDetailController {
   //       maskType: EasyLoadingMaskType.clear,
   //       dismissOnTap: true
   //   );
-  //   CourseRequestEntity courseRequestEntity = CourseRequestEntity();
-  //   courseRequestEntity.id = id;
-  //   var result = await CourseAPI.coursePay(params: courseRequestEntity);
+  //   // var userProfile = Global.storageService.getUserProfile();
+  //   //
+  //   // CheckoutRequestEntity checkoutRequestEntity = CheckoutRequestEntity();
+  //   // checkoutRequestEntity.courseId = id;
+  //   // checkoutRequestEntity.userId = userProfile.id;
+  //   // var result = await CourseAPI.coursePay(params: checkoutRequestEntity);
   //   print("object");
   //   EasyLoading.dismiss();
   //   if (result!= null) {

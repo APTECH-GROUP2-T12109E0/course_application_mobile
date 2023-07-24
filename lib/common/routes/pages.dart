@@ -1,3 +1,5 @@
+import 'package:course_application_mobile/pages/checkout/bloc/checkout_blocs.dart';
+import 'package:course_application_mobile/pages/checkout/checkout.dart';
 import 'package:course_application_mobile/pages/course/learning_page/learning_page_detail.dart';
 import 'package:course_application_mobile/pages/course/my_courses/bloc/my_courses_blocs.dart';
 import 'package:course_application_mobile/pages/course/my_courses/my_courses.dart';
@@ -136,6 +138,11 @@ class AppPages {
           route: AppRoutes.FORGET_PASSWORD,
           page: const ForgetPassword(),
           bloc: BlocProvider(create: (_)=>ForgetPasswordBlocs(),)
+      ),
+      PageEntity(
+          route: AppRoutes.CHECKOUT,
+          page: const Checkout(),
+          bloc: BlocProvider(create: (_)=>CheckoutDetailBloc(),)
       ),
     ];
   }

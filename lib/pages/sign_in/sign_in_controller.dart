@@ -107,8 +107,9 @@ class SignInController {
         }
       }
     } catch (e) {
-      print(e.toString());
       toastInfo(msg: AppMessage.MESSAGE_GENERAL_FAILED, textColor: AppColors.dangerColor);
+      print(e.toString());
+
     }
     EasyLoading.dismiss();
   }

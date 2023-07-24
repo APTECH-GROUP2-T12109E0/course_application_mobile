@@ -12,7 +12,7 @@ Widget buildPage(int index){
     const HomePage(),
     const Search(),
     const MyCourses(),
-    const LearningPage(),
+    // const LearningPage(),
     const ProfilePage(),
   ];
 
@@ -68,22 +68,22 @@ var bottomTabs = [
         ),
       )
   ),
-  BottomNavigationBarItem(
-      label: "Learning",
-      icon: SizedBox(
-        width: 15.w,
-        height: 15.h,
-        child: Image.asset("assets/icons/play-circle1.png", color: Colors.grey,),
-      ),
-      activeIcon: SizedBox(
-        width: 15.w,
-        height: 15.h,
-        child: Image.asset(
-          "assets/icons/play-circle1.png",
-          color: AppColors.primaryElement,
-        ),
-      )
-  ),
+  // BottomNavigationBarItem(
+  //     label: "Learning",
+  //     icon: SizedBox(
+  //       width: 15.w,
+  //       height: 15.h,
+  //       child: Image.asset("assets/icons/play-circle1.png", color: Colors.grey,),
+  //     ),
+  //     activeIcon: SizedBox(
+  //       width: 15.w,
+  //       height: 15.h,
+  //       child: Image.asset(
+  //         "assets/icons/play-circle1.png",
+  //         color: AppColors.primaryElement,
+  //       ),
+  //     )
+  // ),
   BottomNavigationBarItem(
       label: "profile",
       icon: SizedBox(

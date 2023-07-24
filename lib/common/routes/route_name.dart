@@ -31,4 +31,8 @@ class AppRoutes{
   static const MAIN_SCREEN = "/main_screen";
 
   static const FORGET_PASSWORD = "/forget_password";
+
+  static const CHECKOUT = "/checkout";
+
+  static const PAYPAL = "/paypal";
 }

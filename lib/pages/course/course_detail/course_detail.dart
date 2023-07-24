@@ -84,9 +84,15 @@ class _CourseDetailState extends State<CourseDetail> {
                             //course buy button
                             GestureDetector(
                               onTap: (){
+
                                 // _courseDetailController.goBuy(state.courseItem!.id);
+
+                                Navigator.of(context).pushNamed(AppRoutes.CHECKOUT, arguments: {
+                                  "course": state.courseItem
+
+                                });
                                 print("buy button");
-                                toastInfo(msg: "This feature is on developing, please buy course on our Website");
+                                // toastInfo(msg: "This feature is on developing, please buy course on our Website");
                               },
                               child: goBuyButton("Buy This Course"),
                             ),

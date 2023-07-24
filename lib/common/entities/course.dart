@@ -16,6 +16,39 @@ class CourseRequestEntity {
 
 }
 
+class CheckoutRequestEntity {
+  int? courseId;
+  double? amount;
+  int? userId;
+  String? paymentType="PAYPAL";
+  String? userDescription;
+
+
+  CheckoutRequestEntity({
+    this.courseId,
+    this.amount,
+    this.userId,
+    this.paymentType,
+    this.userDescription
+  });
+
+  Map<String, dynamic> toJson() => {
+    "courseId": courseId,
+    "amount": amount,
+    "userId": 0,
+    "paymentType": paymentType,
+    "userDescription": userDescription
+  };
+  factory CheckoutRequestEntity.fromJson(Map<String, dynamic> json) =>
+      CheckoutRequestEntity(
+        courseId: json["courseId"],
+        amount: json["amount"],
+        userId: json["userId"],
+        paymentType: json["paymentType"],
+      );
+
+}
+
 // class MyCourseRequestEntity {
 //   int? courseId;
 //   // String? name;
