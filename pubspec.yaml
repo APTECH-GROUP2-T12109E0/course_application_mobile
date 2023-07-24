@@ -46,10 +46,11 @@ dependencies:
   shared_preferences: ^2.2.0
   flutter_easyloading: ^3.0.5
   dio: ^5.2.1+1
-  webview_flutter: ^4.2.2
   video_player: ^2.7.0
   equatable: ^2.0.5
   flutter_launcher_icons: ^0.13.1
+  audio_video_progress_bar: ^1.0.1
+  webview_flutter_android: ^3.9.1
 
 dev_dependencies:
   flutter_test:

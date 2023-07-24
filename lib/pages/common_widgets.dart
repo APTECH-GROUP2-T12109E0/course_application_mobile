@@ -298,13 +298,13 @@ Widget buildTextFieldValidate(String hintText,
 }
 
 //dòng chữ Forgot Password và Privacy Policy
-Widget onTapTextLink(String text) {
+Widget onTapTextLink(String text, void Function()? function) {
   return Center(
     child: Container(
       width: 260.w,
       height: 44.h,
       child: GestureDetector(
-        onTap: () {},
+        onTap: function,
         child: Text(
           text,
           style: TextStyle(

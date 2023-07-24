@@ -30,6 +30,23 @@ class RegisterResponseEntity {
   }
 }
 
+class ForgetPasswordResponseEntity {
+  final String? type;
+  final String? message;
+
+  ForgetPasswordResponseEntity({
+    this.type,
+    this.message,
+  });
+
+  factory ForgetPasswordResponseEntity.fromJson(Map<String, dynamic> json) {
+    return ForgetPasswordResponseEntity(
+      type: json['type'],
+      message: json['message'],
+    );
+  }
+}
+
 //api post response msg
 class UserLoginResponseEntity {
   String? type;

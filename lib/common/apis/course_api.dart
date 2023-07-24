@@ -57,13 +57,17 @@ class CourseAPI{
   }
 
   //for course payment
-  // static Future<BaseResponseEntity> coursePay({CourseRequestEntity? params}) async {
+  // static Future<CourseRequestEntity> coursePay({CourseRequestEntity? params}) async {
+  //   var data = {
+  //     "accessToken": Global.storageService.getUserToken(),
+  //   };
   //  var response=  await HttpUtil().post(
-  //     'checkout',
+  //     'checkout/paypal',
+  //    data: data,
   //     queryParameters: params?.toJson(),
   //
   //   );
   //
-  //   return BaseResponseEntity.fromJson(response);
+  //   return CourseRequestEntity.fromJson(response);
   // }
 }

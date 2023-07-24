@@ -86,6 +86,25 @@ class UserAPI {
     }
   }
 
+  static forgetPassword(String? email, {LoginRequestEntity? params}) async {
+    var data = {
+      "email": email,
+    };
+
+    try {
+      var response = await HttpUtil().post('auth/forget-password', data: data);
+
+      if (response.statusCode == 200) {
+        return ForgetPasswordResponseEntity.fromJson(response?.data);
+      } else {
+        throw Exception(AppMessage.MESSAGE_GENERAL_FAILED);
+      }
+    } catch (e) {
+      toastInfo(msg: AppMessage.MESSAGE_GENERAL_FAILED);
+    }
+  }
+
+
   static getUserProfileWithAccessToken(String? accessToken) async {
     try {
       var data = {

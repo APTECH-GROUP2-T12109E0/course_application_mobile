@@ -5,11 +5,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../common/values/colors.dart';
 import '../../home/home_page.dart';
 import '../../profile/profile.dart';
+import '../../search/search.dart';
 
 Widget buildPage(int index){
   List<Widget> _widget = [
     const HomePage(),
-    const Center(child: Text("Search")),
+    const Search(),
     const MyCourses(),
     const LearningPage(),
     const ProfilePage(),

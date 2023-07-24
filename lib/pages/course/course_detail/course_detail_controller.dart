@@ -75,7 +75,8 @@ class CourseDetailController {
       print("catch section");
     }
   }
-}
+
+// }
   // asyncLoadLessonData(int? id) async {
   //   LessonRequestEntity lessonRequestEntity = LessonRequestEntity();
   //   lessonRequestEntity.id = id;
@@ -93,31 +94,34 @@ class CourseDetailController {
   // }
 
 
-
   // Future<void> goBuy(int? id) async {
-  //
+  //   print("buy course id ${id}");
+  //   print("object");
   //   EasyLoading.show(
-  //     indicator: CircularProgressIndicator(),
-  //     maskType: EasyLoadingMaskType.clear,
-  //     dismissOnTap: true
+  //       indicator: CircularProgressIndicator(),
+  //       maskType: EasyLoadingMaskType.clear,
+  //       dismissOnTap: true
   //   );
-  //   CourseRequestEntity courseRequestEntity= CourseRequestEntity();
+  //   CourseRequestEntity courseRequestEntity = CourseRequestEntity();
   //   courseRequestEntity.id = id;
   //   var result = await CourseAPI.coursePay(params: courseRequestEntity);
+  //   print("object");
   //   EasyLoading.dismiss();
-  //   if(result.code==200){
+  //   if (result!= null) {
   //     //cleaner format of url
   //     var url = Uri.decodeFull(result.data!);
-  //
-  //     var res = await Navigator.of(context).pushNamed(AppRoutes.PAY_WEB_VIEW, arguments: {
-  //       "url":url
+  //     // await Navigator.of(context).pushNamed(AppRoutes.PAY_WEB_VIEW, arguments: {"url":url});
+  //     var res = await Navigator.of(context).pushNamed(
+  //         AppRoutes.PAY_WEB_VIEW, arguments: {
+  //       "url": url
   //     });
-  //
-  //     if(res=="success"){
+  //     print("payment $res");
+  //     if (res == "success") {
   //       toastInfo(msg: "You bought it successfully");
   //     }
-  //    // print('----my returned stripe url is $url--------');
-  //   }else{
+  //     // print('----my returned stripe url is $url--------');
+  //   } else {
   //     toastInfo(msg: result.msg!);
   //   }
   // }
+}

@@ -21,8 +21,11 @@ import '../../pages/course/my_course_detail/my_course_detail.dart';
 import '../../pages/course/my_sections/bloc/my_section_blocs.dart';
 import '../../pages/course/my_sections/my_section_detail.dart';
 import '../../pages/course/paywebview/bloc/payview_blocs.dart';
+import '../../pages/course/paywebview/payment.dart';
 import '../../pages/course/paywebview/paywebview.dart';
 import '../../pages/course/section/bloc/section_blocs.dart';
+import '../../pages/forget_password/bloc/forget_password_blocs.dart';
+import '../../pages/forget_password/forget_password.dart';
 import '../../pages/home/bloc/home_page_blocs.dart';
 import '../../pages/home/home_page.dart';
 import '../../pages/profile/settings/bloc/settings_blocs.dart';
@@ -128,6 +131,11 @@ class AppPages {
           route: AppRoutes.MY_SECTION_DETAIL,
           page: const MySectionDetail(),
           bloc: BlocProvider(create: (_)=>MySectionDetailBloc(),)
+      ),
+      PageEntity(
+          route: AppRoutes.FORGET_PASSWORD,
+          page: const ForgetPassword(),
+          bloc: BlocProvider(create: (_)=>ForgetPasswordBlocs(),)
       ),
     ];
   }

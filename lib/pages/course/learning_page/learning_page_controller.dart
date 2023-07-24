@@ -49,6 +49,7 @@ class LearningController {
         print("ok z");
         // var url = "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4";url = "https://clicknlearn-api.kindbeach-1b081cd2.eastasia.azurecontainerapps.io/video/stream/mp4/230612223643_course_1"
         // var url = "https://clicknlearnassets.blob.core.windows.net/clicknlearnassets/videos/StarSecurity video.mp4";
+        // var url = "http://techslides.com/demos/sample-videos/small.mp4";
         var url = "${result.mobileUrl}?token=${accessToken}";
         // var url = "${result.url}?token=${accessToken}";
         print('my url is ${url}');

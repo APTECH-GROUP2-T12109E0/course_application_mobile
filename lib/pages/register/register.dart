@@ -133,7 +133,7 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                     onTapTextLink(
-                        "By creating an Account, you have to agree with our Privacy Policy."),
+                        "By creating an Account, you have to agree with our Privacy Policy.", (){print("Privacy Policy");}),
                     buildLoginandRegisterButton(
                       "Register",
                       "register",

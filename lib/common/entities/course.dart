@@ -13,6 +13,7 @@ class CourseRequestEntity {
         "id": id,
     "name": name,
       };
+
 }
 
 // class MyCourseRequestEntity {

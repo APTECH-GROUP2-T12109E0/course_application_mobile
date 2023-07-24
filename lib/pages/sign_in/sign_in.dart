@@ -82,9 +82,9 @@ class _SignInState extends State<SignIn> {
                                   },
                                       (value) {
                                     if (value == null || value.isEmpty) {
-                                      return toastInfo(msg: AppMessage.MESSAGE_FIELD_REQUIRED);
+                                      return AppMessage.MESSAGE_FIELD_REQUIRED;
                                     } else if (!Helper.isEmailValid(value)) {
-                                      return toastInfo(msg: AppMessage.MESSAGE_EMAIL_INVALID);
+                                      return  AppMessage.MESSAGE_EMAIL_INVALID;
                                     }
                                     return null;
                                   },
@@ -109,7 +109,9 @@ class _SignInState extends State<SignIn> {
                             ),
                           ),
                         ),
-                        onTapTextLink("Forgot password?"),
+                        onTapTextLink("Forgot password", (){
+                          Navigator.of(context).pushNamed("/forget_password");
+                        }),
                         buildLoginandRegisterButton(
                           "Log in",
                           "login",

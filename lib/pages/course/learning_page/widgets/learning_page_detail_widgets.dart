@@ -1,4 +1,5 @@
 import 'package:course_application_mobile/common/entities/entities.dart';
+import 'package:course_application_mobile/common/widgets/linear_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,17 +17,16 @@ import '../learning_page_controller.dart';
 Widget videoPlayer(LearningStates state, LearningController lessonController) {
   return state.lessonVideoItem!.mobileUrl == null
       ? Container(
-    width: 325.w,
-    height: 200.h,
-    decoration: BoxDecoration(
-      color: Colors.blueAccent,
-    )
-  )
+          width: 325.w,
+          height: 200.h,
+          decoration: BoxDecoration(
+            color: Colors.blueAccent,
+          ))
       : Container(
           width: 325.w,
           height: 200.h,
           decoration: BoxDecoration(
-            // color: Colors.red,
+              // color: Colors.red,
               // image: DecorationImage(
               //     image:
               //         NetworkImage(
@@ -51,12 +51,15 @@ Widget videoPlayer(LearningStates state, LearningController lessonController) {
                           alignment: Alignment.bottomCenter,
                           children: <Widget>[
                             VideoPlayer(
-                                lessonController.videoPlayerController!),
+                              lessonController.videoPlayerController!,
+                            ),
                             VideoProgressIndicator(
                               lessonController.videoPlayerController!,
                               allowScrubbing: true,
                               colors: const VideoProgressColors(
-                                  playedColor: AppColors.primaryElement),
+                                playedColor: Colors.redAccent,
+                                bufferedColor: AppColors.primaryElement,
+                              ),
                             )
                           ],
                         ),
@@ -173,10 +176,8 @@ Widget videoControls(LearningStates state, LearningController lessonController,
 //   );
 // }
 
-
-Widget _buildLessonItems(BuildContext context, int index, LessonVideoItem item,
+Widget buildLessonItems(BuildContext context, LessonVideoItem item,
     LearningController lessonController) {
-
   return Container(
     width: 325.w,
     height: 80.h,
@@ -240,6 +241,50 @@ Widget _buildLessonItems(BuildContext context, int index, LessonVideoItem item,
             ],
           )
         ],
+      ),
+    ),
+  );
+}
+
+Widget communityBox() {
+  return Container(
+    width: 325.w,
+    height: 400.h,
+    child: DefaultTabController(
+      initialIndex: 1,
+      length: 2,
+      child: Scaffold(
+        backgroundColor: Colors.grey.withOpacity(0.4),
+        appBar: AppBar(
+          backgroundColor: Colors.white.withOpacity(0.2),
+          automaticallyImplyLeading: false,
+          title: const Text("Community", style: TextStyle(color: AppColors.primaryColor)),
+          bottom: TabBar(
+            tabs: <Widget>[
+              Tab(
+                child: Text(
+                  "Ask",
+                  style: TextStyle(color: AppColors.primaryColor),
+                ),
+              ),
+              Tab(
+                child: Text(
+                  "Notes",
+                  style: TextStyle(color: AppColors.primaryColor),
+                ),
+              ),
+            ],
+          ),
+        ),
+        body:
+
+        TabBarView(
+          children: <Widget>[
+           Container()
+
+
+          ],
+        ),
       ),
     ),
   );

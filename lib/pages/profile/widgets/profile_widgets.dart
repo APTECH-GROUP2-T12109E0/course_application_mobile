@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../common/routes/route_name.dart';
 import '../../../common/values/colors.dart';
 import '../../../common/widgets/base_text_widgets.dart';
+import '../../../common/widgets/flutter_toast.dart';
 
 AppBar buildAppbar() {
   return AppBar(
@@ -14,14 +15,14 @@ AppBar buildAppbar() {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(
-              width: 18.w,
-              height: 12.h,
-              child: Image.asset("assets/icons/menu.png")),
+              width: 30.w,
+              height: 30.h,
+              child: Image.asset("assets/logo/logo_click_thumb_light50.png")),
           reusableText("Profile"),
           SizedBox(
-              width: 24.w,
+              width: 50.w,
               height: 24.h,
-              child: Image.asset("assets/icons/more-vertical.png")),
+              child: Image.asset("assets/logo/logo_click_light_short.png")),
         ],
       ),
     ),
@@ -65,8 +66,8 @@ var imagesInfo =<String, String>{
   "Settings":"settings.png",
   "Payment details":"credit-card.png",
   "Achievement":"award.png",
-  "Favorites":"heart(1).png",
-  "Reminders":"cube.png"
+  "Reminders":"cube.png",
+  "Change Password":"edit.png"
 };
 
 
@@ -74,7 +75,21 @@ Widget buildListView(BuildContext context){
   return Column(
     children: [
       ...List.generate(imagesInfo.length, (index) => GestureDetector(
-        onTap: ()=>Navigator.of(context).pushNamed(AppRoutes.SETTINGS),
+        onTap: () {
+          if(index==0){
+            Navigator.of(context).pushNamed(AppRoutes.SETTINGS);
+          } else if(index==1){
+            toastInfo(msg: "This feature is on developing");
+          }else if(index==2){
+            toastInfo(msg: "This feature is on developing");
+          }else if(index==3){
+            toastInfo(msg: "This feature is on developing");
+          }else if(index==4){
+            Navigator.of(context).pushNamed(AppRoutes.FORGET_PASSWORD);
+          }
+
+
+        },
 
         child: Container(
           margin: EdgeInsets.only(bottom: 15.h),
@@ -114,8 +129,8 @@ Widget buildRowView (BuildContext context){
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         _actionButton("icons/profile_video.png", "My Courses", () { print("my course tapped"); Navigator.of(context).pushNamed(AppRoutes.MY_COURSES); }),
-        _actionButton("icons/profile_book.png", "Blog", () { }),
-        _actionButton("icons/message-square.png", "Message", () { }),
+        _actionButton("icons/profile_book.png", "Blog", () { toastInfo(msg: "This feature is on developing");}),
+        _actionButton("icons/message-square.png", "Message", () { toastInfo(msg: "This feature is on developing");}),
       ],
     ),
   );

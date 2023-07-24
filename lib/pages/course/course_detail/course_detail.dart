@@ -2,6 +2,7 @@
 import 'package:course_application_mobile/common/entities/course.dart';
 import 'package:course_application_mobile/common/routes/route_name.dart';
 import 'package:course_application_mobile/common/values/colors.dart';
+import 'package:course_application_mobile/common/widgets/flutter_toast.dart';
 import 'package:course_application_mobile/common/widgets/linear_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -84,6 +85,8 @@ class _CourseDetailState extends State<CourseDetail> {
                             GestureDetector(
                               onTap: (){
                                 // _courseDetailController.goBuy(state.courseItem!.id);
+                                print("buy button");
+                                toastInfo(msg: "This feature is on developing, please buy course on our Website");
                               },
                               child: goBuyButton("Buy This Course"),
                             ),
