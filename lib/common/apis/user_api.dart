@@ -29,7 +29,7 @@ class UserAPI {
           var message = errorData['message'];
           toastInfo(msg: '${message ?? AppMessage.MESSAGE_GENERAL_FAILED}');
           return false;
-        }else if(e.response != null && e.response!.statusCode == 404) {
+        } else if (e.response != null && e.response!.statusCode == 404) {
           var errorData = e.response!.data as Map<String, dynamic>;
           var message = errorData['message'];
           toastInfo(msg: '${message ?? AppMessage.MESSAGE_GENERAL_FAILED}');
@@ -45,9 +45,9 @@ class UserAPI {
     }
   }
 
-  static register(String? firstName, String? lastName, String? email, String? password,
+  static register(
+      String? firstName, String? lastName, String? email, String? password,
       {LoginRequestEntity? params}) async {
-
     var data = {
       "first_name": firstName,
       "last_name": lastName,
@@ -70,7 +70,7 @@ class UserAPI {
           var message = errorData['message'];
           toastInfo(msg: '${message ?? AppMessage.MESSAGE_GENERAL_FAILED}');
           return false;
-        }else if(e.response != null && e.response!.statusCode == 404) {
+        } else if (e.response != null && e.response!.statusCode == 404) {
           var errorData = e.response!.data as Map<String, dynamic>;
           var message = errorData['message'];
           toastInfo(msg: '${message ?? AppMessage.MESSAGE_GENERAL_FAILED}');
@@ -104,6 +104,48 @@ class UserAPI {
     }
   }
 
+  static changePassword(String? oldPassword, String? password,
+      String? confirmPassword,
+      {ChangePasswordResponseEntity? params}) async {
+    var data = {
+      "oldPassword": oldPassword,
+      "password": password,
+      "confirmPassword": confirmPassword
+    };
+
+    try {
+      var response = await HttpUtil().post('auth/change-password', data: data);
+      print("ok call done changePass");
+
+      if (response.statusCode == 200) {
+        return ChangePasswordResponseEntity(
+          statusCode: response.statusCode.toString(),
+          statusMessage: response.statusMessage.toString(),
+        );
+      } else {
+        throw Exception(AppMessage.MESSAGE_GENERAL_FAILED);
+      }
+    } catch (e) {
+      throw Exception(AppMessage.MESSAGE_GENERAL_FAILED);
+    }
+  }
+
+  // static changePassword(String? accessToken) async {
+  //   try {
+  //     var data = {
+  //       "accessToken": accessToken,
+  //     };
+  //     var response = await HttpUtil().get('auth/user/me', data: data);
+  //
+  //     if (response.statusCode == 200) {
+  //       return UserProfileEntity.fromJson(response.data);
+  //     } else {
+  //       throw Exception(AppMessage.MESSAGE_GENERAL_FAILED);
+  //     }
+  //   } catch (e) {
+  //     throw Exception('Request failed: $e');
+  //   }
+  // }
 
   static getUserProfileWithAccessToken(String? accessToken) async {
     try {

@@ -38,7 +38,6 @@ class SignInController {
 
           var userRes =
               await UserAPI.getUserProfileWithAccessToken(loginRes.accessToken);
-          print("ok");
 
           if (userRes.email == null) {
             toastInfo(msg: "You don't exist");

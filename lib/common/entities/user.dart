@@ -47,6 +47,54 @@ class ForgetPasswordResponseEntity {
   }
 }
 
+class ChangePasswordResponseEntity {
+  final String? type;
+  final String? message;
+  final String? statusCode;
+  final String? statusMessage;
+
+  ChangePasswordResponseEntity({
+    this.type,
+    this.message,
+    this.statusCode,
+    this.statusMessage,
+  });
+
+  factory ChangePasswordResponseEntity.fromJson(Map<String, dynamic> json) {
+    return ChangePasswordResponseEntity(
+      type: json['type'],
+      message: json['message'],
+      statusCode: json['statusCode'],
+      statusMessage: json['statusMessage'],
+    );
+  }
+}
+
+class ChangePasswordRequestEntity {
+  String? oldPassword;
+  String? password;
+  String? confirmPassword;
+
+  ChangePasswordRequestEntity({
+    this.oldPassword,
+    this.password,
+    this.confirmPassword,
+  });
+
+  Map<String, dynamic> toJson() => {
+    "oldPassword": oldPassword,
+    "password": password,
+    "access_token": confirmPassword,
+  };
+
+  factory ChangePasswordRequestEntity.fromJson(Map<String, dynamic> json) =>
+      ChangePasswordRequestEntity(
+        oldPassword: json['oldPassword'],
+        password: json['password'],
+        confirmPassword: json['confirmPassword'],
+      );
+}
+
 //api post response msg
 class UserLoginResponseEntity {
   String? type;

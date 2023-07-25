@@ -85,7 +85,7 @@ Widget buildListView(BuildContext context){
           }else if(index==3){
             toastInfo(msg: "This feature is on developing");
           }else if(index==4){
-            Navigator.of(context).pushNamed(AppRoutes.FORGET_PASSWORD);
+            Navigator.of(context).pushNamed(AppRoutes.CHANGE_PASSWORD);
           }
 
 

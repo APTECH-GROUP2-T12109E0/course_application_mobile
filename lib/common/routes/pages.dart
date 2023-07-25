@@ -1,3 +1,5 @@
+import 'package:course_application_mobile/pages/change_password/bloc/change_password_bloc.dart';
+import 'package:course_application_mobile/pages/change_password/change_password.dart';
 import 'package:course_application_mobile/pages/checkout/bloc/checkout_blocs.dart';
 import 'package:course_application_mobile/pages/checkout/checkout.dart';
 import 'package:course_application_mobile/pages/course/learning_page/learning_page_detail.dart';
@@ -143,6 +145,11 @@ class AppPages {
           route: AppRoutes.CHECKOUT,
           page: const Checkout(),
           bloc: BlocProvider(create: (_)=>CheckoutDetailBloc(),)
+      ),
+      PageEntity(
+          route: AppRoutes.CHANGE_PASSWORD,
+          page: const ChangePassword(),
+          bloc: BlocProvider(create: (_)=>ChangePassWordBlocs(),)
       ),
     ];
   }

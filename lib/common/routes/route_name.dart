@@ -35,4 +35,6 @@ class AppRoutes{
   static const CHECKOUT = "/checkout";
 
   static const PAYPAL = "/paypal";
+
+  static const CHANGE_PASSWORD = "/change_password";
 }

@@ -136,7 +136,6 @@ class HttpUtil {
           data: data,
           queryParameters: queryParameters,
           options: requestOptions);
-      print("done login");
     } catch (error) {
       if (error is DioError) {
         if (error.response?.statusCode == 403 ||
